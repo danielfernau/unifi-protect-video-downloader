@@ -96,6 +96,33 @@ optional arguments:
 
 ---
 
+### How the program works (simplified)
+1. Check if all required parameters are set
+2. Check if local target directory exists
+3. POST to **/api/auth** with _username_ and _password_ to retrieve API Bearer Token
+4. POST to **/api/auth/access-key** with _Bearer Token Authorization header_ to retrieve API Access Key
+5. GET from **/api/bootstrap** with _Bearer Token Authorization header_ to retrieve camera list
+6. Split the given time range into one-hour segments to prevent too large files
+7. GET video segments from **/api/video/export** using _accessKey_, _camera_, _start_, _end_ parameters
+
+---
+
+### How the API for video downloads works (simplified)
+1. POST to **/api/auth** with JSON payload `{"username": "your_username", "password":"your_password"}``
+    - returns status code 401 if credentials are wrong
+    - returns status code 200, some JSON data with information about the authenticated user and an _Authorization_ header containing an OAuth Bearer Token
+2. POST to **/api/auth/access-key** with _Authorization_ header containing the previously requested Bearer Token
+    - returns status code 401 if token is invalid
+    - returns status code 200 and JSON data containing the _accessKey_
+3. GET from **/api/bootstrap**  with _Authorization_ header containing the previously requested Bearer Token
+    - returns status code 401 if token is invalid / user is not authorized
+    - returns status code 200 and JSON data with information about the system, the cameras, etc.
+4. GET from **/api/video/export** with parameters `?accessKey=<the_access_key>&camera=<camera_id>&start=<segment_start_as_unix_time_in_milliseconds>&end=<segment_end_as_unix_time_in_milliseconds>`
+    - returns a video file containing the available footage within the requested time frame in `.mp4` format
+    - additional optional parameters include `channel=<channel_id>`, `filename=<output_filename.mp4>`, ...
+
+---
+
 ### Software Credits
 The development of this software was made possible using the following components:  
   
