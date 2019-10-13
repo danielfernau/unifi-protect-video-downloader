@@ -1,5 +1,10 @@
 # UniFi Protect Video Downloader
-Tool to download footage from a local UniFi Protect system
+Tool to download footage from a local UniFi Protect system  
+
+---
+
+Community post:  
+https://community.ui.com/questions/Tool-for-downloading-footage-from-UniFi-Protect/47057c1d-112b-4092-b488-a380286933df
 
 ---
 
