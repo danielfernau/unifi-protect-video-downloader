@@ -1,8 +1,36 @@
 # unifi-protect-video-downloader
 Tool to download footage from a local UniFi Protect system
 
-### Usage
+### Installation
+#### Download  
+`git clone git@github.com:danielfernau/unifi-protect-video-downloader.git`
 
+#### Enter project folder  
+`cd unifi-protect-video-downloader`
+
+#### Install modules  
+`pip3 install -r requirements.txt`
+
+---
+
+### Usage
+#### General
+1. add a new local user to the UniFi Protect system
+    - open https://\<cloud-key-ip\>:7443/ in your browser
+    - log in with an administrator account
+    - go to "Users"
+    - click on "Invite User"
+    - select _Invite Type_ "Local Access Only"
+    - enter _Local Username_ and _Local Password_ for new user
+    - select the default _View Only_ role
+    - click "Add User"
+    
+2. run the script with the login information of the newly created user (see example below)
+
+#### Example  
+`python3 main.py --address=10.100.0.1 --username="local_user" --password="local_user_password" --cameras="all" --start="2019-10-12 00:00:00+0200" --end="2019-10-13 00:00:00+0200" --dest=./download --skip-existing-files --touch-files --use-subfolders`
+
+#### Command line arguments
 ```
 usage: main.py [-h] --address ADDRESS [--port PORT] [--verify-ssl] --username
                USERNAME --password PASSWORD --cameras CAMERA_IDS
