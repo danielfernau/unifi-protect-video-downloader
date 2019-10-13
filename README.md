@@ -11,6 +11,11 @@ The software is provided without any warranty or liability, as stated in section
 ---
 
 ### Installation
+#### Requirements
+- git
+- python3
+- python3-pip
+
 #### Download  
 `git clone git@github.com:danielfernau/unifi-protect-video-downloader.git`
 
