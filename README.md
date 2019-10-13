@@ -30,7 +30,7 @@ The software is provided without any warranty or liability, as stated in section
     - go to "Users"
     - click on "Invite User"
     - select _Invite Type_ "Local Access Only"
-    - enter _Local Username_ and _Local Password_ for new user
+    - enter _Local Username_ and _Local Password_ for the new user
     - select the default _View Only_ role
     - click "Add User"
     
