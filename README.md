@@ -6,6 +6,9 @@ Tool to download footage from a local UniFi Protect system
 Community post:  
 https://community.ui.com/questions/Tool-for-downloading-footage-from-UniFi-Protect/47057c1d-112b-4092-b488-a380286933df
 
+Reddit post:  
+https://www.reddit.com/r/Ubiquiti/comments/dhaxcq/tool_for_downloading_footage_from_unifi_protect/
+
 ---
 
 ##### Important Information
