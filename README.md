@@ -101,6 +101,19 @@ optional arguments:
 
 ---
 
+### Exit codes and error handling
+- If the tool stops due to an API problem during download, its exit code is `5`. To learn more about automatically restarting processes that exit with a non-zero status code, have a look at https://stackoverflow.com/a/697064 – waiting 120 seconds before restarting the process gives the Protect service on the Cloud Key some time to automatically restart
+
+- If you want to use this tool in a script or some other kind of automated environment, the exit codes are:  
+    `1` if the download destination directory doesn't exist  
+    `2` if username or password is wrong / authentication fails  
+    `3` if the tool was unable to retrieve an API access key  
+    `4` if a download fails due to a non-200 status code, and argument --ignore-failed-downloads is not set  
+    `5` if the download has failed due to the above mentioned API issue (or for some other reason)  
+    `0` if all files in the requested time frame have been downloaded (results depend on the arguments passed to the tool)  
+
+---
+
 ### How the program works (simplified)
 1. Check if all required parameters are set
 2. Check if local target directory exists
