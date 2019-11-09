@@ -5,6 +5,7 @@
 
 import argparse
 import datetime
+import dateutil.parser
 import time
 from os import path, makedirs
 import requests
@@ -32,10 +33,10 @@ parser.add_argument("--cameras", default=None, type=str, required=True, dest="ca
                          "Use '--cameras=all' to download footage of all available cameras.")
 parser.add_argument("--channel", default=0, type=str, required=False, dest="channel",
                     help="Channel")
-parser.add_argument("--start", default=None, type=str, required=True, dest="start",
-                    help="Start time in format \"YYYY-MM-DD HH:MM:SS+0000\"")
-parser.add_argument("--end", default=None, type=str, required=True, dest="end",
-                    help="End time in format \"YYYY-MM-DD HH:MM:SS+0000\"")
+parser.add_argument("--start", default=None, type=str, required=False, dest="start",
+                    help="Start time in dateutil.parser compatible format, for example \"YYYY-MM-DD HH:MM:SS+0000\"")
+parser.add_argument("--end", default=None, type=str, required=False, dest="end",
+                    help="End time in dateutil.parser compatible format, for example \"YYYY-MM-DD HH:MM:SS+0000\"")
 parser.add_argument("--dest", default="./", type=str, required=False, dest="destination_path",
                     help="Destination directory path")
 parser.add_argument("--wait-between-downloads", default=0, type=int, required=False, dest="download_wait",
@@ -62,8 +63,22 @@ parser.add_argument("--use-subfolders", action='store_true', required=False,
 parser.add_argument("--download-request-timeout", default=60, type=int, required=False,
                     dest="download_timeout",
                     help="Time to wait before aborting download request, in seconds (Default: 60)")
+parser.add_argument("--snapshot", action='store_true', required=False,
+                    dest="create_snapshot",
+                    help="Capture and download a snapshot from the specified camera(s)")
 
 args = parser.parse_args()
+
+# check the provided command line arguments
+if not (args.create_snapshot or (args.start and args.end)):
+    print("Please use the --snapshot option, or provide --start and --end timestamps")
+    exit(6)
+
+if args.create_snapshot:
+    if args.start or args.end:
+        print("The arguments --start and --end are ignored when using the --snapshot option")
+    date_time_obj_start = datetime.datetime.now()
+    js_timestamp_start = int(date_time_obj_start.timestamp()) * 1000
 
 # normalize path to destination directory and check if it exists
 target_dir = path.abspath(args.destination_path)
@@ -71,12 +86,13 @@ if not path.isdir(target_dir):
     print("Video file destination directory '" + str(target_dir) + "' is invalid or does not exist!")
     exit(1)
 
-# parse date and time from '--start' and '--end' command line arguments
-date_time_obj_start = datetime.datetime.strptime(args.start, "%Y-%m-%d %H:%M:%S%z")
-js_timestamp_start = int(date_time_obj_start.strftime("%s")) * 1000
+if not args.create_snapshot:
+    # parse date and time from '--start' and '--end' command line arguments
+    date_time_obj_start = dateutil.parser.parse(args.start)
+    js_timestamp_start = int(date_time_obj_start.timestamp()) * 1000
 
-date_time_obj_end = datetime.datetime.strptime(args.end, "%Y-%m-%d %H:%M:%S%z")
-js_timestamp_end = int(date_time_obj_end.strftime("%s")) * 1000
+    date_time_obj_end = dateutil.parser.parse(args.end)
+    js_timestamp_end = int(date_time_obj_end.timestamp()) * 1000
 
 # disable InsecureRequestWarning for unverified HTTPS requests
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -136,7 +152,7 @@ def get_camera_list(bearer_token):
 def download_file(uri, file_name):
     global files_downloaded, files_skipped
 
-    # make the GET request to retrieve the video file
+    # make the GET request to retrieve the video file or snapshot
     try:
         response = requests.get(uri, verify=args.verify_ssl, timeout=args.download_timeout)
 
@@ -248,8 +264,8 @@ def download_footage(camera_id, camera_name):
             time.sleep(int(args.download_wait))
 
         # start and end time of the video segment to be downloaded
-        js_timestamp_range_start = int(date_time_interval_start.strftime("%s")) * 1000
-        js_timestamp_range_end = int(date_time_interval_end.strftime("%s")) * 1000
+        js_timestamp_range_start = int(date_time_interval_start.timestamp()) * 1000
+        js_timestamp_range_end = int(date_time_interval_end.timestamp()) * 1000
 
         # file path for download
         download_dir = target_dir
@@ -325,6 +341,90 @@ def download_footage(camera_id, camera_name):
             downloads_with_current_api_key += 1
 
 
+def download_snapshot(camera_id, camera_name):
+    global api_auth_bearer_token, api_access_key
+    global first_download, downloads_with_current_api_auth, downloads_with_current_api_key
+    global first_download, files_skipped
+    global target_dir
+
+    # make camera name safe for use in file name
+    camera_name_fs_safe = "".join(
+        [c for c in camera_name if c.isalpha() or c.isdigit() or c == ' ']
+    ).rstrip().replace(" ", "_") + "_" + str(camera_id)[-4:]
+
+    print("Downloading snapshot for camera '" + str(camera_name) + "' (" + str(camera_id) + ")")
+
+    # file path for download
+    download_dir = target_dir
+    if bool(args.use_subfolders):
+        folder_year = date_time_obj_start.strftime("%Y")
+        folder_month = date_time_obj_start.strftime("%m")
+        folder_day = date_time_obj_start.strftime("%d")
+
+        dir_by_date_and_name = folder_year + "/" + folder_month + "/" + folder_day + "/" + camera_name_fs_safe
+        target_with_date_and_name = target_dir + "/" + dir_by_date_and_name
+
+        download_dir = target_with_date_and_name
+        if not path.isdir(target_with_date_and_name):
+            makedirs(target_with_date_and_name, exist_ok=True)
+            print("Created path " + str(target_with_date_and_name))
+            download_dir = target_with_date_and_name
+
+    # file name for download
+    filename_timestamp = date_time_obj_start.strftime("%Y-%m-%d--%H-%M-%S%z")
+    filename = str(download_dir) + "/" + str(camera_name_fs_safe) + "_" + filename_timestamp + ".jpg"
+
+    print("Downloading snapshot for time " +
+          str(date_time_obj_start) + " to " + filename)
+
+    # create file without content if argument --touch-files is present
+    if bool(args.touch_files) and not path.exists(filename):
+        print("Argument '--touch-files' is present. Creating file at " + str(filename))
+        open(filename, 'a').close()
+
+    # build snapshot export API address
+    address = "https://" + str(args.address) + ":" + str(args.port) + "/api/cameras/" + str(camera_id) + \
+              "/snapshot?accessKey=" + str(api_access_key) + "&ts=" + str(js_timestamp_start)
+
+    # download the file
+    download_file(address, filename)
+    first_download = False
+
+    # use the same API Authentication Token (login session) for set number of downloads only (default: 10)
+    if downloads_with_current_api_auth == int(args.max_downloads_with_auth):
+        print("API Authentication Token has been used for " + str(downloads_with_current_api_auth) +
+              " download(s) - requesting new session token...")
+
+        # get new API auth bearer token and access key
+        api_auth_bearer_token = get_api_auth_bearer_token(str(args.username), str(args.password))
+        api_access_key = get_api_access_key(api_auth_bearer_token)
+        downloads_with_current_api_auth = 1
+        downloads_with_current_api_key = 1
+    else:
+        print("API Authentication Token has been used for " + str(downloads_with_current_api_auth) +
+              " download(s). Maximum is set to " + str(args.max_downloads_with_auth) + ".")
+        downloads_with_current_api_auth += 1
+
+    # use the same API Access Key for set number of downloads only (default: 3)
+    if downloads_with_current_api_key == int(args.max_downloads_with_key):
+        print("API Access Key has been used for " + str(downloads_with_current_api_key) +
+              " download(s) - requesting new access key...")
+
+        # request new access key
+        api_access_key = get_api_access_key(api_auth_bearer_token)
+        downloads_with_current_api_key = 1
+    else:
+        print("API Access Key has been used for " + str(downloads_with_current_api_key) +
+              " download(s). Maximum is set to " + str(args.max_downloads_with_key) + ".")
+        downloads_with_current_api_key += 1
+
+
+first_download = True
+downloads_with_current_api_auth = 1
+downloads_with_current_api_key = 1
+files_downloaded = 0
+files_skipped = 0
+
 # get API auth bearer token
 api_auth_bearer_token = get_api_auth_bearer_token(str(args.username), str(args.password))
 
@@ -334,23 +434,32 @@ api_access_key = get_api_access_key(api_auth_bearer_token)
 # get camera list
 api_camera_list = get_camera_list(api_auth_bearer_token)
 
-first_download = True
-downloads_with_current_api_auth = 1
-downloads_with_current_api_key = 1
-files_downloaded = 0
-files_skipped = 0
+if not args.create_snapshot:
+    # noinspection PyUnboundLocalVariable
+    print("Downloading video files between " + str(date_time_obj_start) + " and " + str(date_time_obj_end) +
+          " from 'https://" + str(args.address) + ":" + str(args.port) + "/api/video/export' \n")
 
-print("Downloading video files between " + str(date_time_obj_start) + " and " + str(date_time_obj_end) +
-      " from 'https://" + str(args.address) + ":" + str(args.port) + "/api/video/export' \n")
-
-if args.camera_ids == 'all':
-    for api_camera in api_camera_list:
-        download_footage(api_camera['id'], api_camera['name'])
-else:
-    args_camera_ids = (args.camera_ids.split(','))
-    for args_camera_id in args_camera_ids:
+    if args.camera_ids == 'all':
         for api_camera in api_camera_list:
-            if args_camera_id == api_camera['id']:
-                download_footage(api_camera['id'], api_camera['name'])
+            download_footage(api_camera['id'], api_camera['name'])
+    else:
+        args_camera_ids = (args.camera_ids.split(','))
+        for args_camera_id in args_camera_ids:
+            for api_camera in api_camera_list:
+                if args_camera_id == api_camera['id']:
+                    download_footage(api_camera['id'], api_camera['name'])
+else:
+    print("Downloading snapshot file(s) for " + str(date_time_obj_start) +
+          " from 'https://" + str(args.address) + ":" + str(args.port) + "/api/cameras/{camera_id}/snapshot' \n")
+
+    if args.camera_ids == 'all':
+        for api_camera in api_camera_list:
+            download_snapshot(api_camera['id'], api_camera['name'])
+    else:
+        args_camera_ids = (args.camera_ids.split(','))
+        for args_camera_id in args_camera_ids:
+            for api_camera in api_camera_list:
+                if args_camera_id == api_camera['id']:
+                    download_snapshot(api_camera['id'], api_camera['name'])
 
 print_download_stats()
