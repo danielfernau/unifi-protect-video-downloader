@@ -56,14 +56,14 @@ The software is provided without any warranty or liability, as stated in section
 ```
 usage: main.py [-h] --address ADDRESS [--port PORT] [--verify-ssl] --username
                USERNAME --password PASSWORD --cameras CAMERA_IDS
-               [--channel CHANNEL] --start START --end END
+               [--channel CHANNEL] [--start START] [--end END]
                [--dest DESTINATION_PATH]
                [--wait-between-downloads DOWNLOAD_WAIT]
                [--downloads-before-key-refresh MAX_DOWNLOADS_WITH_KEY]
                [--downloads-before-auth-refresh MAX_DOWNLOADS_WITH_AUTH]
                [--ignore-failed-downloads] [--skip-existing-files]
                [--touch-files] [--use-subfolders]
-               [--download-request-timeout DOWNLOAD_TIMEOUT]
+               [--download-request-timeout DOWNLOAD_TIMEOUT] [--snapshot]
 
 Tool to download footage from a local UniFi Protect system
 
@@ -78,8 +78,10 @@ optional arguments:
                         cameras="id_1,id_2,id_3,..."'). Use '--cameras=all' to
                         download footage of all available cameras.
   --channel CHANNEL     Channel
-  --start START         Start time in format "YYYY-MM-DD HH:MM:SS+0000"
-  --end END             End time in format "YYYY-MM-DD HH:MM:SS+0000"
+  --start START         Start time in dateutil.parser compatible format, for
+                        example "YYYY-MM-DD HH:MM:SS+0000"
+  --end END             End time in dateutil.parser compatible format, for
+                        example "YYYY-MM-DD HH:MM:SS+0000"
   --dest DESTINATION_PATH
                         Destination directory path
   --wait-between-downloads DOWNLOAD_WAIT
@@ -105,6 +107,8 @@ optional arguments:
   --download-request-timeout DOWNLOAD_TIMEOUT
                         Time to wait before aborting download request, in
                         seconds (Default: 60)
+  --snapshot            Capture and download a snapshot from the specified
+                        camera(s)
 ```
 
 ---
@@ -118,6 +122,7 @@ optional arguments:
     `3` if the tool was unable to retrieve an API access key  
     `4` if a download fails due to a non-200 status code, and argument --ignore-failed-downloads is not set  
     `5` if the download has failed due to the above mentioned API issue (or for some other reason)  
+    `6` if either the --snapshot or the --start and --end command line argument(s) are missing  
     `0` if all files in the requested time frame have been downloaded (results depend on the arguments passed to the tool)  
 
 ---
@@ -128,8 +133,16 @@ optional arguments:
 3. POST to **/api/auth** with _username_ and _password_ to retrieve API Bearer Token
 4. POST to **/api/auth/access-key** with _Bearer Token Authorization header_ to retrieve API Access Key
 5. GET from **/api/bootstrap** with _Bearer Token Authorization header_ to retrieve camera list
-6. Split the given time range into one-hour segments to prevent too large files
-7. GET video segments from **/api/video/export** using _accessKey_, _camera_, _start_, _end_ parameters
+
+Then  
+**Download video files**  
+1. Split the given time range into one-hour segments to prevent too large files  
+2. GET video segments from **/api/video/export** using _accessKey_, _camera_, _start_, _end_ parameters  
+
+or  
+
+**Download camera snapshot**  
+1. GET snapshot(s) from **/api/cameras/{camera_id}/snapshot** using the _accessKey_  
 
 ---
 
@@ -142,15 +155,29 @@ optional arguments:
     - returns status code 200 and JSON data containing the _accessKey_
 3. GET from **/api/bootstrap**  with _Authorization_ header containing the previously requested Bearer Token
     - returns status code 401 if token is invalid / user is not authorized
-    - returns status code 200 and JSON data with information about the system, the cameras, etc.
-4. GET from **/api/video/export** with parameters `?accessKey=<the_access_key>&camera=<camera_id>&start=<segment_start_as_unix_time_in_milliseconds>&end=<segment_end_as_unix_time_in_milliseconds>`
-    - returns a video file containing the available footage within the requested time frame in `.mp4` format
-    - additional optional parameters include `channel=<channel_id>`, `filename=<output_filename.mp4>`, ...
+    - returns status code 200 and JSON data with information about the system, the cameras, etc.  
+    
+Then  
+**Download video file**  
+GET from **/api/video/export** with parameters `?accessKey=<the_access_key>&camera=<camera_id>&start=<segment_start_as_unix_time_in_milliseconds>&end=<segment_end_as_unix_time_in_milliseconds>`  
+- returns a video file containing the available footage within the requested time frame in `.mp4` format  
+- additional optional parameters include `channel=<channel_id>`, `filename=<output_filename.mp4>`, ...  
+  
+or  
+
+**Download camera snapshot**  
+GET from **/api/cameras/{camera_id}/snapshot** with parameter `?accessKey=<the_access_key>`  
+- returns a jpg/jpeg image file containing a current snapshot of the camera  
+- additional optional parameters include `force=true`, `ts=<timestamp_as_unix_time_in_milliseconds>`, ...  
 
 ---
 
 ### Software Credits
 The development of this software was made possible using the following components:  
+  
+Dateutil by Gustavo Niemeyer  
+Licensed Under: Apache Software License, BSD License (Dual License)  
+https://pypi.org/project/python-dateutil/  
   
 Certifi by Kenneth Reitz  
 Licensed Under: Mozilla Public License 2.0  
