@@ -14,7 +14,7 @@ import urllib3
 __author__ = "Daniel Fernau"
 __copyright__ = "Copyright 2019, Daniel Fernau"
 __license__ = "GPLv3"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 parser = argparse.ArgumentParser(description='Tool to download footage from a local UniFi Protect system')
