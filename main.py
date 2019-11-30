@@ -14,7 +14,7 @@ import urllib3
 __author__ = "Daniel Fernau"
 __copyright__ = "Copyright 2019, Daniel Fernau"
 __license__ = "GPLv3"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 
 parser = argparse.ArgumentParser(description='Tool to download footage from a local UniFi Protect system')
@@ -189,7 +189,7 @@ def print_download_stats():
 
 # return time difference between given date_time_object and next full hour
 def diff_round_up_to_full_hour(date_time_object):
-    if date_time_object.minute != 0 and date_time_object.second != 0:
+    if date_time_object.minute != 0 or date_time_object.second != 0:
         return date_time_object.replace(second=0, microsecond=0, minute=0, hour=date_time_object.hour) + \
                datetime.timedelta(hours=1, minutes=0)
     else:
