@@ -159,10 +159,11 @@ def download_file(uri, file_name):
         # write file to disk if response.status_code is 200,
         # otherwise log error and then either exit or skip the download
         if response.status_code == 200:
-            with open(file_name, "wb") as file:
-                file.write(response.content)
-                print("Download successful \n")
-                files_downloaded += 1
+            if response.content != "":
+                with open(file_name, "wb") as file:
+                    file.write(response.content)
+                    print("Download successful \n")
+                    files_downloaded += 1
         else:
             print("Download failed with status " + str(response.status_code) + " " + str(response.reason) + "\n")
             if not bool(args.ignore_failed_downloads):
