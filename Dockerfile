@@ -5,4 +5,4 @@ RUN pip install -r requirements.txt
 
 ADD main.py /
 
-CMD [ "python", "main.py" ]
+ENTRYPOINT [ "python", "main.py" ]
