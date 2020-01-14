@@ -18,7 +18,7 @@ __version__ = "1.1.1"
 
 
 parser = argparse.ArgumentParser(description='Tool to download footage from a local UniFi Protect system')
-parser.add_argument("--address", default=None, type=str, required=True, dest="address",
+parser.add_argument("--address", default='unifi', type=str, required=True, dest="address",
                     help="CloudKey IP address or hostname")
 parser.add_argument("--port", default="7443", type=str, required=False, dest="port",
                     help="UniFi Protect service port")
