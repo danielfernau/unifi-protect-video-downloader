@@ -432,6 +432,7 @@ api_auth_bearer_token = get_api_auth_bearer_token(str(args.username), str(args.p
 api_access_key = get_api_access_key(api_auth_bearer_token)
 
 # get camera list
+print("Getting camera list")
 api_camera_list = get_camera_list(api_auth_bearer_token)
 
 if not args.create_snapshot:
