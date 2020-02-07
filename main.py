@@ -4,6 +4,8 @@
 """ Tool to download footage within a given time range from a local UniFi Protect system """
 
 import argparse
+import json
+import logging
 from datetime import datetime, timedelta
 import dateutil.parser
 import time
@@ -18,6 +20,12 @@ __author__ = "Daniel Fernau"
 __copyright__ = "Copyright 2019, Daniel Fernau"
 __license__ = "GPLv3"
 __version__ = "1.1.1"
+
+
+def json_encode(obj):
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
 
 
 # return time difference between given date_time_object and next full hour
@@ -486,6 +494,12 @@ def main():
         help="Destination directory path",
     )
     parser.add_argument(
+        "--statefile", default="sync.state", type=str, dest="statefile",
+    )
+    parser.add_argument(
+        "--sync", default=False, action="store_true", dest="sync",
+    )
+    parser.add_argument(
         "--wait-between-downloads",
         default=0,
         type=int,
@@ -535,6 +549,7 @@ def main():
     parser.add_argument(
         "--use-subfolders",
         action="store_true",
+        default=True,
         required=False,
         dest="use_subfolders",
         help="Save footage to folder structure with format 'YYYY/MM/DD/camera_name/' (Default: False)",
@@ -558,10 +573,8 @@ def main():
     args = parser.parse_args()
 
     # check the provided command line arguments
-    if not (args.create_snapshot or (args.start and args.end)):
-        print(
-            "Please use the --snapshot option, or provide --start and --end timestamps"
-        )
+    if not (args.create_snapshot or (args.start and args.end) or args.sync):
+        print("Please use --snapshot, --sync, or provide --start and --end timestamps")
         exit(6)
 
     if args.create_snapshot:
@@ -579,10 +592,10 @@ def main():
         )
         exit(1)
 
-    if not args.create_snapshot:
+    if not (args.create_snapshot or args.sync):
         # parse date and time from '--start' and '--end' command line arguments
-        start = dateutil.parser.parse(args.start).replace(minute=0, second=0)
-        end = dateutil.parser.parse(args.end).replace(minute=0, second=0)
+        start = dateutil.parser.parse(args.start)
+        end = dateutil.parser.parse(args.end)
 
     # disable InsecureRequestWarning for unverified HTTPS requests
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -606,45 +619,87 @@ def main():
     print("Getting camera list")
     camera_list = client.get_camera_list()
 
-    if not args.create_snapshot:
-        # noinspection PyUnboundLocalVariable
-        print(
-            f"Downloading video files between {start} and {end}"
-            f" from 'https://{args.address}:{args.port}/api/video/export' \n"
-        )
+    if args.camera_ids != "all":
+        camera_ids = set(args.camera_ids.split(","))
+        camera_list = [c for c in camera_list if c["id"] in camera_ids]
 
-        if args.camera_ids == "all":
-            for api_camera in camera_list:
-                client.download_footage(
-                    start, end, api_camera["id"], api_camera["name"]
-                )
-        else:
-            args_camera_ids = args.camera_ids.split(",")
-            for args_camera_id in args_camera_ids:
-                for api_camera in camera_list:
-                    if args_camera_id == api_camera["id"]:
-                        client.download_footage(
-                            start, end, api_camera["id"], api_camera["name"]
-                        )
+    if args.sync:
+        process = ProtectSync(
+            client=client, destination_path=destination_path, statefile=args.statefile
+        )
+        process.run(camera_list)
     else:
-        print(
-            f"Downloading snapshot files for {start}"
-            f" from 'https://{args.address}:{args.port}/api/cameras/{args.camera_ids}/snapshot' \n"
-        )
+        if not args.create_snapshot:
+            # noinspection PyUnboundLocalVariable
+            print(
+                f"Downloading video files between {start} and {end}"
+                f" from 'https://{args.address}:{args.port}/api/video/export' \n"
+            )
 
-        if args.camera_ids == "all":
-            for api_camera in camera_list:
-                client.download_snapshot(start, api_camera["id"], api_camera["name"])
+            for camera in camera_list:
+                client.download_footage(start, end, camera["id"], camera["name"])
         else:
-            args_camera_ids = args.camera_ids.split(",")
-            for args_camera_id in args_camera_ids:
-                for api_camera in camera_list:
-                    if args_camera_id == api_camera["id"]:
-                        client.download_snapshot(
-                            start, api_camera["id"], api_camera["name"]
-                        )
+            print(
+                f"Downloading snapshot files for {start}"
+                f" from 'https://{args.address}:{args.port}/api/cameras/{args.camera_ids}/snapshot' \n"
+            )
+            for camera in camera_list:
+                client.download_snapshot(start, camera["id"], camera["name"])
 
     client.print_download_stats()
+
+
+class ProtectSync(object):
+    def __init__(self, client, destination_path, statefile):
+        self.client = client
+        self.statefile = path.abspath(path.join(destination_path, statefile))
+
+    def readstate(self):
+        if path.isfile(self.statefile):
+            with open(self.statefile, "r") as fp:
+                state = json.load(fp)
+        else:
+            state = {"cameras": {}}
+
+        return state
+
+    def writestate(self, state):
+        with open(self.statefile, "w") as fp:
+            json.dump(state, fp, default=json_encode)
+
+    def run(self, camera_list):
+        # noinspection PyUnboundLocalVariable
+        print(
+            f"Synchronizing video files from 'https://{self.client.address}:{self.client.port}\n"
+        )
+
+        state = self.readstate()
+        for camera in camera_list:
+            try:
+                camera_state = state["cameras"].setdefault(camera["id"], {})
+                # TODO(dcramer): the default start date wont work, as if the file doesnt exist it seems to just
+                # cause a read timeout. We need to try to query the API more safely
+                start = (
+                    dateutil.parser.parse(camera_state["last"])
+                    if "last" in camera_state
+                    else datetime.now().replace(minute=0, second=0) - timedelta(days=7)
+                )
+                end = datetime.now().replace(minute=0, second=0)
+                for interval_start, interval_end in calculate_intervals(start, end):
+                    print(interval_start, interval_end)
+                    self.client.download_footage(
+                        interval_start, interval_end, camera["id"], camera["name"]
+                    )
+                    state["cameras"][camera["id"]] = {
+                        "last": interval_end,
+                        "name": camera["name"],
+                    }
+            except Exception:
+                logging.exception(
+                    f"Failed to sync camera {camera['name']} - continuing to next device"
+                )
+            finally:
+                self.writestate(state)
 
 
 if __name__ == "__main__":
