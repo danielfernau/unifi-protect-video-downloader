@@ -173,12 +173,14 @@ class ProtectClient(object):
                 f"API Token has been used for {self._downloads_with_current_token} download(s) - requesting new session token..."
             )
             self._api_token = None
+
         if self._api_token is None:
             # get new API auth bearer token and access key
             self._api_token = self.fetch_api_token()
             self._access_key = self.fetch_access_key(self._api_token)
             self._downloads_with_current_token = 0
             self._downloads_with_current_access_key = 0
+
         return self._api_token
 
     def get_access_key(self, api_token: str = None) -> str:
@@ -188,17 +190,19 @@ class ProtectClient(object):
                 f"Access Key has been used for {self._downloads_with_current_access_key} download(s) - requesting new access key..."
             )
             self._access_key = None
+
         if self._access_key is None:
             # request new access key
             self._access_key = self.fetch_access_key(api_token or self._api_token)
             self._downloads_with_current_access_key = 0
+
         return self._access_key
 
     # file downloader
     def download_file(self, uri: str, file_name: str):
-        max_retries = self.max_retries
-        while max_retries:
-            max_retries -= 1
+        retries = self.max_retries
+        while retries:
+            retries = retries - 1
 
             self._downloads_with_current_token += 1
             self._downloads_with_current_access_key += 1
@@ -232,7 +236,7 @@ class ProtectClient(object):
             else:
                 return
 
-            if not max_retries:
+            if not retries:
                 if not self.ignore_failed_downloads:
                     print(
                         "To skip failed downloads and continue with next file, add argument '--ignore-failed-downloads'"
