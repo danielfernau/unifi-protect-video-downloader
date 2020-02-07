@@ -581,8 +581,8 @@ def main():
 
     if not args.create_snapshot:
         # parse date and time from '--start' and '--end' command line arguments
-        start = dateutil.parser.parse(args.start)
-        end = dateutil.parser.parse(args.end)
+        start = dateutil.parser.parse(args.start).replace(minute=0, second=0)
+        end = dateutil.parser.parse(args.end).replace(minute=0, second=0)
 
     # disable InsecureRequestWarning for unverified HTTPS requests
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
