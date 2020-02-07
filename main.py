@@ -200,10 +200,7 @@ class ProtectClient(object):
 
     # file downloader
     def download_file(self, uri: str, file_name: str):
-        retries = self.max_retries
-        while retries:
-            retries = retries - 1
-
+        for retry_num in range(self.max_retries):
             self._downloads_with_current_token += 1
             self._downloads_with_current_access_key += 1
 
@@ -236,20 +233,19 @@ class ProtectClient(object):
             else:
                 return
 
-            if not retries:
-                if not self.ignore_failed_downloads:
-                    print(
-                        "To skip failed downloads and continue with next file, add argument '--ignore-failed-downloads'"
-                    )
-                    self.print_download_stats()
-                    exit(exit_code)
-                else:
-                    print(
-                        "Argument '--ignore-failed-downloads' is present, continue downloading files..."
-                    )
-                    self.files_skipped += 1
-            else:
-                print("Retrying...")
+            print("Retrying...")
+
+        if not self.ignore_failed_downloads:
+            print(
+                "To skip failed downloads and continue with next file, add argument '--ignore-failed-downloads'"
+            )
+            self.print_download_stats()
+            exit(exit_code)
+        else:
+            print(
+                "Argument '--ignore-failed-downloads' is present, continue downloading files..."
+            )
+            self.files_skipped += 1
 
     def print_download_stats(self):
         files_total = self.files_downloaded + self.files_skipped
