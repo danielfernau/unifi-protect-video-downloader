@@ -1,9 +1,12 @@
 [tool.poetry]
-name = "unifi-protect-video-downloader"
+name = "unifi-protect"
 version = "0.1.0"
 description = ""
-authors = ["Daniel Fernau"]
+authors = ["Daniel Fernau", "David Cramer"]
 license = "GPLv3"
+packages = [
+    { include = "unifi_protect"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -13,6 +16,10 @@ requests = {extras = ["security"], version = "^2.22.0"}
 [tool.poetry.dev-dependencies]
 Black = "^19.10b0"
 flake8 = "^3.7.9"
+
+[tool.poetry.scripts]
+unifi-protect-sync = 'unifi_protect.cli:sync'
+unifi-protect-download = 'unifi_protect.cli:main'
 
 [build-system]
 requires = ["poetry>=0.12"]
