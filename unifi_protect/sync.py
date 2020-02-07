@@ -31,7 +31,7 @@ class ProtectSync(object):
     def run(self, camera_list: list, ignore_state: bool = False):
         # noinspection PyUnboundLocalVariable
         logging.info(
-            f"Synchronizing video files from 'https://{self.client.address}:{self.client.port}\n"
+            f"Synchronizing video files from 'https://{self.client.address}:{self.client.port}"
         )
 
         if not ignore_state:
@@ -46,7 +46,7 @@ class ProtectSync(object):
                 start = (
                     dateutil.parser.parse(camera_state["last"])
                     if "last" in camera_state
-                    else camera_state.recording_start
+                    else camera.recording_start
                 )
                 end = datetime.now().replace(minute=0, second=0)
                 for interval_start, interval_end in calculate_intervals(start, end):
