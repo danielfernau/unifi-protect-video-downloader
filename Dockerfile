@@ -24,18 +24,19 @@ RUN python -m venv $VENV_PATH \
 
 COPY pyproject.toml poetry.lock /install/
 # HACK(dcramer): we need the module to be installable at this stage
-RUN mkdir unifi_protect && touch unifi_protect/__init__.py
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN mkdir protect_archiver && touch protect_archiver/__init__.py
+RUN poetry install --no-interaction --no-ansi
 
-FROM base
-COPY --from=builder /install /usr/local
-COPY --from=builder $VENV_PATH $VENV_PATH
-COPY --from=builder $POETRY_HOME $POETRY_HOME
+# TODO
+# FROM base
+# COPY --from=builder /install /usr/local
+# COPY --from=builder $VENV_PATH /app/.venv
+# COPY --from=builder $POETRY_HOME $POETRY_HOME
 COPY . /app/
 
-WORKDIR /app
+# WORKDIR /app
 
 # ensure we've got full module install now
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN poetry install --no-interaction --no-ansi
 
-ENTRYPOINT [ "unifi-protect" ]
+ENTRYPOINT [ "protect-archiver" ]
