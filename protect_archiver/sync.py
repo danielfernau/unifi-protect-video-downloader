@@ -44,11 +44,11 @@ class ProtectSync(object):
                 # TODO(dcramer): the default start date wont work, as if the file doesnt exist it seems to just
                 # cause a read timeout. We need to try to query the API more safely
                 start = (
-                    dateutil.parser.parse(camera_state["last"]).replace(minute=0, second=0)
+                    dateutil.parser.parse(camera_state["last"]).replace(minute=0, second=0, microsecond=0)
                     if "last" in camera_state
                     else camera.recording_start
                 )
-                end = datetime.now().replace(minute=0, second=0)
+                end = datetime.now().replace(minute=0, second=0, microsecond=0)
                 for interval_start, interval_end in calculate_intervals(start, end):
                     self.client.download_footage(interval_start, interval_end, camera)
                     state["cameras"][camera.id] = {
