@@ -44,7 +44,7 @@ class ProtectSync(object):
                 # TODO(dcramer): the default start date wont work, as if the file doesnt exist it seems to just
                 # cause a read timeout. We need to try to query the API more safely
                 start = (
-                    dateutil.parser.parse(camera_state["last"])
+                    dateutil.parser.parse(camera_state["last"]).replace(minute=0, second=0)
                     if "last" in camera_state
                     else camera.recording_start
                 )
