@@ -73,6 +73,7 @@ class ProtectClient(object):
         self.destination_path = path.abspath(destination_path)
 
         self.files_downloaded = 0
+        self.bytes_downloaded = 0
         self.files_skipped = 0
         self.max_retries = 3
 
@@ -229,6 +230,7 @@ class ProtectClient(object):
                     f"Download successful after {int(elapsed)}s ({format_bytes(cur_bytes // elapsed)}ps)"
                 )
                 self.files_downloaded += 1
+                self.bytes_downloaded += cur_bytes
 
             except requests.exceptions.RequestException as request_exception:
                 # clean up
@@ -265,7 +267,7 @@ class ProtectClient(object):
     def print_download_stats(self):
         files_total = self.files_downloaded + self.files_skipped
         print(
-            f"{self.files_downloaded} files downloaded, {self.files_skipped} files skipped, {files_total} files total"
+            f"{self.files_downloaded} files downloaded ({format_bytes(self.bytes_downloaded)}), {self.files_skipped} files skipped, {files_total} files total"
         )
 
     # get camera list
