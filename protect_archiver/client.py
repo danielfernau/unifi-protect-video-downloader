@@ -152,6 +152,7 @@ class ProtectClient(object):
 
     # file downloader
     def download_file(self, uri: str, file_name: str):
+        retry_delay = max(self.download_wait, 3)
         for retry_num in range(self.max_retries):
             self._downloads_with_current_token += 1
             self._downloads_with_current_access_key += 1
@@ -167,6 +168,11 @@ class ProtectClient(object):
                 )
                 # write file to disk if response.status_code is 200,
                 # otherwise log error and then either exit or skip the download
+                if response.status_code == 500:
+                    logging.exception(f"Download failed - likely doesnt exist (500)")
+                    self.files_skipped += 1
+                    return
+
                 if response.status_code != 200:
                     raise DownloadFailed(
                         f"Download failed with status {response.status_code} {response.reason}"
@@ -200,10 +206,6 @@ class ProtectClient(object):
                 # clean up
                 if path.exists(file_name):
                     os.remove(file_name)
-                if request_exception.status_code == 500:
-                    logging.exception(f"Download failed - likely doesnt exist: {request_exception}")
-                    self.files_skipped += 1
-                    return
                 logging.exception(f"Download failed: {request_exception}")
                 exit_code = 5
             except DownloadFailed:
@@ -217,7 +219,8 @@ class ProtectClient(object):
             else:
                 return
 
-            logging.warn("Retrying...")
+            logging.warn("Retrying in {retry_delay}...")
+            time.sleep(retry_delay)
 
         if not self.ignore_failed_downloads:
             logging.info(
