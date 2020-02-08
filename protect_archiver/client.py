@@ -175,15 +175,11 @@ class ProtectClient(object):
                 total_bytes = int(response.headers.get("content-length") or 0)
                 cur_bytes = 0
                 if not total_bytes:
-                    content = response.content
-                    total_bytes = len(content)
-                    if total_bytes:
-                        with open(file_name, "wb") as fp:
-                            fp.write(content)
-                    else:
-                        logging.warn(
-                            f"Empty file found - ignoring"
-                        )
+                    with open(file_name, "wb") as fp:
+                        content = response.content
+                        cur_bytes = len(content)
+                        total_bytes = cur_bytes
+                        fp.write(content)
 
                 else:
                     with open(file_name, "wb") as fp:
@@ -202,12 +198,18 @@ class ProtectClient(object):
 
             except requests.exceptions.RequestException as request_exception:
                 # clean up
-                os.remove(file_name)
+                if path.exists(file_name):
+                    os.remove(file_name)
+                if request_exception.status_code == 500:
+                    logging.exception(f"Download failed - likely doesnt exist: {request_exception}")
+                    self.files_skipped += 1
+                    return
                 logging.exception(f"Download failed: {request_exception}")
                 exit_code = 5
             except DownloadFailed:
                 # clean up
-                os.remove(file_name)
+                if path.exists(file_name):
+                    os.remove(file_name)
                 logging.exception(
                     f"Download failed with status {response.status_code} {response.reason}"
                 )
