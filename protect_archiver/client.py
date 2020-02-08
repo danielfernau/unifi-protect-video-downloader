@@ -231,7 +231,7 @@ class ProtectClient(object):
             )
 
         logging.info(
-            "Cameras found: {}".format(
+            "Cameras found:\n{}".format(
                 "\n".join(f"- {camera.name} ({camera.id})" for camera in camera_list)
             )
         )
