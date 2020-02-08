@@ -4,6 +4,7 @@
 """ Tool to download footage within a given time range from a local UniFi Protect system """
 
 import logging
+import os
 import time
 
 from dataclasses import dataclass
@@ -12,8 +13,9 @@ from os import path, makedirs
 from typing import List
 
 import requests
+import sys
 
-from .utils import calculate_intervals
+from .utils import calculate_intervals, format_bytes
 
 
 @dataclass
@@ -156,26 +158,48 @@ class ProtectClient(object):
 
             # make the GET request to retrieve the video file or snapshot
             try:
+                start = time.monotonic()
                 response = requests.get(
-                    uri, verify=self.verify_ssl, timeout=self.download_timeout
+                    uri,
+                    verify=self.verify_ssl,
+                    timeout=self.download_timeout,
+                    stream=True,
                 )
-
                 # write file to disk if response.status_code is 200,
                 # otherwise log error and then either exit or skip the download
-                if response.status_code == 200:
-                    with open(file_name, "wb") as fp:
-                        fp.write(response.content)
-                    logging.info("Download successful")
-                    self.files_downloaded += 1
-                else:
+                if response.status_code != 200:
                     raise DownloadFailed(
                         f"Download failed with status {response.status_code} {response.reason}"
                     )
 
+                total_bytes = int(response.headers.get("content-length") or 0)
+                cur_bytes = 0
+                if not total_bytes:
+                    with open(file_name, "wb") as fp:
+                        fp.write(response.content)
+                else:
+                    with open(file_name, "wb") as fp:
+                        for chunk in response.iter_content(4096):
+                            cur_bytes += len(chunk)
+                            fp.write(chunk)
+                            # done = int(50 * cur_bytes / total_bytes)
+                            # sys.stdout.write("\r[%s%s] %sps" % ('=' * done, ' ' * (50-done), format_bytes(cur_bytes//(time.monotonic() - start))))
+                            # print('')
+
+                elapsed = time.monotonic() - start
+                logging.info(
+                    f"Download successful after {int(elapsed)}s ({format_bytes(cur_bytes // elapsed)}ps)"
+                )
+                self.files_downloaded += 1
+
             except requests.exceptions.RequestException as request_exception:
+                # clean up
+                os.remove(file_name)
                 logging.exception(f"Download failed: {request_exception}")
                 exit_code = 5
             except DownloadFailed:
+                # clean up
+                os.remove(file_name)
                 logging.exception(
                     f"Download failed with status {response.status_code} {response.reason}"
                 )

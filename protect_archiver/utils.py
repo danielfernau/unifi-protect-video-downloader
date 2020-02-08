@@ -66,3 +66,14 @@ def calculate_intervals(start: datetime, end: datetime) -> Tuple[datetime, datet
     if original_end != full_hour_end:
         # if end is not on full hour, yield the interval between the last full hour and the end
         yield full_hour_end, original_end - timedelta(seconds=1)
+
+
+def format_bytes(size: int) -> str:
+    # 2**10 = 1024
+    power = 2 ** 10
+    n = 0
+    power_labels = {0: "", 1: "k", 2: "m", 3: "g", 4: "t"}
+    while size > power:
+        size /= power
+        n += 1
+    return f"{int(size * 100) / 100} {power_labels[n]}b"
