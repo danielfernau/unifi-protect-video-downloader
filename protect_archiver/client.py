@@ -3,6 +3,7 @@
 
 """ Tool to download footage within a given time range from a local UniFi Protect system """
 
+import json
 import logging
 import os
 import time
@@ -168,19 +169,20 @@ class ProtectClient(object):
                     timeout=self.download_timeout,
                     stream=True,
                 )
+
                 # write file to disk if response.status_code is 200,
                 # otherwise log error and then either exit or skip the download
-                if response.status_code == 500:
-                    logging.exception(
-                        f"Download failed - likely doesnt exist (500)\nDebug headers: %s",
-                        dict(response.headers),
-                    )
-                    # self.files_skipped += 1
-                    # return
-
                 if response.status_code != 200:
+                    try:
+                        data = json.loads(response.content)
+                    except Exception:
+                        data = None
+
+                    error_message = (
+                        data.get("error") or data or "(no information available)"
+                    )
                     raise DownloadFailed(
-                        f"Download failed with status {response.status_code} {response.reason}"
+                        f"Download failed with status {response.status_code} {response.reason}:\n{error_message}"
                     )
 
                 total_bytes = int(response.headers.get("content-length") or 0)

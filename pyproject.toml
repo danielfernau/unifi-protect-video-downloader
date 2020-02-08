@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "protect-archiver"
-version = "0.1.0"
+version = "2.0.0"
 description = ""
 authors = ["Daniel Fernau", "David Cramer"]
-license = "GPLv3"
+license = "MIT"
 packages = [
     { include = "protect_archiver"}
 ]
