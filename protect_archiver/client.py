@@ -48,6 +48,7 @@ class ProtectClient(object):
         skip_existing_files: bool = False,
         destination_path: str = "./",
         touch_files: bool = False,
+        # aka read_timeout - time to wait until a socket read response happens
         download_timeout: int = 60,
         max_downloads_with_key: int = 3,
         max_downloads_with_auth: int = 10,
@@ -219,7 +220,7 @@ class ProtectClient(object):
             else:
                 return
 
-            logging.warn("Retrying in {retry_delay}...")
+            logging.warn(f"Retrying in {retry_delay} second(s)...")
             time.sleep(retry_delay)
 
         if not self.ignore_failed_downloads:
