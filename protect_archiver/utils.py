@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import Tuple
+from typing import Iterable, Tuple
 
 
 def json_encode(obj):
@@ -39,7 +39,9 @@ def diff_round_down_to_full_hour(date_time_object: datetime) -> datetime:
 #       01.01.1970 11:00:00 - 01.01.1970 11:59:59
 #       01.01.1970 12:00:00 - 01.01.1970 12:59:59
 #       01.01.1970 13:00:00 - 01.01.1970 13:14:59
-def calculate_intervals(start: datetime, end: datetime) -> Tuple[datetime, datetime]:
+def calculate_intervals(
+    start: datetime, end: datetime
+) -> Iterable[Tuple[datetime, datetime]]:
     # calculate time differences to next or past full hour
     start_diff_to_next_full_hour = diff_round_up_to_full_hour(start) - start
     end_diff_to_past_full_hour = end - diff_round_down_to_full_hour(end)
