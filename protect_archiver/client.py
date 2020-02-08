@@ -180,6 +180,11 @@ class ProtectClient(object):
                     if total_bytes:
                         with open(file_name, "wb") as fp:
                             fp.write(content)
+                    else:
+                        logging.warn(
+                            f"Empty file found - ignoring"
+                        )
+
                 else:
                     with open(file_name, "wb") as fp:
                         for chunk in response.iter_content(4096):
