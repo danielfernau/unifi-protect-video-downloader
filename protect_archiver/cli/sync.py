@@ -23,6 +23,12 @@ from ..sync import ProtectSync
     "--verify-ssl", is_flag=True, default=False, help="Verify CloudKey SSL certificate",
 )
 @click.option(
+    "--ignore-failed-downloads",
+    is_flag=True,
+    default=False,
+    help="Ignore failed downloads and continue with next download (Default: False)",
+)
+@click.option(
     "--cameras",
     default="all",
     help=(
@@ -39,6 +45,7 @@ def sync(
     verify_ssl,
     statefile,
     ignore_state,
+    ignore_failed_downloads,
     cameras,
 ):
     # normalize path to destination directory and check if it exists
@@ -56,6 +63,7 @@ def sync(
         password=password,
         verify_ssl=verify_ssl,
         destination_path=dest,
+        ignore_failed_downloads=ignore_failed_downloads,
         use_subfolders=True,
     )
 
