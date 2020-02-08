@@ -14,7 +14,6 @@ from os import path, makedirs
 from typing import List
 
 import requests
-import sys
 
 from .utils import calculate_intervals, format_bytes
 
@@ -33,6 +32,10 @@ class DownloadFailed(Exception):
 class ProtectError(Exception):
     def __init__(self, code):
         self.code = code
+
+
+class AuthorizationFailed(Exception):
+    pass
 
 
 class ProtectClient(object):
@@ -121,9 +124,11 @@ class ProtectClient(object):
         access_key = json_response["accessKey"]
         return access_key
 
-    def get_api_token(self) -> str:
+    def get_api_token(self, force: bool = False) -> str:
+        if force:
+            self._api_token = None
         # use the same api token (login session) for set number of downloads only (default: 10)
-        if self._downloads_with_current_token == int(self.max_downloads_with_auth):
+        elif self._downloads_with_current_token == int(self.max_downloads_with_auth):
             logging.info(
                 f"API Token has been used for {self._downloads_with_current_token} download(s) - requesting new session token..."
             )
@@ -138,9 +143,11 @@ class ProtectClient(object):
 
         return self._api_token
 
-    def get_access_key(self, api_token: str = None) -> str:
+    def get_access_key(self, api_token: str = None, force: bool = False) -> str:
+        if force:
+            self._api_token = None
         # use the same access key for set number of downloads only (default: 3)
-        if self._downloads_with_current_access_key == self.max_downloads_with_key:
+        elif self._downloads_with_current_access_key == self.max_downloads_with_key:
             logging.info(
                 f"Access Key has been used for {self._downloads_with_current_access_key} download(s) - requesting new access key..."
             )
@@ -172,6 +179,20 @@ class ProtectClient(object):
 
                 # write file to disk if response.status_code is 200,
                 # otherwise log error and then either exit or skip the download
+                if response.status_code == 401:
+                    # invalid current api token - we special case this
+                    # as we dont want to retry on consecutive auth failures
+                    # TODO: refactor this
+                    self.get_api_token(force=True)
+                    start = time.monotonic()
+                    response = requests.get(
+                        uri,
+                        verify=self.verify_ssl,
+                        timeout=self.download_timeout,
+                        stream=True,
+                    )
+                    if response.status_code == 401:
+                        raise AuthorizationFailed
                 if response.status_code != 200:
                     try:
                         data = json.loads(response.content)
