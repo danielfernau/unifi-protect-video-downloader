@@ -241,7 +241,7 @@ class ProtectClient(object):
         )
 
     # get camera list
-    def get_camera_list(self) -> List[Camera]:
+    def get_camera_list(self, connected=True) -> List[Camera]:
         bootstrap_uri = f"https://{self.address}:{self.port}/api/bootstrap"
         response = requests.get(
             bootstrap_uri,
@@ -257,6 +257,8 @@ class ProtectClient(object):
 
         camera_list = []
         for camera in cameras:
+            if connected and camera["state"] == "DISCONNECTED":
+                continue
             camera_list.append(
                 Camera(
                     id=camera["id"],
