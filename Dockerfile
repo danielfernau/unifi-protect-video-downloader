@@ -6,7 +6,7 @@ ENV PYTHONFAULTHANDLER=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    VENV_PATH=/venv \
+    VENV_PATH=/install/.venv \
     POETRY_HOME=/poetry \
     POETRY_VERSION=1.0.0
 
@@ -32,7 +32,7 @@ RUN poetry install --no-interaction --no-ansi
 # COPY --from=builder /install /usr/local
 # COPY --from=builder $VENV_PATH /app/.venv
 # COPY --from=builder $POETRY_HOME $POETRY_HOME
-COPY . /app/
+COPY . /install/
 
 # WORKDIR /app
 
