@@ -3,15 +3,15 @@ Tool to download footage from a local UniFi Protect system
 
 ---
 
-Latest release: https://github.com/danielfernau/unifi-protect-video-downloader/releases/latest  
+Latest release: https://github.com/unifi-toolbox/unifi-protect-video-downloader/releases/latest  
 
 ---
 
-Documentation: https://github.com/danielfernau/unifi-protect-video-downloader/wiki  
+Documentation: https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki  
 
-* Installation: https://github.com/danielfernau/unifi-protect-video-downloader/wiki/Installation  
+* Installation: https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Installation  
 
-* Basic usage: https://github.com/danielfernau/unifi-protect-video-downloader/wiki/Basic-Usage  
+* Basic usage: https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Basic-Usage  
 
 ---
 
@@ -26,7 +26,7 @@ https://www.reddit.com/r/Ubiquiti/comments/dhaxcq/tool_for_downloading_footage_f
 ##### Important Information
 This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti.  
 It is not guaranteed that it will always run flawlessly, so use this tool at your own risk.  
-The software is provided without any warranty or liability, as stated in sections 15 and 16 of the [license](LICENSE).  
+The software is provided without any warranty or liability, as stated in the [license](LICENSE).  
 
 ---
 
