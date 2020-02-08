@@ -47,7 +47,7 @@ def sync(
         click.echo(
             f"Video file destination directory '{dest} is invalid or does not exist!"
         )
-        click.abort()
+        exit(1)
 
     client = ProtectClient(
         address=address,
