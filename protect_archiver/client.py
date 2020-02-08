@@ -175,8 +175,11 @@ class ProtectClient(object):
                 total_bytes = int(response.headers.get("content-length") or 0)
                 cur_bytes = 0
                 if not total_bytes:
-                    with open(file_name, "wb") as fp:
-                        fp.write(response.content)
+                    content = response.content
+                    total_bytes = len(content)
+                    if total_bytes:
+                        with open(file_name, "wb") as fp:
+                            fp.write(content)
                 else:
                     with open(file_name, "wb") as fp:
                         for chunk in response.iter_content(4096):
