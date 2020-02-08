@@ -257,7 +257,7 @@ class ProtectClient(object):
 
         camera_list = []
         for camera in cameras:
-            if connected and camera["state"] == "DISCONNECTED":
+            if connected and camera["state"] != "CONNECTED":
                 continue
             camera_list.append(
                 Camera(
