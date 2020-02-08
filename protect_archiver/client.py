@@ -171,9 +171,12 @@ class ProtectClient(object):
                 # write file to disk if response.status_code is 200,
                 # otherwise log error and then either exit or skip the download
                 if response.status_code == 500:
-                    logging.exception(f"Download failed - likely doesnt exist (500)")
-                    self.files_skipped += 1
-                    return
+                    logging.exception(
+                        f"Download failed - likely doesnt exist (500)\nDebug headers: %s",
+                        dict(response.headers),
+                    )
+                    # self.files_skipped += 1
+                    # return
 
                 if response.status_code != 200:
                     raise DownloadFailed(
@@ -182,7 +185,6 @@ class ProtectClient(object):
 
                 total_bytes = int(response.headers.get("content-length") or 0)
                 cur_bytes = 0
-                print(file_name)
                 if not total_bytes:
                     with open(file_name, "wb") as fp:
                         content = response.content
