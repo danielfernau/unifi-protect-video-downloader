@@ -97,6 +97,7 @@ class ProtectClient(object):
             raise ProtectError(2)
         logging.info(f"Successfully authenticated as user {self.username}")
         authorization_header = response.headers["Authorization"]
+        assert authorization_header
         return authorization_header
 
     # get access key using bearer token
@@ -146,7 +147,7 @@ class ProtectClient(object):
 
         if self._access_key is None:
             # request new access key
-            self._access_key = self.fetch_access_key(api_token or self._api_token)
+            self._access_key = self.fetch_access_key(api_token or self.get_api_token())
             self._downloads_with_current_access_key = 0
 
         return self._access_key
@@ -181,6 +182,7 @@ class ProtectClient(object):
 
                 total_bytes = int(response.headers.get("content-length") or 0)
                 cur_bytes = 0
+                print(file_name)
                 if not total_bytes:
                     with open(file_name, "wb") as fp:
                         content = response.content
