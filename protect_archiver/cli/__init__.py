@@ -1,4 +1,5 @@
 from .download import *  # NOQA
+from .sync import *  # NOQA
 
 
 def main():
