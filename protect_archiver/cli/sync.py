@@ -7,30 +7,60 @@ from ..client import ProtectClient
 from ..sync import ProtectSync
 
 
-@cli.command("sync", help="Synchronize your Unifi video footage to a local destination")
-@click.argument("dest")
-@click.option("--address", default="unifi", help="CloudKey IP address or hostname")
-@click.option("--port", default=7443, help="UniFi Protect service port")
+@cli.command(
+    "sync", help="Synchronize your UniFi Protect footage to a local destination"
+)
+@click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
-    "--username", default="ubnt", help="Username of user with local access",
+    "--address",
+    default="unifi",
+    show_default=True,
+    required=True,
+    help="CloudKey IP address or hostname",
 )
 @click.option(
-    "--password", required=True, help="Password of user with local access",
+    "--port", default=7443, show_default=True, help="UniFi Protect service port"
 )
-@click.option("--statefile", default="sync.state")
-@click.option("--ignore-state", is_flag=True, default=False)
 @click.option(
-    "--verify-ssl", is_flag=True, default=False, help="Verify CloudKey SSL certificate",
+    "--username",
+    required=True,
+    help="Username of user with local access.",
+    prompt="Username of local Protect user",
+)
+@click.option(
+    "--password",
+    required=True,
+    help="Password of user with local access",
+    prompt="Password for local Protect user",
+    hide_input=True,
+)
+@click.option(
+    "--statefile",
+    type=click.Path(file_okay=True, readable=True, writable=True, resolve_path=True),
+    default="sync.state",
+    show_default=True,
+)
+@click.option(
+    "--ignore-state", is_flag=True, default=False, show_default=True,
+)
+@click.option(
+    "--verify-ssl",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Verify CloudKey SSL certificate",
 )
 @click.option(
     "--ignore-failed-downloads",
     is_flag=True,
     default=False,
-    help="Ignore failed downloads and continue with next download (Default: False)",
+    show_default=True,
+    help="Ignore failed downloads and continue with next download",
 )
 @click.option(
     "--cameras",
     default="all",
+    show_default=True,
     help=(
         "Comma-separated list of one or more camera IDs ('--cameras=\"id_1,id_2,id_3,...\"'). "
         "Use '--cameras=all' to download footage of all available cameras."
