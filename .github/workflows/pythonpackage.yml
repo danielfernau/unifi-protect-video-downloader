@@ -1,0 +1,23 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+          PATH=$HOME/.poetry/bin:$PATH NODE_ENV= poetry install
+      - name: Lint
+        run: |
+          PATH=$HOME/.poetry/bin:$PATH poetry run flake8
+      - name: Test
+        run: |
+          PATH=$HOME/.poetry/bin:$PATH poetry run py.test -v
