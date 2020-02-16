@@ -24,7 +24,7 @@ from ..sync import ProtectSync
 @click.option(
     "--username",
     required=True,
-    help="Username of user with local access.",
+    help="Username of user with local access",
     prompt="Username of local Protect user",
 )
 @click.option(
@@ -36,7 +36,6 @@ from ..sync import ProtectSync
 )
 @click.option(
     "--statefile",
-    type=click.Path(file_okay=True, readable=True, writable=True, resolve_path=True),
     default="sync.state",
     show_default=True,
 )
