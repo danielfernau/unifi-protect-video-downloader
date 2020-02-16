@@ -1,28 +1,47 @@
 import click
 
 from datetime import datetime
-from os import path
 
 from .base import cli
 from ..client import ProtectClient, ProtectError
 
 
 @cli.command("download", help="Download footage from a local UniFi Protect system")
-@click.argument("dest")
-@click.option("--address", default="unifi", help="CloudKey IP address or hostname")
-@click.option("--port", default=7443, help="UniFi Protect service port")
+@click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
-    "--username", default="ubnt", help="Username of user with local access",
+    "--address",
+    default="unifi",
+    show_default=True,
+    required=True,
+    help="CloudKey IP address or hostname",
 )
 @click.option(
-    "--password", required=True, help="Password of user with local access",
+    "--port", default=7443, show_default=True, help="UniFi Protect service port"
 )
 @click.option(
-    "--verify-ssl", default=False, help="Verify CloudKey SSL certificate",
+    "--username",
+    required=True,
+    help="Username of user with local access.",
+    prompt="Username of local Protect user",
+)
+@click.option(
+    "--password",
+    required=True,
+    help="Password of user with local access",
+    prompt="Password for local Protect user",
+    hide_input=True,
+)
+@click.option(
+    "--verify-ssl",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Verify CloudKey SSL certificate",
 )
 @click.option(
     "--cameras",
     default="all",
+    show_default=True,
     help=(
         "Comma-separated list of one or more camera IDs ('--cameras=\"id_1,id_2,id_3,...\"'). "
         "Use '--cameras=all' to download footage of all available cameras."
@@ -32,57 +51,90 @@ from ..client import ProtectClient, ProtectError
     "--wait-between-downloads",
     "download_wait",
     default=0,
-    help="Time to wait between file downloads, in seconds (Default: 0)",
+    show_default=True,
+    help="Time to wait between file downloads, in seconds",
 )
 @click.option(
     "--ignore-failed-downloads",
     is_flag=True,
     default=False,
-    help="Ignore failed downloads and continue with next download (Default: False)",
+    show_default=True,
+    help="Ignore failed downloads and continue with next download",
 )
 @click.option(
     "--skip-existing-files",
     is_flag=True,
     default=False,
-    help="Skip downloading files which already exist on disk (Default: False)",
+    show_default=True,
+    help="Skip downloading files which already exist on disk",
 )
 @click.option(
     "--touch-files",
-    default=False,
     is_flag=True,
+    default=False,
+    show_default=True,
     help=(
-        "Create local file without content for current download (Default: False) - "
+        "Create local file without content for current download - "
         "useful in combination with '--skip-existing-files' to skip problematic segments"
     ),
 )
 @click.option(
     "--use-subfolders/--no-use-subfolders",
     default=True,
-    help="Save footage to folder structure with format 'YYYY/MM/DD/camera_name/' (Default: False)",
+    show_default=True,
+    help="Save footage to folder structure with format 'YYYY/MM/DD/camera_name/'",
 )
 @click.option(
     "--download-request-timeout",
     "download_timeout",
     default=60.0,
-    help="Time to wait before aborting download request, in seconds (Default: 60)",
+    show_default=True,
+    help="Time to wait before aborting download request, in seconds",
 )
 @click.option(
     "--start",
+    type=click.DateTime(
+        formats=[
+            "%Y-%m-%d",
+            "%Y-%m-%dT%H:%M:%S",
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%d %H:%M:%S%z",
+        ]
+    ),
     required=False,
-    help='Start time in dateutil.parser compatible format, for example "YYYY-MM-DD HH:MM:SS+0000"',
+    help=(
+        "Download range start time. "
+        # TODO(danielfernau): uncomment the next line as soon as the feature is implemented
+        # "If omitted, the time of the first available recording for each camera will be used."
+    ),
 )
 @click.option(
     "--end",
-    type=str,
+    type=click.DateTime(
+        formats=[
+            "%Y-%m-%d",
+            "%Y-%m-%dT%H:%M:%S",
+            "%Y-%m-%d %H:%M:%S",
+            "%Y-%m-%d %H:%M:%S%z",
+        ]
+    ),
     required=False,
-    help='End time in dateutil.parser compatible format, for example "YYYY-MM-DD HH:MM:SS+0000"',
+    help=(
+        "Download range end time. "
+        # TODO(danielfernau): uncomment the next line as soon as the feature is implemented
+        # "If omitted, the time of the last available recording for each camera will be used."
+    ),
 )
 @click.option(
     "--snapshot",
     "create_snapshot",
-    default=False,
     is_flag=True,
-    help="Capture and download a snapshot from the specified camera(s)",
+    default=False,
+    show_default=True,
+    help=(
+        "Capture and download a snapshot from the specified camera(s). "
+        "This flag cannot be used in combination with the normal video download mode."
+    ),
 )
 def download(
     dest,
@@ -103,9 +155,7 @@ def download(
     create_snapshot,
 ):
     # check the provided command line arguments
-    if not (create_snapshot or (start and end)):
-        click.echo("Please use --snapshot, or provide --start and --end timestamps")
-        exit(6)
+    # TODO(danielfernau): remove exit codes 1 (path invalid) and 6 (start/end/snapshot) from docs: no longer valid
 
     if create_snapshot:
         if start or end:
@@ -113,14 +163,6 @@ def download(
                 "The arguments --start and --end are ignored when using the --snapshot option"
             )
         start = datetime.now()
-
-    # normalize path to destination directory and check if it exists
-    dest = path.abspath(dest)
-    if not path.isdir(dest):
-        click.echo(
-            f"Video file destination directory '{dest}' is invalid or does not exist!"
-        )
-        exit(1)
 
     client = ProtectClient(
         address=address,
@@ -147,13 +189,13 @@ def download(
             camera_list = [c for c in camera_list if c["id"] in cameras]
 
         if not create_snapshot:
-            # noinspection PyUnboundLocalVariable
-            click.echo(
-                f"Downloading video files between {start} and {end}"
-                f" from 'https://{address}:{port}/api/video/export' \n"
-            )
-
             for camera in camera_list:
+                # noinspection PyUnboundLocalVariable
+                click.echo(
+                    f"Downloading video files between {start} and {end}"
+                    f" from 'https://{address}:{port}/api/video/export' for camera {camera.name} \n"
+                )
+
                 client.download_footage(start, end, camera)
         else:
             click.echo(
