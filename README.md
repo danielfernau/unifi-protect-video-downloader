@@ -1,5 +1,7 @@
-# UniFi Protect Video Downloader
+# UniFi Protect Video Downloader 
 Tool to download footage from a local UniFi Protect system  
+
+![Python package](https://github.com/unifi-toolbox/unifi-protect-video-downloader/workflows/Python%20package/badge.svg?branch=v2.0.0)
 
 ---
 
