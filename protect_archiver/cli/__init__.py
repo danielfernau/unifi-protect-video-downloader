@@ -1,5 +1,6 @@
 from .download import *  # NOQA
 from .sync import *  # NOQA
+from .events import *  # NOQA
 
 
 def main():
