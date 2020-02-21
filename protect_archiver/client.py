@@ -98,26 +98,6 @@ class ProtectClient(object):
         assert authorization_header
         return authorization_header
 
-    # get access key using bearer token
-    def fetch_access_key(self, api_token: str) -> str:
-        access_key_uri = f"https://{self.address}:{self.port}/api/auth/access-key"
-        response = requests.post(
-            access_key_uri,
-            headers={"Authorization": "Bearer " + api_token},
-            verify=self.verify_ssl,
-        )
-        if response.status_code != 200:
-            logging.error(
-                f"Failed to get access key from API. {response.status_code} {response.reason}"
-            )
-            self.print_download_stats()
-            raise ProtectError(3)
-
-        logging.info("Successfully requested API Access Key")
-        json_response = response.json()
-        access_key = json_response["accessKey"]
-        return access_key
-
     def get_api_token(self, force: bool = False) -> str:
         if force:
             self._api_token = None
@@ -125,19 +105,8 @@ class ProtectClient(object):
         if self._api_token is None:
             # get new API auth bearer token and access key
             self._api_token = self.fetch_api_token()
-            self._access_key = self.fetch_access_key(self._api_token)
 
         return self._api_token
-
-    def get_access_key(self, api_token: str = None, force: bool = False) -> str:
-        if force:
-            self._api_token = None
-
-        if self._access_key is None:
-            # request new access key
-            self._access_key = self.fetch_access_key(api_token or self.get_api_token())
-
-        return self._access_key
 
     # file downloader
     def download_file(self, uri: str, file_name: str):
@@ -148,7 +117,8 @@ class ProtectClient(object):
             try:
                 start = time.monotonic()
                 response = requests.get(
-                    f"{uri}&accessKey={self.get_access_key()}",
+                    uri,
+                    headers={"Authorization": "Bearer " + self.get_api_token()},
                     verify=self.verify_ssl,
                     timeout=self.download_timeout,
                     stream=True,
@@ -158,10 +128,10 @@ class ProtectClient(object):
                     # invalid current api token - we special case this
                     # as we dont want to retry on consecutive auth failures
                     # TODO: refactor this
-                    self.get_api_token(force=True)
                     start = time.monotonic()
                     response = requests.get(
-                        f"{uri}&accessKey={self.get_access_key()}",
+                        uri,
+                        headers={"Authorization": "Bearer " + self.get_api_token(force=True)},
                         verify=self.verify_ssl,
                         timeout=self.download_timeout,
                         stream=True,
@@ -414,7 +384,7 @@ class ProtectClient(object):
 
         js_timestamp_start = int(start.timestamp()) * 1000
         # build snapshot export API address
-        address = f"https://{self.address}:{self.port}/api/cameras/{camera.id}/snapshot?accessKey={self.get_access_key()}&ts={js_timestamp_start}"
+        address = f"https://{self.address}:{self.port}/api/cameras/{camera.id}/snapshot?ts={js_timestamp_start}"
 
         # download the file
         self.download_file(address, filename)
