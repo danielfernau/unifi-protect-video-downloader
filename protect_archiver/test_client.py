@@ -49,7 +49,7 @@ def test_get_camera_list_with_disconnected(client):
 def test_download_footage(responses, client, sample_camera, test_output_dest):
     responses.add(
         responses.GET,
-        "https://unifi:7443/api/video/export?accessKey=access:key:example&camera=exteriorCameraId&start=1578524400000&end=1578527939000",
+        "https://unifi:7443/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939000",
         body="abcdefg",
         headers={
             "Content-Type": "video/mp4",
