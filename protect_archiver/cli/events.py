@@ -84,7 +84,7 @@ from ..client import ProtectClient, ProtectError
             "%Y-%m-%d %H:%M:%S%z",
         ]
     ),
-    required=False,
+    required=True,
     help=(
         "Download range start time. "
         # TODO(danielfernau): uncomment the next line as soon as the feature is implemented
@@ -101,7 +101,7 @@ from ..client import ProtectClient, ProtectError
             "%Y-%m-%d %H:%M:%S%z",
         ]
     ),
-    required=False,
+    required=True,
     help=(
         "Download range end time. "
         # TODO(danielfernau): uncomment the next line as soon as the feature is implemented
