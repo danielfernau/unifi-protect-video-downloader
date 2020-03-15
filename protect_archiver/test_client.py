@@ -65,7 +65,7 @@ def test_download_footage(responses, client, sample_camera, test_output_dest):
 
     file_name = os.path.join(
         test_output_dest,
-        "Exterior_raId_2020-01-08--23-00-00+0000_2020-01-08--23-58-59+0000.mp4",
+        "Exterior (raId) - 2020-01-08 - 23.00.00+0000.mp4",
     )
 
     assert os.path.exists(file_name)
