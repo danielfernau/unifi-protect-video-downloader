@@ -22,6 +22,9 @@ def mock_api(
     responses.add(
         responses.GET, "https://unifi:7443/api/bootstrap", json=sample_bootstrap_json
     )
+    responses.add(
+        responses.GET, "https://unifi:7443/api/cameras", json=sample_bootstrap_json["cameras"]
+    )
 
 
 def test_get_camera_list(client):
