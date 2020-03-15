@@ -235,18 +235,17 @@ class ProtectClient(object):
 
     # get camera list
     def get_camera_list(self, connected=True) -> List[Camera]:
-        bootstrap_uri = f"https://{self.address}:{self.port}/api/bootstrap"
+        cameras_uri = f"https://{self.address}:{self.port}/api/cameras"
         response = requests.get(
-            bootstrap_uri,
+            cameras_uri,
             headers={"Authorization": "Bearer " + self.get_api_token()},
             verify=self.verify_ssl,
         )
         if response.status_code != 200:
             return []
 
-        logging.info("Successfully retrieved data from /api/bootstrap")
-        json_response = response.json()
-        cameras = json_response["cameras"]
+        logging.info("Successfully retrieved data from /api/cameras")
+        cameras = response.json()
 
         camera_list = []
         for camera in cameras:
