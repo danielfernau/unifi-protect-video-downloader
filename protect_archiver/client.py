@@ -145,7 +145,9 @@ class ProtectClient(object):
                     start = time.monotonic()
                     response = requests.get(
                         uri,
-                        headers={"Authorization": "Bearer " + self.get_api_token(force=True)},
+                        headers={
+                            "Authorization": "Bearer " + self.get_api_token(force=True)
+                        },
                         verify=self.verify_ssl,
                         timeout=self.download_timeout,
                         stream=True,
@@ -303,19 +305,19 @@ class ProtectClient(object):
                 )
             )
 
-        logging.info(f"{len(motion_event_list)} motion events found between {start} and {end}")
+        logging.info(
+            f"{len(motion_event_list)} motion events found between {start} and {end}"
+        )
 
         return motion_event_list
 
     def download_footage(self, start: datetime, end: datetime, camera: Camera):
         # make camera name safe for use in file name
-        # TODO(dcramer): It'd be nice to map this to something similar to what the UI gives you (somewhat more readable)
         camera_name_fs_safe = (
-            "".join([c for c in camera.name if c.isalpha() or c.isdigit() or c == " "])
-            .rstrip()
-            .replace(" ", "_")
-            + "_"
-            + str(camera.id)[-4:]
+            "".join(
+                [c for c in camera.name if c.isalpha() or c.isdigit() or c == " "]
+            ).rstrip()
+            + f" ({str(camera.id)[-4:]})"
         )
 
         logging.info(f"Downloading footage for camera '{camera.name}' ({camera.id})")
@@ -355,10 +357,10 @@ class ProtectClient(object):
                 download_dir = self.destination_path
 
             # file name for download
-            filename_timestamp_start = interval_start.strftime("%Y-%m-%d--%H-%M-%S%z")
-            filename_timestamp_end = interval_end.strftime("%Y-%m-%d--%H-%M-%S%z")
-            filename_timestamp = f"{filename_timestamp_start}_{filename_timestamp_end}"
-            filename = f"{download_dir}/{camera_name_fs_safe}_{filename_timestamp}.mp4"
+            filename_timestamp = interval_start.strftime("%Y-%m-%d - %H.%M.%S%z")
+            filename = (
+                f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.mp4"
+            )
 
             logging.info(
                 f"Downloading video for time range {interval_start} - {interval_end} to {filename}"
@@ -390,11 +392,10 @@ class ProtectClient(object):
     def download_snapshot(self, start: datetime, camera: Camera):
         # make camera name safe for use in file name
         camera_name_fs_safe = (
-            "".join([c for c in camera.name if c.isalpha() or c.isdigit() or c == " "])
-            .rstrip()
-            .replace(" ", "_")
-            + "_"
-            + str(camera.id)[-4:]
+            "".join(
+                [c for c in camera.name if c.isalpha() or c.isdigit() or c == " "]
+            ).rstrip()
+            + f" ({str(camera.id)[-4:]})"
         )
 
         logging.info(f"Downloading snapshot for camera '{camera.name}' ({camera.id})")
@@ -421,8 +422,8 @@ class ProtectClient(object):
             download_dir = self.destination_path
 
         # file name for download
-        filename_timestamp = start.strftime("%Y-%m-%d--%H-%M-%S%z")
-        filename = f"{download_dir}/{camera_name_fs_safe}_{filename_timestamp}.jpg"
+        filename_timestamp = start.strftime("%Y-%m-%d - %H.%M.%S%z")
+        filename = f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.jpg"
 
         logging.info(f"Downloading snapshot for time {start} to {filename}")
 
@@ -445,11 +446,10 @@ class ProtectClient(object):
     ):
         # make camera name safe for use in file name
         camera_name_fs_safe = (
-            "".join([c for c in camera.name if c.isalpha() or c.isdigit() or c == " "])
-            .rstrip()
-            .replace(" ", "_")
-            + "_"
-            + str(camera.id)[-4:]
+            "".join(
+                [c for c in camera.name if c.isalpha() or c.isdigit() or c == " "]
+            ).rstrip()
+            + f" ({str(camera.id)[-4:]})"
         )
 
         # start and end time of the video segment to be downloaded
@@ -478,10 +478,8 @@ class ProtectClient(object):
             download_dir = self.destination_path
 
         # file name for download
-        filename_timestamp_start = motion_event.start.strftime("%Y-%m-%d--%H-%M-%S%z")
-        filename_timestamp_end = motion_event.end.strftime("%Y-%m-%d--%H-%M-%S%z")
-        filename_timestamp = f"{filename_timestamp_start}_{filename_timestamp_end}"
-        filename = f"{download_dir}/{camera_name_fs_safe}_{filename_timestamp}.mp4"
+        filename_timestamp = motion_event.start.strftime("%Y-%m-%d - %H.%M.%S%z")
+        filename = f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.mp4"
 
         logging.info(
             f"Downloading motion event {motion_event.id[-4:]} at {motion_event.start} for camera '{camera.name}' ({camera.id}) to {filename}"
@@ -500,7 +498,7 @@ class ProtectClient(object):
             )
 
             heatmap_filename = (
-                f"{download_dir}/{camera_name_fs_safe}_{filename_timestamp}.pgm"
+                f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.pgm"
             )
             heatmap_address = f"https://{self.address}:{self.port}/api/heatmaps/{motion_event.heatmap_id}"
             self.download_file(heatmap_address, heatmap_filename)
