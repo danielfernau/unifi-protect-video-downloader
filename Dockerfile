@@ -1,12 +1,11 @@
-FROM zapier/python:latest as base
+FROM python:3.8-slim as base
 
-RUN mkdir /build
-WORKDIR /build
+RUN mkdir /install
+WORKDIR /install
 
-COPY . /build/
+COPY ./dist/*.whl /install/
 
-RUN poetry install --no-interaction --no-ansi
-RUN ln -s $(poetry env info -p)/bin/protect-archiver /usr/local/bin/protect-archiver
+RUN pip install *.whl
 
 ENTRYPOINT [ "protect-archiver" ]
 CMD [ "--help" ]
