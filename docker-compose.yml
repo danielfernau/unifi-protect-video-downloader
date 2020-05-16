@@ -1,0 +1,7 @@
+version: '3'
+services:
+  unifi-udm-api-proxy:
+    image: silvenga/unifi-udm-api-proxy:1
+    environment:
+      UDM__URI: ${UDM_URI}
+    restart: always
