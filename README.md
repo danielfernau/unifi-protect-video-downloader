@@ -25,7 +25,7 @@ Docker image: https://hub.docker.com/r/unifitoolbox/protect-archiver
 
 (replace `/path/on/host/machine` with an absolute path to your download directory and 
 `--help` with one of the supported commands and its parameters as documented here: 
-[](https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
+[wiki/Usage-(v2.x)](https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
 
 Example: `docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download [OPTIONS] /downloads`
 
@@ -63,7 +63,7 @@ _Hint:_ To stop the UniFi UDM API Proxy, run `docker-compose down` from within t
 
 (replace `/path/on/host/machine` with an absolute path to your download directory and 
 `--help` with one of the supported commands and its parameters as documented here: 
-[](https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
+[wiki/Usage-(v2.x)](https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
 
 Example: `docker run --network=unifi-protect-video-downloader_default --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download [OPTIONS] /downloads`
 
