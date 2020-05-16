@@ -1,60 +1,83 @@
 # UniFi Protect Video Downloader 
-Tool to download footage from a local UniFi Protect system  
 
-![Python package](https://github.com/unifi-toolbox/unifi-protect-video-downloader/workflows/Python%20package/badge.svg?branch=v2.0.0)
+**Tool to download footage from a local UniFi Protect system**  
 
----
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/unifi-toolbox/unifi-protect-video-downloader/Python%20package?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
+![GitHub stars](https://img.shields.io/github/stars/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
+![Docker image size](https://img.shields.io/docker/image-size/unifitoolbox/protect-archiver/latest?style=flat-square)
+![Docker pulls](https://img.shields.io/docker/pulls/unifitoolbox/protect-archiver?style=flat-square)
+![License](https://img.shields.io/github/license/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
+
+
+## :package: Releases
 
 Latest release: https://github.com/unifi-toolbox/unifi-protect-video-downloader/releases/latest  
+Docker image: https://hub.docker.com/r/unifitoolbox/protect-archiver  
 
----
 
-Documentation: https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki  
+## :arrow_right: Getting started
 
-* Installation: https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Installation  
+### For CloudKey-based Protect installations
 
-* Basic usage: https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Basic-Usage  
+`docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver --help`
 
----
+(replace `/path/on/host/machine` with an absolute path to your download directory and 
+`--help` with one of the supported commands and its parameters as documented here: 
+[](https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
 
-Community post:  
+Example: `docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download [OPTIONS] /downloads`
+
+
+### For UDM-based Protect installations
+
+The `protect-archiver` can access UDM-based Protect installations by using [@Silvenga](https://github.com/Silvenga)'s 
+[unifi-udm-api-proxy](https://github.com/Silvenga/unifi-udm-api-proxy).
+
+
+#### Download the project files
+
+`git clone https://github.com/unifi-toolbox/unifi-protect-video-downloader.git`  
+or  
+`git clone git@github.com:unifi-toolbox/unifi-protect-video-downloader.git`
+
+
+#### Start the UniFi UDM API Proxy
+
+**Enter the project directory**  
+
+`cd unifi-protect-video-downloader`
+  
+**Start the proxy**  
+
+`UDM_URI=https://192.168.0.1 docker-compose up -d`  
+
+(replace `192.168.0.1` with the IP address of your UDM)
+
+_Hint:_ To stop the UniFi UDM API Proxy, run `docker-compose down` from within the project directory.
+
+
+#### Run the protect-archiver
+`docker run --network=unifi-protect-video-downloader_default --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver --help`
+
+(replace `/path/on/host/machine` with an absolute path to your download directory and 
+`--help` with one of the supported commands and its parameters as documented here: 
+[](https://github.com/unifi-toolbox/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
+
+Example: `docker run --network=unifi-protect-video-downloader_default --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download [OPTIONS] /downloads`
+
+
+## :link: Links
+
+**Community post:**  
 https://community.ui.com/questions/Tool-for-downloading-footage-from-UniFi-Protect/47057c1d-112b-4092-b488-a380286933df
 
-Reddit post:  
+**Reddit post:**  
 https://www.reddit.com/r/Ubiquiti/comments/dhaxcq/tool_for_downloading_footage_from_unifi_protect/
 
----
 
-##### Important Information
-This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti.  
+## :warning: Important Information
+This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti Inc.  
 It is not guaranteed that it will always run flawlessly, so use this tool at your own risk.  
 The software is provided without any warranty or liability, as stated in the [license](LICENSE).  
-
----
-
-### Software Credits
-The development of this software was made possible using the following components:  
-  
-Dateutil by Gustavo Niemeyer  
-Licensed Under: Apache Software License, BSD License (Dual License)  
-https://pypi.org/project/python-dateutil/  
-  
-Certifi by Kenneth Reitz  
-Licensed Under: Mozilla Public License 2.0  
-https://pypi.org/project/certifi/  
-  
-Chardet by Daniel Blanchard  
-Licensed Under: GNU Library or Lesser General Public License (LGPL)  
-https://pypi.org/project/chardet/  
-  
-IDNA by Kim Davies  
-Licensed Under: BSD License (BSD-like)  
-https://pypi.org/project/idna/  
-  
-Requests by Kenneth Reitz  
-Licensed Under: Apache Software License (Apache 2.0)  
-https://pypi.org/project/requests/  
-  
-urllib3 by Andrey Petrov  
-Licensed Under: MIT License (MIT)  
-https://pypi.org/project/urllib3/  
