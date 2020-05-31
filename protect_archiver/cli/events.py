@@ -156,10 +156,10 @@ def events(
         if cameras != "all":
             cameras = set(cameras.split(","))
             # keep only selected cameras in list
-            camera_list = [c for c in camera_list if c["id"] in cameras]
+            camera_list = [camera for camera in camera_list if camera["id"] in cameras]
             # keep only events for selected cameras
             motion_event_list = [
-                e for e in motion_event_list if e["camera_id"] in cameras
+                event for event in motion_event_list if event.camera_id in cameras
             ]
 
         click.echo(
@@ -168,10 +168,14 @@ def events(
         )
 
         for motion_event in motion_event_list:
-            # client.download_event(MotionEvent, Camera)
+            # client.download_event(MotionEvent, Camera, bool)
             client.download_motion_event(
                 motion_event,
-                [c for c in camera_list if c['id'] == motion_event.camera_id][0],  # get camera from list of cameras by id
+                [
+                    camera
+                    for camera in camera_list
+                    if camera["id"] == motion_event.camera_id
+                ][0],
                 download_motion_heatmaps,
             )
 
