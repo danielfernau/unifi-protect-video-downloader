@@ -169,6 +169,18 @@ def events(
 
         for motion_event in motion_event_list:
             # client.download_event(MotionEvent, Camera, bool)
+            if not (
+                [
+                    camera
+                    for camera in camera_list
+                    if camera["id"] == motion_event.camera_id
+                ]
+            ):
+                click.echo(
+                    f"Unable to download event {motion_event.id[-4:]} at {motion_event.start}: camera is not available"
+                )
+                continue
+
             client.download_motion_event(
                 motion_event,
                 [
