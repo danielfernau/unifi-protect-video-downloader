@@ -126,6 +126,16 @@ class ProtectClient(object):
     def download_file(self, uri: str, file_name: str):
         exit_code = 1
         retry_delay = max(self.download_wait, 3)
+
+        # skip downloading files that already exist on disk if argument --skip-existing-files is present
+        # TODO(dcramer): sanity check on filesize would be valuable here
+        if bool(self.skip_existing_files) and path.exists(file_name):
+            logging.info(
+                f"File {file_name} already exists on disk and argument '--skip-existing-files' is present - skipping download \n"
+            )
+            self.files_skipped += 1
+            return  # skip the download
+
         for retry_num in range(self.max_retries):
             # make the GET request to retrieve the video file or snapshot
             try:
@@ -364,15 +374,6 @@ class ProtectClient(object):
             logging.info(
                 f"Downloading video for time range {interval_start} - {interval_end} to {filename}"
             )
-
-            # skip downloading files that already exist on disk if argument --skip-existing-files is present
-            # TODO(dcramer): sanity check on filesize would be valuable here
-            if bool(self.skip_existing_files) and path.exists(filename):
-                logging.debug(
-                    "File already exists on disk and argument '--skip-existing-files' is present - skipping download \n"
-                )
-                self.files_skipped += 1
-                continue
 
             # create file without content if argument --touch-files is present
             # XXX(dcramer): would be nice to document why you'd ever want this
