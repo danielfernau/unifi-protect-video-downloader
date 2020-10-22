@@ -7,6 +7,7 @@ class Config:
     class General:
         ADDRESS: str = "unifi"
         USERNAME: str = "ubnt"
+        HARDWARE_TYPE: str = "udm"
         PASSWORD: str = None
         VERIFY_SSL: bool = False
         DESTINATION_PATH: str = "./"

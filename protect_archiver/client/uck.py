@@ -6,14 +6,9 @@ from protect_archiver.errors import Errors
 from protect_archiver.downloader import Downloader
 
 
-class CloudKeyAuth:
+class CloudKeyClient:
     def __init__(
-        self,
-        address: str = Config.General.ADDRESS,
-        port: int = Config.CloudKey.PORT,
-        username: str = Config.General.USERNAME,
-        password: str = Config.General.PASSWORD,
-        verify_ssl: bool = Config.General.VERIFY_SSL,
+        self, address: str, port: int, username: str, password: str, verify_ssl: bool,
     ):
         self.address = address
         self.port = port

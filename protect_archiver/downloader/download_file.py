@@ -5,8 +5,7 @@ import time
 import requests
 import os
 
-from protect_archiver.auth import Auth
-from protect_archiver.errors import AuthorizationFailed, DownloadFailed, ProtectError
+from protect_archiver.errors import Errors
 from protect_archiver.utils import format_bytes
 
 
@@ -63,9 +62,9 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
                     data.get("error") or data or "(no information available)"
                 )
                 if response.status_code == 401:
-                    cls = AuthorizationFailed
+                    cls = Errors.AuthorizationFailed
                 else:
-                    cls = DownloadFailed
+                    cls = Errors.DownloadFailed
                 raise cls(
                     f"Download failed with status {response.status_code} {response.reason}:\n{error_message}"
                 )
@@ -92,7 +91,7 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
             elapsed = time.monotonic() - start
             logging.info(
                 f"Download successful after {int(elapsed)}s ({format_bytes(cur_bytes)}, "
-                f"{format_bytes(cur_bytes // elapsed)}ps)"
+                f"{format_bytes(int(cur_bytes // elapsed))}ps)"
             )
             self.files_downloaded += 1
             self.bytes_downloaded += cur_bytes
@@ -103,7 +102,7 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
                 os.remove(file_name)
             logging.exception(f"Download failed: {request_exception}")
             exit_code = 5
-        except DownloadFailed:
+        except Errors.DownloadFailed:
             # clean up
             if os.path.exists(file_name):
                 os.remove(file_name)
@@ -122,7 +121,7 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
             "To skip failed downloads and continue with next file, add argument '--ignore-failed-downloads'"
         )
         self.print_download_stats()
-        raise ProtectError(exit_code)
+        raise Errors.ProtectError(exit_code)
     else:
         logging.info(
             "Argument '--ignore-failed-downloads' is present, continue downloading files..."

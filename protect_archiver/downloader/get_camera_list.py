@@ -5,11 +5,11 @@ import requests
 from datetime import datetime
 from typing import List
 
-from protect_archiver.auth import Auth
 from protect_archiver.dataclasses import Camera
 
 
-def get_camera_list(self, auth: Auth, connected=True) -> List[Camera]:
+# def get_camera_list(self, auth: Auth, connected=True) -> List[Camera]:
+def get_camera_list(session, connected=True) -> List[Camera]:
     cameras_uri = f"https://{self.address}:{self.port}/api/cameras"
     response = requests.get(
         cameras_uri,

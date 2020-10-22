@@ -1,4 +1,3 @@
-from protect_archiver.auth import Auth
 from protect_archiver.config import Config
 from protect_archiver.utils import format_bytes
 

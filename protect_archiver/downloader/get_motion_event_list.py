@@ -5,7 +5,6 @@ import requests
 from datetime import datetime
 from typing import List
 
-from protect_archiver.auth import Auth
 from protect_archiver.dataclasses import MotionEvent
 
 

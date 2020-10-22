@@ -2,21 +2,30 @@ import click
 
 from datetime import datetime
 
-from .base import cli
-from ..client import ProtectClient, ProtectError
+from protect_archiver.cli.base import cli
+from protect_archiver.client import ProtectClient, ProtectError
+from protect_archiver.config import Config
 
 
 @cli.command("download", help="Download footage from a local UniFi Protect system")
 @click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
     "--address",
-    default="unifi",
+    default=Config.General.ADDRESS,
     show_default=True,
     required=True,
     help="CloudKey IP address or hostname",
 )
+# TODO(danielfernau): remove; --device-type option is being used to select correct port
+# @click.option(
+#     "--port", default=Config.CloudKey.PORT, show_default=True, help="UniFi Protect service port"
+# )
 @click.option(
-    "--port", default=7443, show_default=True, help="UniFi Protect service port"
+    "--device-type",
+    "hardware_type",
+    default=Config.General.HARDWARE_TYPE,  # TODO(danielfernau): auto-detect hardware type
+    show_default=True,
+    help="Type of hardware UniFi Protect is running on",
 )
 @click.option(
     "--username",
@@ -139,7 +148,7 @@ from ..client import ProtectClient, ProtectError
 def download(
     dest,
     address,
-    port,
+    hardware_type,
     username,
     password,
     verify_ssl,
@@ -166,7 +175,7 @@ def download(
 
     client = ProtectClient(
         address=address,
-        port=port,
+        hardware_type=hardware_type,
         username=username,
         password=password,
         verify_ssl=verify_ssl,
