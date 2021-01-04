@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "protect-archiver"
+version = "2.0.0"
+description = ""
+authors = ["Daniel Fernau", "David Cramer"]
+license = "MIT"
+packages = [
+    { include = "protect_archiver"}
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+python-dateutil = "^2.8.1"
+requests = {extras = ["security"], version = "^2.22.0"}
+click = "^7.0"
+
+[tool.poetry.dev-dependencies]
+Black = "^19.10b0"
+flake8 = "^3.7.9"
+pytest = "^5.3.5"
+responses = "^0.10.9"
+pytest-responses = "^0.4.0"
+pytest-xdist = "^1.31.0"
+
+[tool.poetry.scripts]
+protect-archiver = 'protect_archiver.cli:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
