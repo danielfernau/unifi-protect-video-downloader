@@ -94,6 +94,11 @@ For everything that isn't a bug, issue or error, feel free to use the project's 
 https://github.com/unifi-toolbox/unifi-protect-video-downloader/discussions
 
 
+## :hammer_and_wrench: Development and Build Instructions
+
+If you want to make changes, build you own version, test things or contribute to the project, you can find all the relevant Development and Build Instructions in the [BUILD.md](https://github.com/unifi-toolbox/unifi-protect-video-downloader/blob/master/BUILD.md) file. Pull requests are welcome!
+
+
 ## :link: Links
 
 **Community post:**  
