@@ -4,77 +4,77 @@
 
 ---
 
-# :package: Prepare the environment and install dependencies
+## :package: Prepare the environment and install dependencies
 
-## Install the necessary packages
+### Install the necessary packages
 ```bash
 $ sudo apt install curl git python3.8 python3-distutils python3-pip
 ```
 
-## Install Docker (if not already installed on your system)
+### Install Docker (if not already installed on your system)
 Follow the instructions at https://docs.docker.com/engine/install/ubuntu/
 
-## Install Python Poetry (packaging and dependency management)
+### Install Python Poetry (packaging and dependency management)
 ```bash
 $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
 $ source $HOME/.poetry/env
 ```
 
-## Clone the source repository
+### Clone the source repository
 ```bash
 $ git clone https://github.com/unifi-toolbox/unifi-protect-video-downloader
 $ cd unifi-protect-video-downloader
 ```
 
-## Install project dependencies
+### Install project dependencies
 ```bash
 $ poetry install
 ```
 
 ---
 
-# :pencil: Development
+## :pencil: Development
 Once the environment has been set up, you can start editing the source files.  
 Poetry documentation can be found at https://python-poetry.org/docs/cli/
 
-## Run
+### Run
 ```bash
 $ poetry run protect-archiver [OPTIONS] COMMAND [ARGS]...
 ```
 
-## Lint
+### Lint
 ```bash
 $ poetry run flake8
 ```
 
-## Tests
+### Tests
 ```bash
 $ poetry run py.test -v
 ```
 
 ---
 
-# :construction: Build a package
+## :hammer_and_wrench: Build a package
 
-## Build package
+### Build package
 ```bash
 $ poetry build
 ```
 
-## Install package
+### Install package
 ```bash
 $ cd ./dist
 $ pip3 install protect_archiver*.whl
 ```
 Replace `protect_archiver*.whl` with a more specific file name if you have multiple versions in the `./dist` directory.
 
-## Build Docker image
+### Build Docker image
 From within the project root directory run
 ```bash
 $ docker build -t unifitoolbox/protect-archiver .
 ```
 
-## Run Docker image
+### Run Docker image
 ```bash
 $ docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver --help
 ```
