@@ -44,7 +44,7 @@ $ poetry run protect-archiver [OPTIONS] COMMAND [ARGS]...
 
 ### Lint
 ```bash
-$ poetry run flake8
+$ poetry run flake8 protect_archiver
 ```
 
 ### Tests
