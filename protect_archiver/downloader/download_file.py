@@ -9,29 +9,30 @@ from protect_archiver.errors import Errors
 from protect_archiver.utils import format_bytes
 
 
-def download_file(self, uri: str, file_name: str, auth: Auth):
+def download_file(client, query: str, filename: str):
     exit_code = 1
-    retry_delay = max(self.download_wait, 3)
+    retry_delay = max(client.download_wait, 3)
+    uri = f"{client.session.authority}{client.session.base_path}/video/export?{query}"
 
     # skip downloading files that already exist on disk if argument --skip-existing-files is present
     # TODO(dcramer): sanity check on filesize would be valuable here
-    if bool(self.skip_existing_files) and os.path.exists(file_name):
+    if bool(client.skip_existing_files) and os.path.exists(filename):
         logging.info(
-            f"File {file_name} already exists on disk and argument '--skip-existing-files' "
+            f"File {filename} already exists on disk and argument '--skip-existing-files' "
             f"is present - skipping download \n"
         )
-        self.files_skipped += 1
+        client.files_skipped += 1
         return  # skip the download
 
-    for retry_num in range(self.max_retries):
+    for retry_num in range(client.max_retries):
         # make the GET request to retrieve the video file or snapshot
         try:
             start = time.monotonic()
             response = requests.get(
                 uri,
-                headers={"Authorization": "Bearer " + auth.get_api_token()},
-                verify=self.verify_ssl,
-                timeout=self.download_timeout,
+                cookies={"TOKEN": client.session.get_api_token()},
+                verify=client.verify_ssl,
+                timeout=client.download_timeout,
                 stream=True,
             )
 
@@ -42,11 +43,9 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
                 start = time.monotonic()
                 response = requests.get(
                     uri,
-                    headers={
-                        "Authorization": "Bearer " + auth.get_api_token(force=True)
-                    },
-                    verify=self.verify_ssl,
-                    timeout=self.download_timeout,
+                    cookies={"TOKEN": client.session.get_api_token(force=True)},
+                    verify=client.verify_ssl,
+                    timeout=client.download_timeout,
                     stream=True,
                 )
 
@@ -61,51 +60,60 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
                 error_message = (
                     data.get("error") or data or "(no information available)"
                 )
-                if response.status_code == 401:
-                    cls = Errors.AuthorizationFailed
-                else:
-                    cls = Errors.DownloadFailed
-                raise cls(
-                    f"Download failed with status {response.status_code} {response.reason}:\n{error_message}"
-                )
 
-            total_bytes = int(response.headers.get("content-length") or 0)
-            cur_bytes = 0
-            if not total_bytes:
-                with open(file_name, "wb") as fp:
-                    content = response.content
-                    cur_bytes = len(content)
-                    total_bytes = cur_bytes
-                    fp.write(content)
+                # TODO
+                logging.exception(
+                    f"Download failed with status {response.status_code} {response.reason}:\n"
+                    f"{error_message}"
+                )
+                client.files_failed += 1
+                # if response.status_code == 401:
+                #     cls = Errors.AuthorizationFailed
+                # else:
+                #     cls = Errors.DownloadFailed
+                # raise cls(
+                #     f"Download failed with status {response.status_code} {response.reason}:\n{error_message}"
+                # )
 
             else:
-                with open(file_name, "wb") as fp:
-                    for chunk in response.iter_content(4096):
-                        cur_bytes += len(chunk)
-                        fp.write(chunk)
-                        # done = int(50 * cur_bytes / total_bytes)
-                        # sys.stdout.write("\r[%s%s] %sps" % ('=' * done, ' ' * (50-done),
-                        #   format_bytes(cur_bytes//(time.monotonic() - start))))
-                        # print('')
+                total_bytes = int(response.headers.get("content-length") or 0)
+                cur_bytes = 0
+                if not total_bytes:
+                    with open(filename, "wb") as fp:
+                        content = response.content
+                        cur_bytes = len(content)
+                        total_bytes = cur_bytes
+                        fp.write(content)
 
-            elapsed = time.monotonic() - start
-            logging.info(
-                f"Download successful after {int(elapsed)}s ({format_bytes(cur_bytes)}, "
-                f"{format_bytes(int(cur_bytes // elapsed))}ps)"
-            )
-            self.files_downloaded += 1
-            self.bytes_downloaded += cur_bytes
+                else:
+                    with open(filename, "wb") as fp:
+                        for chunk in response.iter_content(4096):
+                            cur_bytes += len(chunk)
+                            fp.write(chunk)
+                            # TODO
+                            # done = int(50 * cur_bytes / total_bytes)
+                            # sys.stdout.write("\r[%s%s] %sps" % ('=' * done, ' ' * (50-done),
+                            #   format_bytes(cur_bytes//(time.monotonic() - start))))
+                            # print('')
+
+                elapsed = time.monotonic() - start
+                logging.info(
+                    f"Download successful after {int(elapsed)}s ({format_bytes(cur_bytes)}, "
+                    f"{format_bytes(int(cur_bytes // elapsed))}ps)"
+                )
+                client.files_downloaded += 1
+                client.bytes_downloaded += cur_bytes
 
         except requests.exceptions.RequestException as request_exception:
             # clean up
-            if os.path.exists(file_name):
-                os.remove(file_name)
+            if os.path.exists(filename):
+                os.remove(filename)
             logging.exception(f"Download failed: {request_exception}")
             exit_code = 5
         except Errors.DownloadFailed:
             # clean up
-            if os.path.exists(file_name):
-                os.remove(file_name)
+            if os.path.exists(filename):
+                os.remove(filename)
             logging.exception(
                 f"Download failed with status {response.status_code} {response.reason}"
             )
@@ -116,14 +124,14 @@ def download_file(self, uri: str, file_name: str, auth: Auth):
         logging.warning(f"Retrying in {retry_delay} second(s)...")
         time.sleep(retry_delay)
 
-    if not self.ignore_failed_downloads:
+    if not client.ignore_failed_downloads:
         logging.info(
             "To skip failed downloads and continue with next file, add argument '--ignore-failed-downloads'"
         )
-        self.print_download_stats()
+        client.print_download_stats()
         raise Errors.ProtectError(exit_code)
     else:
         logging.info(
             "Argument '--ignore-failed-downloads' is present, continue downloading files..."
         )
-        self.files_skipped += 1
+        client.files_skipped += 1
