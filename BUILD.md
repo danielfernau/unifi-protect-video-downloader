@@ -26,7 +26,14 @@ $ git clone https://github.com/unifi-toolbox/unifi-protect-video-downloader
 $ cd unifi-protect-video-downloader
 ```
 
+### Spawn a shell within the virtual environment
+If no virtual environment exists yet, a new one will be created automatically.
+```bash
+$ poetry shell
+```
+
 ### Install project dependencies
+It's recommended to switch to a virtual environment using `poetry shell` before running this command.
 ```bash
 $ poetry install
 ```
@@ -35,7 +42,8 @@ $ poetry install
 
 ## :pencil: Development
 Once the environment has been set up, you can start editing the source files.  
-Poetry documentation can be found at https://python-poetry.org/docs/cli/
+Poetry documentation can be found at https://python-poetry.org/docs/cli/  
+It's recommended to switch to a virtual environment using `poetry shell` before running any of the commands below.
 
 ### Run
 ```bash
