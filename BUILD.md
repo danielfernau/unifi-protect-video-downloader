@@ -55,6 +55,11 @@ $ poetry run protect-archiver [OPTIONS] COMMAND [ARGS]...
 $ poetry run flake8 protect_archiver
 ```
 
+### Format code
+```bash
+$ black protect_archiver
+```
+
 ### Tests
 ```bash
 $ poetry run py.test -v
