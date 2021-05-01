@@ -2,8 +2,9 @@
 
 **Tool to download footage from a local UniFi Protect system**  
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/unifi-toolbox/unifi-protect-video-downloader/Python%20package?style=flat-square)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/unifi-toolbox/unifi-protect-video-downloader?style=flat-square&label=stable)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/unifi-toolbox/unifi-protect-video-downloader?include_prereleases&sort=semver&style=flat-square&label=beta)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/unifi-toolbox/unifi-protect-video-downloader/Python%20package/v2.0.0?style=flat-square&label=build%20(v2.0.0))
 ![GitHub repo size](https://img.shields.io/github/repo-size/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
 ![GitHub stars](https://img.shields.io/github/stars/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
 ![Docker image size](https://img.shields.io/docker/image-size/unifitoolbox/protect-archiver/latest?style=flat-square)
@@ -11,15 +12,34 @@
 ![License](https://img.shields.io/github/license/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
 
 
+
 ## :package: Releases
 
-Latest release: https://github.com/unifi-toolbox/unifi-protect-video-downloader/releases/latest  
-Docker image: https://hub.docker.com/r/unifitoolbox/protect-archiver  
+Releases: https://github.com/unifi-toolbox/unifi-protect-video-downloader/releases  
+Docker images: https://hub.docker.com/r/unifitoolbox/protect-archiver  
+
+:file_folder: Version 1.x code: https://github.com/unifi-toolbox/unifi-protect-video-downloader/tree/2165204442d30676f3f48ad445c0211c6e5c00c1
+
+
+
+## :vertical_traffic_light: Compatibility  
+
+| UniFi Cloud Key | :white_check_mark: mostly stable |
+| :---: | :---: |
+| Firmware | >= 1.1.6 |
+| Protect | >= 1.11.3 |
+
+
+| UniFi Dream Machine Pro | :warning: experimental/beta |  
+| :---: | :---: |  
+| Firmware | >= v1.7.0 |  
+| Protect | >= v1.14.10 |  
+
 
 
 ## :arrow_right: Getting started
 
-### For CloudKey-based Protect installations
+### For Cloud Key-based Protect installations
 
 `docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver --help`
 
@@ -33,8 +53,9 @@ Example: `docker run --volume /path/on/host/machine:/downloads unifitoolbox/prot
 ### For UDM-based Protect installations
 
 The `protect-archiver` can access UDM-based Protect installations by using [@Silvenga](https://github.com/Silvenga)'s 
-[unifi-udm-api-proxy](https://github.com/Silvenga/unifi-udm-api-proxy).
+[unifi-udm-api-proxy](https://github.com/Silvenga/unifi-udm-api-proxy).  
 
+:warning: This is only a work-around for now and might not always function as expected. There are known issues due to differences between CloudKey and UDM in terms of the APIs and authentication methods. We're aleady working on improving the session/authentication part of the software.
 
 #### Download the project files
 
@@ -67,6 +88,16 @@ _Hint:_ To stop the UniFi UDM API Proxy, run `docker-compose down` from within t
 
 Example: `docker run --network=unifi-protect-video-downloader_default --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download --address="unifi-udm-api-proxy" [OPTIONS] /downloads`
 
+## :thought_balloon: Questions, ideas, support and more...
+
+For everything that isn't a bug, issue or error, feel free to use the project's Discussions tab:  
+https://github.com/unifi-toolbox/unifi-protect-video-downloader/discussions
+
+
+## :hammer_and_wrench: Development and Build Instructions
+
+If you want to make changes, build you own version, test things or contribute to the project, you can find all the relevant Development and Build Instructions in the [BUILD.md](https://github.com/unifi-toolbox/unifi-protect-video-downloader/blob/master/BUILD.md) file. Pull requests are welcome!
+
 
 ## :link: Links
 
@@ -75,6 +106,7 @@ https://community.ui.com/questions/Tool-for-downloading-footage-from-UniFi-Prote
 
 **Reddit post:**  
 https://www.reddit.com/r/Ubiquiti/comments/dhaxcq/tool_for_downloading_footage_from_unifi_protect/
+
 
 
 ## :warning: Important Information
