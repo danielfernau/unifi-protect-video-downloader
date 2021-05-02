@@ -2,9 +2,10 @@ import click
 
 from os import path
 
-from .base import cli
-from ..client import ProtectClient
-from ..sync import ProtectSync
+from protect_archiver.cli.base import cli
+from protect_archiver.client import ProtectClient
+from protect_archiver.sync import ProtectSync
+from protect_archiver.utils import print_download_stats
 
 
 @cli.command(
@@ -35,9 +36,7 @@ from ..sync import ProtectSync
     hide_input=True,
 )
 @click.option(
-    "--statefile",
-    default="sync.state",
-    show_default=True,
+    "--statefile", default="sync.state", show_default=True,
 )
 @click.option(
     "--ignore-state", is_flag=True, default=False, show_default=True,
@@ -107,4 +106,4 @@ def sync(
     process = ProtectSync(client=client, destination_path=dest, statefile=statefile)
     process.run(camera_list, ignore_state=ignore_state)
 
-    client.print_download_stats()
+    print_download_stats()

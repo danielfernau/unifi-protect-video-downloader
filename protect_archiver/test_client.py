@@ -3,6 +3,8 @@ import pytest
 
 from datetime import datetime, timezone
 
+from protect_archiver.downloader import Downloader
+
 
 @pytest.fixture(autouse=True)
 def mock_api(
@@ -10,8 +12,8 @@ def mock_api(
 ):
     responses.add(
         responses.POST,
-        "https://unifi:7443/api/auth",
-        headers={"Authorization": "token.token.token"},
+        "https://unifi:443/api/auth/login",
+        headers={"Set-Cookie": "TOKEN=token.token.token"},
         json=sample_token_json,
     )
     responses.add(
@@ -23,7 +25,9 @@ def mock_api(
         responses.GET, "https://unifi:7443/api/bootstrap", json=sample_bootstrap_json
     )
     responses.add(
-        responses.GET, "https://unifi:7443/api/cameras", json=sample_bootstrap_json["cameras"]
+        responses.GET,
+        "https://unifi:443/proxy/protect/api/cameras",
+        json=sample_bootstrap_json["cameras"],
     )
 
 
@@ -52,7 +56,7 @@ def test_get_camera_list_with_disconnected(client):
 def test_download_footage(responses, client, sample_camera, test_output_dest):
     responses.add(
         responses.GET,
-        "https://unifi:7443/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939000",
+        "https://unifi:443/proxy/protect/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939000",
         body="abcdefg",
         headers={
             "Content-Type": "video/mp4",
@@ -64,11 +68,10 @@ def test_download_footage(responses, client, sample_camera, test_output_dest):
     start = datetime(2020, 1, 8, 23, 0, 0, tzinfo=timezone.utc)
     end = datetime(2020, 1, 8, 23, 59, 0, tzinfo=timezone.utc)
 
-    client.download_footage(start, end, sample_camera)
+    Downloader.download_footage(client, start, end, sample_camera)
 
     file_name = os.path.join(
-        test_output_dest,
-        "Exterior (raId) - 2020-01-08 - 23.00.00+0000.mp4",
+        test_output_dest, "Exterior (raId) - 2020-01-08 - 23.00.00+0000.mp4",
     )
 
     assert os.path.exists(file_name)

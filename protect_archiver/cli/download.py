@@ -1,22 +1,30 @@
-import click
-
 from datetime import datetime
 
-from .base import cli
-from ..client import ProtectClient, ProtectError
+import click
+
+from protect_archiver.cli.base import cli
+from protect_archiver.client import ProtectClient
+from protect_archiver.config import Config
+from protect_archiver.downloader import Downloader
+from protect_archiver.errors import Errors
+from protect_archiver.utils import print_download_stats
 
 
 @cli.command("download", help="Download footage from a local UniFi Protect system")
 @click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
     "--address",
-    default="unifi",
+    default=Config.ADDRESS,
     show_default=True,
     required=True,
-    help="CloudKey IP address or hostname",
+    help="IP address or hostname of the UniFi Protect Server",
 )
 @click.option(
-    "--port", default=7443, show_default=True, help="UniFi Protect service port"
+    "--not-unifi-os",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Use this for systems without UniFi OS",
 )
 @click.option(
     "--username",
@@ -36,7 +44,7 @@ from ..client import ProtectClient, ProtectError
     is_flag=True,
     default=False,
     show_default=True,
-    help="Verify CloudKey SSL certificate",
+    help="Verify Protect SSL certificate",
 )
 @click.option(
     "--cameras",
@@ -139,7 +147,7 @@ from ..client import ProtectClient, ProtectError
 def download(
     dest,
     address,
-    port,
+    not_unifi_os,
     username,
     password,
     verify_ssl,
@@ -166,7 +174,7 @@ def download(
 
     client = ProtectClient(
         address=address,
-        port=port,
+        not_unifi_os=not_unifi_os,
         username=username,
         password=password,
         verify_ssl=verify_ssl,
@@ -183,6 +191,7 @@ def download(
         # get camera list
         click.echo("Getting camera list")
         camera_list = client.get_camera_list()
+        session = client.get_session()
 
         if cameras != "all":
             cameras = set(cameras.split(","))
@@ -193,18 +202,19 @@ def download(
                 # noinspection PyUnboundLocalVariable
                 click.echo(
                     f"Downloading video files between {start} and {end}"
-                    f" from 'https://{address}:{port}/api/video/export' for camera {camera.name} \n"
+                    f" from '{session.authority}{session.base_path}/video/export' for camera {camera.name}"
                 )
 
-                client.download_footage(start, end, camera)
+                Downloader.download_footage(client, start, end, camera)
         else:
             click.echo(
-                f"Downloading snapshot files for {start}"
-                f" from 'https://{address}:{port}/api/cameras/{cameras}/snapshot' \n"
+                f"Downloading snapshot files for {start.ctime()}"
+                f" from '{session.authority}{session.base_path}/cameras/[camera_id]/snapshot'"
             )
             for camera in camera_list:
-                client.download_snapshot(start, camera)
+                Downloader.download_snapshot(client, start, camera)
 
-        client.print_download_stats()
-    except ProtectError as e:
+        print_download_stats(client)
+
+    except Errors.ProtectError as e:
         exit(e.code)

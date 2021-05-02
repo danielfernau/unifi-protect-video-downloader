@@ -1,7 +1,11 @@
 import click
 
-from .base import cli
-from ..client import ProtectClient, ProtectError
+from protect_archiver.cli.base import cli
+from protect_archiver.client import ProtectClient
+from protect_archiver.config import Config
+from protect_archiver.downloader import Downloader
+from protect_archiver.errors import Errors
+from protect_archiver.utils import print_download_stats
 
 
 @cli.command(
@@ -10,13 +14,17 @@ from ..client import ProtectClient, ProtectError
 @click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
     "--address",
-    default="unifi",
+    default=Config.ADDRESS,
     show_default=True,
     required=True,
-    help="CloudKey IP address or hostname",
+    help="IP address or hostname of the UniFi Protect Server",
 )
 @click.option(
-    "--port", default=7443, show_default=True, help="UniFi Protect service port"
+    "--not-unifi-os",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Use this for systems without UniFi OS",
 )
 @click.option(
     "--username",
@@ -36,7 +44,23 @@ from ..client import ProtectClient, ProtectError
     is_flag=True,
     default=False,
     show_default=True,
-    help="Verify CloudKey SSL certificate",
+    help="Verify Protect SSL certificate",
+)
+@click.option(
+    "--cameras",
+    default="all",
+    show_default=True,
+    help=(
+        "Comma-separated list of one or more camera IDs ('--cameras=\"id_1,id_2,id_3,...\"'). "
+        "Use '--cameras=all' to download footage of all available cameras."
+    ),
+)
+@click.option(
+    "--wait-between-downloads",
+    "download_wait",
+    default=0,
+    show_default=True,
+    help="Time to wait between file downloads, in seconds",
 )
 @click.option(
     "--ignore-failed-downloads",
@@ -46,12 +70,20 @@ from ..client import ProtectClient, ProtectError
     help="Ignore failed downloads and continue with next download",
 )
 @click.option(
-    "--cameras",
-    default="all",
+    "--skip-existing-files",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Skip downloading files which already exist on disk",
+)
+@click.option(
+    "--touch-files",
+    is_flag=True,
+    default=False,
     show_default=True,
     help=(
-        "Comma-separated list of one or more camera IDs ('--cameras=\"id_1,id_2,id_3,...\"'). "
-        "Use '--cameras=all' to download footage of all available cameras."
+        "Create local file without content for current download - "
+        "useful in combination with '--skip-existing-files' to skip problematic segments"
     ),
 )
 @click.option(
@@ -66,13 +98,6 @@ from ..client import ProtectClient, ProtectError
     default=60.0,
     show_default=True,
     help="Time to wait before aborting download request, in seconds",
-)
-@click.option(
-    "--skip-existing-files",
-    is_flag=True,
-    default=False,
-    show_default=True,
-    help="Skip downloading files which already exist on disk",
 )
 @click.option(
     "--start",
@@ -118,30 +143,34 @@ from ..client import ProtectClient, ProtectError
 def events(
     dest,
     address,
-    port,
+    not_unifi_os,
     username,
     password,
     verify_ssl,
-    ignore_failed_downloads,
     cameras,
+    download_wait,
     download_timeout,
     use_subfolders,
+    touch_files,
     skip_existing_files,
+    ignore_failed_downloads,
     start,
     end,
     download_motion_heatmaps,
 ):
     client = ProtectClient(
-        destination_path=dest,
         address=address,
-        port=port,
+        not_unifi_os=not_unifi_os,
         username=username,
         password=password,
         verify_ssl=verify_ssl,
         ignore_failed_downloads=ignore_failed_downloads,
-        download_timeout=download_timeout,
+        destination_path=dest,
         use_subfolders=use_subfolders,
+        download_wait=download_wait,
         skip_existing_files=skip_existing_files,
+        touch_files=touch_files,
+        download_timeout=download_timeout,
     )
 
     try:
@@ -164,7 +193,7 @@ def events(
 
         click.echo(
             f"Downloading motion event video files between {start} and {end}"
-            f" from 'https://{address}:{port}/api/video/export' \n"
+            f" from '{client.session.authority}{client.session.base_path}/video/export'"
         )
 
         for motion_event in motion_event_list:
@@ -181,7 +210,8 @@ def events(
                 )
                 continue
 
-            client.download_motion_event(
+            Downloader.download_motion_event(
+                client,
                 motion_event,
                 [
                     camera
@@ -191,6 +221,7 @@ def events(
                 download_motion_heatmaps,
             )
 
-        client.print_download_stats()
-    except ProtectError as e:
+        print_download_stats(client)
+
+    except Errors.ProtectError as e:
         exit(e.code)
