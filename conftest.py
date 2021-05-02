@@ -6,7 +6,8 @@ import shutil
 
 from datetime import datetime
 
-from protect_archiver.client import Camera, ProtectClient
+from protect_archiver.client import ProtectClient
+from protect_archiver.dataclasses import Camera
 
 
 @pytest.fixture

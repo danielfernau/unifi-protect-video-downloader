@@ -72,8 +72,8 @@ class ProtectClient:
                 self.verify_ssl,
             )
 
-    def get_camera_list(self):
-        return Downloader.get_camera_list(self.session)
+    def get_camera_list(self, connected=True):
+        return Downloader.get_camera_list(self.session, connected)
 
     def get_motion_event_list(self, start, end):
         return Downloader.get_motion_event_list(self.session, start, end)

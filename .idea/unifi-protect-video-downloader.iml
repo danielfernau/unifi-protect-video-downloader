@@ -9,7 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/protect_archiver.egg-info" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (unifi-protect-video-downloader)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
