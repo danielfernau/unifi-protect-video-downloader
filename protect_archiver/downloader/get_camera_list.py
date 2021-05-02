@@ -1,25 +1,26 @@
 # get camera list
 import logging
-import requests
-
 from datetime import datetime
 from typing import List
+
+import requests
 
 from protect_archiver.dataclasses import Camera
 
 
-# def get_camera_list(self, auth: Auth, connected=True) -> List[Camera]:
 def get_camera_list(session, connected=True) -> List[Camera]:
-    cameras_uri = f"https://{self.address}:{self.port}/api/cameras"
+    cameras_uri = f"{session.authority}{session.base_path}/cameras"
+
     response = requests.get(
         cameras_uri,
-        headers={"Authorization": "Bearer " + auth.get_api_token()},
-        verify=self.verify_ssl,
+        cookies={"TOKEN": session.get_api_token()},
+        verify=session.verify_ssl,
     )
     if response.status_code != 200:
+        print(f"Error while loading camera list: {response.status_code}")
         return []
 
-    logging.info("Successfully retrieved data from /api/cameras")
+    logging.info(f"Successfully retrieved data from {cameras_uri}")
     cameras = response.json()
 
     camera_list = []

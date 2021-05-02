@@ -12,7 +12,7 @@ from protect_archiver.utils import format_bytes
 def download_file(client, query: str, filename: str):
     exit_code = 1
     retry_delay = max(client.download_wait, 3)
-    uri = f"{client.session.authority}{client.session.base_path}/video/export?{query}"
+    uri = f"{client.session.authority}{client.session.base_path}{query}"
 
     # skip downloading files that already exist on disk if argument --skip-existing-files is present
     # TODO(dcramer): sanity check on filesize would be valuable here

@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 from typing import Iterable, Tuple
 
+from protect_archiver.dataclasses import Camera
+
 
 def json_encode(obj):
     if isinstance(obj, datetime):
@@ -79,3 +81,22 @@ def format_bytes(size: int) -> str:
         size /= power
         n += 1
     return f"{int(size * 100) / 100} {power_labels[n]}b"
+
+
+def make_camera_name_fs_safe(camera: Camera) -> str:
+    return (
+        "".join(
+            [c for c in camera.name if c.isalpha() or c.isdigit() or c == " "]
+        ).rstrip()
+        + f" ({str(camera.id)[-4:]})"
+    )
+
+
+def print_download_stats(client):
+    files_total = client.files_downloaded + client.files_skipped + client.files_failed
+    print(
+        f"{client.files_downloaded} files downloaded ({format_bytes(client.bytes_downloaded)}), "
+        f"{client.files_skipped} files skipped, "
+        f"{client.files_failed} files failed, "
+        f"{files_total} files total"
+    )

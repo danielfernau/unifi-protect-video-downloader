@@ -3,8 +3,7 @@ from os import path
 from protect_archiver.client.legacy import LegacyClient
 from protect_archiver.client.unifi_os import UniFiOSClient
 from protect_archiver.config import Config
-from protect_archiver.downloader.get_camera_list import get_camera_list
-from protect_archiver.downloader.get_motion_event_list import get_motion_event_list
+from protect_archiver.downloader import Downloader
 
 
 class ProtectClient:
@@ -74,13 +73,13 @@ class ProtectClient:
             )
 
     def get_camera_list(self):
-        return get_camera_list(self.session)
+        return Downloader.get_camera_list(self.session)
+
+    def get_motion_event_list(self, start, end):
+        return Downloader.get_motion_event_list(self.session, start, end)
 
     def get_session(self):
         return self.session
-
-    def get_motion_event_list(self, start, end):
-        return get_motion_event_list(self.session, start, end)
 
 
 # TODO
