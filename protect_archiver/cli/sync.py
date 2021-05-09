@@ -20,7 +20,11 @@ from protect_archiver.utils import print_download_stats
     help="CloudKey IP address or hostname",
 )
 @click.option(
-    "--port", default=7443, show_default=True, help="UniFi Protect service port"
+    "--not-unifi-os",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Use this for systems without UniFi OS",
 )
 @click.option(
     "--username",
@@ -67,7 +71,7 @@ from protect_archiver.utils import print_download_stats
 def sync(
     dest,
     address,
-    port,
+    not_unifi_os,
     username,
     password,
     verify_ssl,
@@ -86,7 +90,7 @@ def sync(
 
     client = ProtectClient(
         address=address,
-        port=port,
+        not_unifi_os=not_unifi_os,
         username=username,
         password=password,
         verify_ssl=verify_ssl,
@@ -106,4 +110,4 @@ def sync(
     process = ProtectSync(client=client, destination_path=dest, statefile=statefile)
     process.run(camera_list, ignore_state=ignore_state)
 
-    print_download_stats()
+    print_download_stats(client)
