@@ -75,8 +75,8 @@ class ProtectClient:
     def get_camera_list(self, connected=True):
         return Downloader.get_camera_list(self.session, connected)
 
-    def get_motion_event_list(self, start, end):
-        return Downloader.get_motion_event_list(self.session, start, end)
+    def get_motion_event_list(self, start, end, camera_list):
+        return Downloader.get_motion_event_list(self.session, start, end, camera_list)
 
     def get_session(self):
         return self.session
