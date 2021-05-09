@@ -180,7 +180,7 @@ def events(
 
         # get motion event list
         click.echo("Getting motion event list")
-        motion_event_list = client.get_motion_event_list(start, end)
+        motion_event_list = client.get_motion_event_list(start, end, camera_list)
 
         if cameras != "all":
             cameras = set(cameras.split(","))

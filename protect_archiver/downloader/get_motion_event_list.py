@@ -1,14 +1,14 @@
 # get motion events list
 import logging
 from datetime import datetime
-from typing import List
+from typing import List, Counter
 
 import requests
 
-from protect_archiver.dataclasses import MotionEvent
+from protect_archiver.dataclasses import MotionEvent, Camera
 
 
-def get_motion_event_list(session, start: datetime, end: datetime) -> List[MotionEvent]:
+def get_motion_event_list(session, start: datetime, end: datetime, camera_list: List[Camera]) -> List[MotionEvent]:
     motion_events_uri = (
         f"{session.authority}{session.base_path}/events?type=motion"
         f"&start={int(start.timestamp()) * 1000}&end={int(end.timestamp()) * 1000}"
@@ -39,8 +39,20 @@ def get_motion_event_list(session, start: datetime, end: datetime) -> List[Motio
             )
         )
 
+    # noinspection PyTypeHints
+    event_count_by_camera = Counter(e.camera_id for e in motion_event_list)
     logging.info(
-        f"{len(motion_event_list)} motion events found between {start} and {end}"
+        "Events found:\n{}".format(
+            "\n".join(f"{event_count_by_camera[x]} motion "
+                      f"event{'s' if event_count_by_camera[x] > 1 else ''} "
+                      f"found for camera "
+                      f"'{next(c.name for c in camera_list if c.id == x)}' ({x}) between {start} and {end}"
+                      for x in event_count_by_camera)
+        )
+    )
+
+    logging.info(
+        f"{len(motion_event_list)} motion events found for all selected cameras between {start} and {end}"
     )
 
     return motion_event_list

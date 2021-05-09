@@ -29,8 +29,8 @@ class Downloader:
         return get_camera_list(session, connected)
 
     @staticmethod
-    def get_motion_event_list(session, start, end):
-        return get_motion_event_list(session, start, end)
+    def get_motion_event_list(session, start, end, camera_list):
+        return get_motion_event_list(session, start, end, camera_list)
 
     @staticmethod
     def download_file(client, video_export_query, filename):
