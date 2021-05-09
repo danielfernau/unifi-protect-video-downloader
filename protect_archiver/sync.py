@@ -7,6 +7,7 @@ from os import path
 import dateutil.parser
 
 from .client import ProtectClient
+from .downloader import Downloader
 from .utils import calculate_intervals, json_encode
 
 
@@ -52,7 +53,7 @@ class ProtectSync(object):
                 )
                 end = datetime.now().replace(minute=0, second=0, microsecond=0)
                 for interval_start, interval_end in calculate_intervals(start, end):
-                    self.client.download_footage(interval_start, interval_end, camera)
+                    Downloader.download_footage(self.client, interval_start, interval_end, camera)
                     state["cameras"][camera.id] = {
                         "last": interval_end,
                         "name": camera.name,
