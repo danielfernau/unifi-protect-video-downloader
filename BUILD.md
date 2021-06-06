@@ -8,7 +8,7 @@
 
 ### Install the necessary packages
 ```bash
-$ sudo apt install curl git python3.8 python3-distutils python3-pip
+$ sudo apt install curl git python3.8 python3-distutils python3-pip libffi-dev libssl-dev
 ```
 
 ### Install Docker (if not already installed on your system)
