@@ -1,6 +1,6 @@
 # Project build and development instructions
 ### For Linux (Debian/Ubuntu)
-#### Tested on Ubuntu 20.04.2 LTS, last updated on March 9, 2021
+#### Tested on Ubuntu 20.04.2 LTS, last updated on June 6, 2021
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### Install the necessary packages
 ```bash
-$ sudo apt install curl git python3.8 python3-distutils python3-pip
+$ sudo apt install curl git python3.8 python3-distutils python3-pip libffi-dev libssl-dev
 ```
 
 ### Install Docker (if not already installed on your system)
