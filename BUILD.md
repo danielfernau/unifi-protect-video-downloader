@@ -1,6 +1,6 @@
 # Project build and development instructions
 ### For Linux (Debian/Ubuntu)
-#### Tested on Ubuntu 20.04.2 LTS, last updated on March 9, 2021
+#### Tested on Ubuntu 20.04.2 LTS, last updated on June 6, 2021
 
 ---
 
