@@ -3,6 +3,7 @@ class Config:
         pass
 
     ADDRESS: str = "unifi"
+    PORT: int = 443
     PROTOCOL: str = "https"
     USERNAME: str = "ubnt"
     PASSWORD: str = None
