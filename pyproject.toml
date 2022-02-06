@@ -19,7 +19,7 @@ Black = "^19.10b0"
 flake8 = "^3.7.9"
 pytest = "^5.3.5"
 responses = "^0.10.9"
-pytest-responses = "^0.4.0"
+pytest-responses = "^0.5.0"
 pytest-xdist = "^1.31.0"
 
 [tool.poetry.scripts]
