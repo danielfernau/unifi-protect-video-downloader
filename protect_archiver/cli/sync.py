@@ -80,18 +80,18 @@ from protect_archiver.utils import print_download_stats
     ),
 )
 def sync(
-    dest,
-    address,
-    port,
-    not_unifi_os,
-    username,
-    password,
-    verify_ssl,
-    statefile,
-    ignore_state,
-    ignore_failed_downloads,
-    cameras,
-):
+    dest: str,
+    address: str,
+    port: int,
+    not_unifi_os: bool,
+    username: str,
+    password: str,
+    verify_ssl: bool,
+    statefile: str,
+    ignore_state: bool,
+    ignore_failed_downloads: bool,
+    cameras: str,
+) -> None:
     # normalize path to destination directory and check if it exists
     dest = path.abspath(dest)
     if not path.isdir(dest):

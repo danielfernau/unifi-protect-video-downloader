@@ -1,3 +1,7 @@
+from datetime import datetime
+from typing import Any
+from typing import List
+
 from protect_archiver.config import Config
 from protect_archiver.downloader.download_file import download_file
 from protect_archiver.downloader.download_footage import download_footage
@@ -16,7 +20,7 @@ class Downloader:
         max_retries: int = Config.MAX_RETRIES,
         skip_existing_files: bool = Config.SKIP_EXISTING_FILES,
         download_wait: int = Config.DOWNLOAD_WAIT,
-    ):
+    ) -> None:
         self.ignore_failed_downloads = ignore_failed_downloads
         self.download_timeout = download_timeout
         self.verify_ssl = verify_ssl
@@ -25,25 +29,29 @@ class Downloader:
         self.download_wait = download_wait
 
     @staticmethod
-    def get_camera_list(session, connected):
+    def get_camera_list(session: Any, connected: bool) -> List[Any]:
         return get_camera_list(session, connected)
 
     @staticmethod
-    def get_motion_event_list(session, start, end, camera_list):
+    def get_motion_event_list(
+        session: Any, start: datetime, end: datetime, camera_list: List[Any]
+    ) -> List[Any]:
         return get_motion_event_list(session, start, end, camera_list)
 
     @staticmethod
-    def download_file(client, video_export_query, filename):
+    def download_file(client: Any, video_export_query: str, filename: str) -> Any:
         return download_file(client, video_export_query, filename)
 
     @staticmethod
-    def download_footage(client, start, end, camera):
+    def download_footage(client: Any, start: datetime, end: datetime, camera: Any) -> Any:
         return download_footage(client, start, end, camera)
 
     @staticmethod
-    def download_snapshot(client, start, camera):
+    def download_snapshot(client: Any, start: datetime, camera: Any) -> Any:
         return download_snapshot(client, start, camera)
 
     @staticmethod
-    def download_motion_event(client, motion_event, camera, download_motion_heatmaps):
+    def download_motion_event(
+        client: Any, motion_event: Any, camera: Any, download_motion_heatmaps: Any
+    ) -> Any:
         download_motion_event(client, motion_event, camera, download_motion_heatmaps)

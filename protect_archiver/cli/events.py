@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import click
 
 from protect_archiver.cli.base import cli
@@ -146,24 +148,24 @@ from protect_archiver.utils import print_download_stats
     help="Also download motion heatmaps for event recordings",
 )
 def events(
-    dest,
-    address,
-    port,
-    not_unifi_os,
-    username,
-    password,
-    verify_ssl,
-    cameras,
-    download_wait,
-    download_timeout,
-    use_subfolders,
-    touch_files,
-    skip_existing_files,
-    ignore_failed_downloads,
-    start,
-    end,
-    download_motion_heatmaps,
-):
+    dest: str,
+    address: str,
+    port: int,
+    not_unifi_os: bool,
+    username: str,
+    password: str,
+    verify_ssl: bool,
+    cameras: str,
+    download_wait: int,
+    download_timeout: int,
+    use_subfolders: bool,
+    touch_files: bool,
+    skip_existing_files: bool,
+    ignore_failed_downloads: bool,
+    start: datetime,
+    end: datetime,
+    download_motion_heatmaps: bool,
+) -> None:
     client = ProtectClient(
         address=address,
         port=port,
@@ -190,9 +192,9 @@ def events(
         motion_event_list = client.get_motion_event_list(start, end, camera_list)
 
         if cameras != "all":
-            cameras = set(cameras.split(","))
+            camera_s = set(cameras.split(","))
             # keep only selected cameras in list
-            camera_list = [camera for camera in camera_list if camera["id"] in cameras]
+            camera_list = [camera for camera in camera_list if camera["id"] in camera_s]
             # keep only events for selected cameras
             motion_event_list = [event for event in motion_event_list if event.camera_id in cameras]
 

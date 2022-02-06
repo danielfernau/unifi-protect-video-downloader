@@ -152,24 +152,24 @@ from protect_archiver.utils import print_download_stats
     ),
 )
 def download(
-    dest,
-    address,
-    port,
-    not_unifi_os,
-    username,
-    password,
-    verify_ssl,
-    cameras,
-    download_wait,
-    download_timeout,
-    use_subfolders,
-    touch_files,
-    skip_existing_files,
-    ignore_failed_downloads,
-    start,
-    end,
-    create_snapshot,
-):
+    dest: str,
+    address: str,
+    port: int,
+    not_unifi_os: bool,
+    username: str,
+    password: str,
+    verify_ssl: bool,
+    cameras: str,
+    download_wait: int,
+    download_timeout: int,
+    use_subfolders: bool,
+    touch_files: bool,
+    skip_existing_files: bool,
+    ignore_failed_downloads: bool,
+    start: datetime,
+    end: datetime,
+    create_snapshot: bool,
+) -> None:
     # check the provided command line arguments
     # TODO(danielfernau): remove exit codes 1 (path invalid) and 6 (start/end/snapshot) from docs: no longer valid
 
@@ -203,8 +203,8 @@ def download(
         session = client.get_session()
 
         if cameras != "all":
-            cameras = set(cameras.split(","))
-            camera_list = [c for c in camera_list if c["id"] in cameras]
+            camera_s = set(cameras.split(","))
+            camera_list = [c for c in camera_list if c["id"] in camera_s]
 
         if not create_snapshot:
             for camera in camera_list:

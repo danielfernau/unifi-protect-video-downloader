@@ -4,13 +4,15 @@ import logging
 import os
 import time
 
+from typing import Any
+
 import requests
 
 from protect_archiver.errors import Errors
 from protect_archiver.utils import format_bytes
 
 
-def download_file(client, query: str, filename: str):
+def download_file(client: Any, query: str, filename: str) -> None:
     exit_code = 1
     retry_delay = max(client.download_wait, 3)
     uri = f"{client.session.authority}{client.session.base_path}{query}"

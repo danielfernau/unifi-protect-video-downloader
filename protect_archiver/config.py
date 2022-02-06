@@ -1,12 +1,15 @@
+from typing import Optional
+
+
 class Config:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     ADDRESS: str = "unifi"
     PORT: int = 443
     PROTOCOL: str = "https"
     USERNAME: str = "ubnt"
-    PASSWORD: str = None
+    PASSWORD: Optional[str] = None
     VERIFY_SSL: bool = False
     USE_UNSAFE_COOKIE_JAR: bool = False
     DESTINATION_PATH: str = "./"

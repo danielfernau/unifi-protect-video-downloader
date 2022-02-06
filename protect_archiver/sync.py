@@ -13,7 +13,7 @@ from .utils import json_encode
 
 
 class ProtectSync:
-    def __init__(self, client: ProtectClient, destination_path: str, statefile: str):
+    def __init__(self, client: ProtectClient, destination_path: str, statefile: str) -> None:
         self.client = client
         self.statefile = path.abspath(path.join(destination_path, statefile))
 
@@ -26,11 +26,11 @@ class ProtectSync:
 
         return state
 
-    def writestate(self, state: dict):
+    def writestate(self, state: dict) -> None:
         with open(self.statefile, "w") as fp:
             json.dump(state, fp, default=json_encode)
 
-    def run(self, camera_list: list, ignore_state: bool = False):
+    def run(self, camera_list: list, ignore_state: bool = False) -> None:
         # noinspection PyUnboundLocalVariable
         logging.info(
             f"Synchronizing video files from 'https://{self.client.address}:{self.client.port}"

@@ -2,6 +2,7 @@
 import logging
 
 from datetime import datetime
+from typing import Any
 from typing import List
 
 import requests
@@ -9,7 +10,7 @@ import requests
 from protect_archiver.dataclasses import Camera
 
 
-def get_camera_list(session, connected=True) -> List[Camera]:
+def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
     cameras_uri = f"{session.authority}{session.base_path}/cameras"
 
     response = requests.get(
