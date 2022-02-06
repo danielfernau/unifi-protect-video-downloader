@@ -11,7 +11,6 @@ jobs:
   package-lint-and-test:
     name: ${{ matrix.os }} / ${{ matrix.python-version }} ${{ matrix.suffix }}
     runs-on: ${{ matrix.image }}
-    environment: development
     strategy:
       matrix:
         os: [Ubuntu]
