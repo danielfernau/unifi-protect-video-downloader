@@ -11,13 +11,13 @@
 ![Docker image size](https://img.shields.io/docker/image-size/unifitoolbox/protect-archiver/latest?style=flat-square)
 ![Docker pulls](https://img.shields.io/docker/pulls/unifitoolbox/protect-archiver?style=flat-square)
 ![License](https://img.shields.io/github/license/unifi-toolbox/unifi-protect-video-downloader?style=flat-square)
-
+![Codecov](https://img.shields.io/codecov/c/github/unifi-toolbox/unifi-protect-video-downloader?style=flat-square&token=QV50XU5J0O)
 
 
 ## :package: Releases
 
-Releases: https://github.com/unifi-toolbox/unifi-protect-video-downloader/releases
-Docker images: https://hub.docker.com/r/unifitoolbox/protect-archiver
+Releases: https://github.com/unifi-toolbox/unifi-protect-video-downloader/releases  
+Docker images: https://hub.docker.com/r/unifitoolbox/protect-archiver  
 
 :file_folder: Version 1.x code: https://github.com/unifi-toolbox/unifi-protect-video-downloader/tree/2165204442d30676f3f48ad445c0211c6e5c00c1
 
@@ -68,7 +68,7 @@ docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiv
 
 ## :thought_balloon: Questions, ideas, support and more...
 
-For everything that isn't a bug, issue or error, feel free to use the project's Discussions tab:
+For everything that isn't a bug, issue or error, feel free to use the project's Discussions tab:  
 https://github.com/unifi-toolbox/unifi-protect-video-downloader/discussions
 
 
@@ -79,15 +79,15 @@ If you want to make changes, build you own version, test things or contribute to
 
 ## :link: Links
 
-**Community post:**
+**Community post:**  
 https://community.ui.com/questions/Tool-for-downloading-footage-from-UniFi-Protect/47057c1d-112b-4092-b488-a380286933df
 
-**Reddit post:**
+**Reddit post:**  
 https://www.reddit.com/r/Ubiquiti/comments/dhaxcq/tool_for_downloading_footage_from_unifi_protect/
 
 
 
 ## :warning: Important Information
-This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti Inc.
-It is not guaranteed that it will always run flawlessly, so use this tool at your own risk.
-The software is provided without any warranty or liability, as stated in the [license](LICENSE).
+This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti Inc.  
+It is not guaranteed that it will always run flawlessly, so use this tool at your own risk.  
+The software is provided without any warranty or liability, as stated in the [license](LICENSE).  
