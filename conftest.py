@@ -1,10 +1,11 @@
 import json
 import os
-import pytest
-import responses as responses_
 import shutil
 
 from datetime import datetime
+
+import pytest
+import responses as responses_
 
 from protect_archiver.client import ProtectClient
 from protect_archiver.dataclasses import Camera
@@ -47,9 +48,7 @@ def test_output_dest():
 
 @pytest.fixture
 def client(test_output_dest):
-    return ProtectClient(
-        destination_path=test_output_dest, password="test", download_timeout=0.01
-    )
+    return ProtectClient(destination_path=test_output_dest, password="test", download_timeout=0.01)
 
 
 @pytest.yield_fixture

@@ -1,9 +1,10 @@
 # file downloader
 import json
 import logging
-import time
-import requests
 import os
+import time
+
+import requests
 
 from protect_archiver.errors import Errors
 from protect_archiver.utils import format_bytes
@@ -19,7 +20,7 @@ def download_file(client, query: str, filename: str):
     if bool(client.skip_existing_files) and os.path.exists(filename):
         logging.info(
             f"File {filename} already exists on disk and argument '--skip-existing-files' "
-            f"is present - skipping download \n"
+            "is present - skipping download \n"
         )
         client.files_skipped += 1
         return  # skip the download
@@ -57,9 +58,7 @@ def download_file(client, query: str, filename: str):
                 except Exception:
                     data = None
 
-                error_message = (
-                    data.get("error") or data or "(no information available)"
-                )
+                error_message = data.get("error") or data or "(no information available)"
 
                 # TODO
                 logging.exception(
@@ -126,7 +125,8 @@ def download_file(client, query: str, filename: str):
 
     if not client.ignore_failed_downloads:
         logging.info(
-            "To skip failed downloads and continue with next file, add argument '--ignore-failed-downloads'"
+            "To skip failed downloads and continue with next file, add argument"
+            " '--ignore-failed-downloads'"
         )
         client.print_download_stats()
         raise Errors.ProtectError(exit_code)

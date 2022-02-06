@@ -55,8 +55,8 @@ $ poetry install
 ---
 
 ## :pencil: Development
-Once the environment has been set up, you can start editing the source files.  
-Poetry documentation can be found at https://python-poetry.org/docs/cli/  
+Once the environment has been set up, you can start editing the source files.
+Poetry documentation can be found at https://python-poetry.org/docs/cli/
 It's recommended to switch to a virtual environment using `poetry shell` before running any of the commands below.
 
 ### Run
@@ -105,5 +105,5 @@ $ docker build -t unifitoolbox/protect-archiver .
 ```bash
 $ docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver --help
 ```
-Replace `/path/on/host/machine` with an absolute path to your download directory and `--help` with one of the supported commands and its parameters.  
+Replace `/path/on/host/machine` with an absolute path to your download directory and `--help` with one of the supported commands and its parameters.
 Have a look at the project's README.md for additional details.

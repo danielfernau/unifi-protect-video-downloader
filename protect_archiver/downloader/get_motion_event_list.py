@@ -1,11 +1,14 @@
 # get motion events list
 import logging
+
 from datetime import datetime
-from typing import List, Counter
+from typing import Counter
+from typing import List
 
 import requests
 
-from protect_archiver.dataclasses import MotionEvent, Camera
+from protect_archiver.dataclasses import Camera
+from protect_archiver.dataclasses import MotionEvent
 
 
 def get_motion_event_list(
@@ -46,17 +49,18 @@ def get_motion_event_list(
     logging.info(
         "Events found:\n{}".format(
             "\n".join(
-                f"{event_count_by_camera[x]} motion "
-                f"event{'s' if event_count_by_camera[x] > 1 else ''} "
-                f"found for camera "
-                f"'{next(c.name for c in camera_list if c.id == x)}' ({x}) between {start} and {end}"
+                f"{event_count_by_camera[x]} motion"
+                f" event{'s' if event_count_by_camera[x] > 1 else ''} found for camera"
+                f" '{next(c.name for c in camera_list if c.id == x)}' ({x}) between {start} and"
+                f" {end}"
                 for x in event_count_by_camera
             )
         )
     )
 
     logging.info(
-        f"{len(motion_event_list)} motion events found for all selected cameras between {start} and {end}"
+        f"{len(motion_event_list)} motion events found for all selected cameras between {start} and"
+        f" {end}"
     )
 
     return motion_event_list

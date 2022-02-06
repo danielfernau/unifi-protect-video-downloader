@@ -1,5 +1,6 @@
 import logging
 import os
+
 from datetime import datetime
 
 from protect_archiver.dataclasses import Camera
@@ -17,9 +18,7 @@ def download_snapshot(client, start: datetime, camera: Camera):
         folder_month = start.strftime("%m")
         folder_day = start.strftime("%d")
 
-        dir_by_date_and_name = (
-            f"{folder_year}/{folder_month}/{folder_day}/{camera_name_fs_safe}"
-        )
+        dir_by_date_and_name = f"{folder_year}/{folder_month}/{folder_day}/{camera_name_fs_safe}"
         target_with_date_and_name = f"{client.destination_path}/{dir_by_date_and_name}"
 
         download_dir = target_with_date_and_name
@@ -35,14 +34,13 @@ def download_snapshot(client, start: datetime, camera: Camera):
     filename = f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.jpg"
 
     logging.info(
-        f"Downloading snapshot for camera '{camera.name}' ({camera.id}) at {start.ctime()} to {filename}"
+        f"Downloading snapshot for camera '{camera.name}' ({camera.id}) at {start.ctime()} to"
+        f" {filename}"
     )
 
     # create file without content if argument --touch-files is present
     if bool(client.touch_files) and not os.path.exists(filename):
-        logging.debug(
-            f"Argument '--touch-files' is present. Creating file at {filename}"
-        )
+        logging.debug(f"Argument '--touch-files' is present. Creating file at {filename}")
         open(filename, "a").close()
 
     js_timestamp_start = int(start.timestamp()) * 1000

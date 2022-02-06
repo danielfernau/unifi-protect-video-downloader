@@ -8,17 +8,18 @@ import dateutil.parser
 
 from .client import ProtectClient
 from .downloader import Downloader
-from .utils import calculate_intervals, json_encode
+from .utils import calculate_intervals
+from .utils import json_encode
 
 
-class ProtectSync(object):
+class ProtectSync:
     def __init__(self, client: ProtectClient, destination_path: str, statefile: str):
         self.client = client
         self.statefile = path.abspath(path.join(destination_path, statefile))
 
     def readstate(self) -> dict:
         if path.isfile(self.statefile):
-            with open(self.statefile, "r") as fp:
+            with open(self.statefile) as fp:
                 state = json.load(fp)
         else:
             state = {"cameras": {}}
@@ -47,15 +48,11 @@ class ProtectSync(object):
                         minute=0, second=0, microsecond=0
                     )
                     if "last" in camera_state
-                    else camera.recording_start.replace(
-                        minute=0, second=0, microsecond=0
-                    )
+                    else camera.recording_start.replace(minute=0, second=0, microsecond=0)
                 )
                 end = datetime.now().replace(minute=0, second=0, microsecond=0)
                 for interval_start, interval_end in calculate_intervals(start, end):
-                    Downloader.download_footage(
-                        self.client, interval_start, interval_end, camera
-                    )
+                    Downloader.download_footage(self.client, interval_start, interval_end, camera)
                     state["cameras"][camera.id] = {
                         "last": interval_end,
                         "name": camera.name,
