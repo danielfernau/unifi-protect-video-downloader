@@ -1,16 +1,15 @@
-import click
-
 from os import path
+
+import click
 
 from protect_archiver.cli.base import cli
 from protect_archiver.client import ProtectClient
+from protect_archiver.config import Config
 from protect_archiver.sync import ProtectSync
 from protect_archiver.utils import print_download_stats
 
 
-@cli.command(
-    "sync", help="Synchronize your UniFi Protect footage to a local destination"
-)
+@cli.command("sync", help="Synchronize your UniFi Protect footage to a local destination")
 @click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
     "--address",
@@ -18,6 +17,13 @@ from protect_archiver.utils import print_download_stats
     show_default=True,
     required=True,
     help="CloudKey IP address or hostname",
+)
+@click.option(
+    "--port",
+    default=Config.PORT,
+    show_default=True,
+    required=False,
+    help="CloudKey port",
 )
 @click.option(
     "--not-unifi-os",
@@ -40,10 +46,15 @@ from protect_archiver.utils import print_download_stats
     hide_input=True,
 )
 @click.option(
-    "--statefile", default="sync.state", show_default=True,
+    "--statefile",
+    default="sync.state",
+    show_default=True,
 )
 @click.option(
-    "--ignore-state", is_flag=True, default=False, show_default=True,
+    "--ignore-state",
+    is_flag=True,
+    default=False,
+    show_default=True,
 )
 @click.option(
     "--verify-ssl",
@@ -71,6 +82,7 @@ from protect_archiver.utils import print_download_stats
 def sync(
     dest,
     address,
+    port,
     not_unifi_os,
     username,
     password,
@@ -83,13 +95,12 @@ def sync(
     # normalize path to destination directory and check if it exists
     dest = path.abspath(dest)
     if not path.isdir(dest):
-        click.echo(
-            f"Video file destination directory '{dest} is invalid or does not exist!"
-        )
+        click.echo(f"Video file destination directory '{dest} is invalid or does not exist!")
         exit(1)
 
     client = ProtectClient(
         address=address,
+        port=port,
         not_unifi_os=not_unifi_os,
         username=username,
         password=password,

@@ -10,6 +10,7 @@ class ProtectClient:
     def __init__(
         self,
         address: str = Config.ADDRESS,
+        port: int = Config.PORT,
         protocol: str = Config.PROTOCOL,
         username: str = Config.USERNAME,
         password: str = Config.PASSWORD,
@@ -27,6 +28,7 @@ class ProtectClient:
     ):
         self.protocol = protocol
         self.address = address
+        self.port = port if port is not None else 7443 if not_unifi_os else 443
         self.not_unifi_os = not_unifi_os
         self.username = username
         self.password = password

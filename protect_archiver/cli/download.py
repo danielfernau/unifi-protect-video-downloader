@@ -20,6 +20,13 @@ from protect_archiver.utils import print_download_stats
     help="IP address or hostname of the UniFi Protect Server",
 )
 @click.option(
+    "--port",
+    default=Config.PORT,
+    show_default=True,
+    required=False,
+    help="The port of the UniFi Protect Server",
+)
+@click.option(
     "--not-unifi-os",
     is_flag=True,
     default=False,
@@ -147,6 +154,7 @@ from protect_archiver.utils import print_download_stats
 def download(
     dest,
     address,
+    port,
     not_unifi_os,
     username,
     password,
@@ -174,6 +182,7 @@ def download(
 
     client = ProtectClient(
         address=address,
+        port=port,
         not_unifi_os=not_unifi_os,
         username=username,
         password=password,
