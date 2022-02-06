@@ -20,10 +20,24 @@ $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-po
 $ source $HOME/.poetry/env
 ```
 
+OR
+
+```bash
+$ pip install -U poetry
+$ source $HOME/.poetry/env
+```
+
 ### Clone the source repository
 ```bash
 $ git clone https://github.com/unifi-toolbox/unifi-protect-video-downloader
 $ cd unifi-protect-video-downloader
+```
+
+### Install pre-commit hooks
+```bash
+$ pip install pre-commit
+$ pre-commit install
+$ pre-commit run --all # first run
 ```
 
 ### Spawn a shell within the virtual environment

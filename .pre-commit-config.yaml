@@ -1,0 +1,61 @@
+ci:
+  autofix_prs: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: pretty-format-json
+        args: [--autofix, --no-ensure-ascii, --no-sort-keys]
+      - id: check-ast
+      - id: debug-statements
+      - id: check-docstring-first
+      - id: mixed-line-ending
+        args:
+          - --fix=lf
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.31.0
+    hooks:
+      - id: pyupgrade
+        args: [--py36-plus]
+        exclude: '^(install|get)-poetry.py$'
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: "isort (python)"
+        types: [python]
+
+  - repo: https://github.com/psf/black
+    rev: 22.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+
+  - repo: local
+    hooks:
+      # - id: mypy
+      #   name: Check mypy static types match
+      #   entry: poetry run python -m mypy protect_archivers
+      #   pass_filenames: false
+      #   language: system
+      #   types: [python]
+      - id: pytest
+        name: Check pytest unit tests pass
+        entry: poetry run python -m pytest -vv
+        pass_filenames: false
+        language: system
+        types: [python]
