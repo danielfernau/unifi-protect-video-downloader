@@ -7,7 +7,7 @@ COPY . /build/
 
 RUN poetry build -f wheel --no-ansi --no-interaction
 
-FROM python:3.8-slim AS base
+FROM python:3.10.2-slim AS base
 
 RUN mkdir /install
 WORKDIR /install
