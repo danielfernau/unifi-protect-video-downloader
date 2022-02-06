@@ -47,12 +47,12 @@ repos:
 
   - repo: local
     hooks:
-      # - id: mypy
-      #   name: Check mypy static types match
-      #   entry: poetry run python -m mypy protect_archivers
-      #   pass_filenames: false
-      #   language: system
-      #   types: [python]
+      - id: mypy
+        name: Check mypy static types match
+        entry: poetry run python -m mypy protect_archiver
+        pass_filenames: false
+        language: system
+        types: [python]
       - id: pytest
         name: Check pytest unit tests pass
         entry: poetry run python -m pytest -vv

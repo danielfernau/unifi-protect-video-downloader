@@ -49,8 +49,8 @@ jobs:
           poetry run python -m flake8 .
           # poetry run python -m pylint .
 
-      # - name: Typing
-      #   run: poetry run python -m mypy .
+      - name: Typing
+        run: poetry run python -m mypy .
 
       - name: Test
         run: poetry run python -m pytest --cov=. --cov-report term --cov-report xml --cov-config .coveragerc --junitxml=testresults.xml
