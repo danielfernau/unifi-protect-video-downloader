@@ -44,7 +44,7 @@ class UniFiOSClient:
             )
             raise Errors.ProtectError(2)
 
-        logging.info(f"Successfully authenticated as user {self.username} using a session cookie")
+        logging.debug("Successfully authenticated user using a session cookie")
 
         session_cookie_token = response.cookies.get("TOKEN")
 
