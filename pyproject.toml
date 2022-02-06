@@ -1,30 +1,90 @@
 [tool.poetry]
 name = "protect-archiver"
 version = "2.0.2"
-description = ""
+description = "Unifi Protect archiver"
 authors = ["Daniel Fernau", "David Cramer"]
 license = "MIT"
+
+readme = "README.md"
+
 packages = [
     { include = "protect_archiver"}
 ]
 
+homepage = "https://github.com/unifi-toolbox/unifi-protect-video-downloader"
+repository = "https://github.com/unifi-toolbox/unifi-protect-video-downloader"
+
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = "^3.8"
+pip = "*"
 python-dateutil = "^2.8.1"
-requests = {extras = ["security"], version = "^2.22.0"}
-click = "^7.0"
+requests = {extras = ["security"], version = "^2.27.0"}
+click = "^8.0.2"
+types-python-dateutil = "^2.8.9"
+
 
 [tool.poetry.dev-dependencies]
-Black = "^19.10b0"
-flake8 = "^3.7.9"
-pytest = "^5.3.5"
-responses = "^0.10.9"
-pytest-responses = "^0.4.0"
-pytest-xdist = "^1.31.0"
+black = "*"
+codecov = "*"
+flake8 = "*"
+isort = "^5.10.1"
+mypy = "*"
+pytest = "*"
+pytest-cov = "*"
+pylint = "*"
+responses = "*"
+pytest-responses = "*"
+pytest-xdist = "*"
+
 
 [tool.poetry.scripts]
 protect-archiver = 'protect_archiver.cli:main'
 
+
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.isort]
+py_version = 39
+profile = "black"
+force_single_line = true
+combine_as_imports = true
+lines_between_types = 1
+lines_after_imports = 2
+src_paths = ["protect_archiver", "tests"]
+
+
+[tool.black]
+line-length = 100
+experimental_string_processing = true
+force-exclude = '''
+.*/setup\.py$
+'''
+
+
+[tool.mypy]
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+files = "protect_archiver"
+
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:"
+]
