@@ -1,5 +1,7 @@
 import logging
+
 import requests
+
 from protect_archiver.errors import Errors
 
 
@@ -37,13 +39,12 @@ class UniFiOSClient:
 
         if response.status_code != 200:
             logging.info(
-                f"Authentication failed with status code {response.status_code}! Check username and password."
+                f"Authentication failed with status code {response.status_code}! Check username and"
+                " password."
             )
             raise Errors.ProtectError(2)
 
-        logging.info(
-            f"Successfully authenticated as user {self.username} using a session cookie"
-        )
+        logging.debug("Successfully authenticated user using a session cookie")
 
         session_cookie_token = response.cookies.get("TOKEN")
 

@@ -8,9 +8,7 @@ from protect_archiver.errors import Errors
 from protect_archiver.utils import print_download_stats
 
 
-@cli.command(
-    "events", help="Download event recordings from UniFi Protect to a local destination"
-)
+@cli.command("events", help="Download event recordings from UniFi Protect to a local destination")
 @click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
     "--address",
@@ -196,9 +194,7 @@ def events(
             # keep only selected cameras in list
             camera_list = [camera for camera in camera_list if camera["id"] in cameras]
             # keep only events for selected cameras
-            motion_event_list = [
-                event for event in motion_event_list if event.camera_id in cameras
-            ]
+            motion_event_list = [event for event in motion_event_list if event.camera_id in cameras]
 
         click.echo(
             f"Downloading motion event video files between {start} and {end}"
@@ -207,26 +203,17 @@ def events(
 
         for motion_event in motion_event_list:
             # client.download_event(MotionEvent, Camera, bool)
-            if not (
-                [
-                    camera
-                    for camera in camera_list
-                    if camera["id"] == motion_event.camera_id
-                ]
-            ):
+            if not ([camera for camera in camera_list if camera["id"] == motion_event.camera_id]):
                 click.echo(
-                    f"Unable to download event {motion_event.id[-4:]} at {motion_event.start}: camera is not available"
+                    f"Unable to download event {motion_event.id[-4:]} at {motion_event.start}:"
+                    " camera is not available"
                 )
                 continue
 
             Downloader.download_motion_event(
                 client,
                 motion_event,
-                [
-                    camera
-                    for camera in camera_list
-                    if camera["id"] == motion_event.camera_id
-                ][0],
+                [camera for camera in camera_list if camera["id"] == motion_event.camera_id][0],
                 download_motion_heatmaps,
             )
 

@@ -210,8 +210,9 @@ def download(
             for camera in camera_list:
                 # noinspection PyUnboundLocalVariable
                 click.echo(
-                    f"Downloading video files between {start} and {end}"
-                    f" from '{session.authority}{session.base_path}/video/export' for camera {camera.name}"
+                    f"Downloading video files between {start} and {end} from"
+                    f" '{session.authority}{session.base_path}/video/export' for camera"
+                    f" {camera.name}"
                 )
 
                 Downloader.download_footage(client, start, end, camera)

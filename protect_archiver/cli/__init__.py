@@ -1,11 +1,12 @@
 from .download import *  # NOQA
-from .sync import *  # NOQA
 from .events import *  # NOQA
+from .sync import *  # NOQA
 
 
 def main():
     import logging
     import os
+
     import urllib3
 
     logging.basicConfig(format="%(message)s", level=logging.INFO)
