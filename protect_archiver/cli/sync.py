@@ -20,6 +20,13 @@ from protect_archiver.utils import print_download_stats
     help="CloudKey IP address or hostname",
 )
 @click.option(
+    "--port",
+    default=Config.PORT,
+    show_default=True,
+    required=False,
+    help="CloudKey port",
+)
+@click.option(
     "--not-unifi-os",
     is_flag=True,
     default=False,
@@ -71,6 +78,7 @@ from protect_archiver.utils import print_download_stats
 def sync(
     dest,
     address,
+    port,
     not_unifi_os,
     username,
     password,
@@ -90,6 +98,7 @@ def sync(
 
     client = ProtectClient(
         address=address,
+        port=port,
         not_unifi_os=not_unifi_os,
         username=username,
         password=password,
