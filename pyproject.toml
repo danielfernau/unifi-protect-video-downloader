@@ -16,7 +16,7 @@ click = "^7.0"
 
 [tool.poetry.dev-dependencies]
 Black = "^19.10b0"
-flake8 = "^3.7.9"
+flake8 = "^4.0.1"
 pytest = "^5.3.5"
 responses = "^0.10.9"
 pytest-responses = "^0.4.0"
