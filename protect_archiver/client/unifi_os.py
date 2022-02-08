@@ -24,7 +24,7 @@ class UniFiOSClient:
         self.password = password
         self.verify_ssl = verify_ssl
 
-        self._access_key = None
+        self._access_key: Optional[str] = None
         self._api_token: Optional[str] = None
 
         self.authority = f"{self.protocol}://{self.address}:{self.port}"
