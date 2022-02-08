@@ -1,15 +1,17 @@
 import logging
 import os
 
+from typing import Any
+
 from protect_archiver.dataclasses import Camera
 from protect_archiver.dataclasses import MotionEvent
-from protect_archiver.downloader import download_file
+from protect_archiver.downloader.download_file import download_file
 from protect_archiver.utils import make_camera_name_fs_safe
 
 
 def download_motion_event(
-    client, motion_event: MotionEvent, camera: Camera, download_motion_heatmaps: bool
-):
+    client: Any, motion_event: MotionEvent, camera: Camera, download_motion_heatmaps: bool
+) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 

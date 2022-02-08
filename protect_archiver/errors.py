@@ -1,10 +1,10 @@
 class Errors:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @Exception
     class ProtectError(Exception):
-        def __init__(self, code):
+        def __init__(self, code: int) -> None:
             self.code = code
 
     @Exception

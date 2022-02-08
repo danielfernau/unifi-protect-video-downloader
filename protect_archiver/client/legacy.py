@@ -1,5 +1,7 @@
 import logging
 
+from typing import Optional
+
 import requests
 
 from protect_archiver.errors import Errors
@@ -14,7 +16,7 @@ class LegacyClient:
         username: str,
         password: str,
         verify_ssl: bool,
-    ):
+    ) -> None:
         self.protocol = protocol
         self.address = address
         self.port = port
@@ -22,8 +24,8 @@ class LegacyClient:
         self.password = password
         self.verify_ssl = verify_ssl
 
-        self._access_key = None
-        self._api_token = None
+        self._access_key: Optional[str] = None
+        self._api_token: Optional[str] = None
 
         self.authority = f"{self.protocol}://{self.address}:{self.port}"
         self.base_path = "/api"

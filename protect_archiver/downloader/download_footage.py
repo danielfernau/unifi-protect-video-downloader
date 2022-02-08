@@ -4,14 +4,15 @@ import time
 
 from datetime import datetime
 from os import path
+from typing import Any
 
 from protect_archiver.dataclasses import Camera
-from protect_archiver.downloader import download_file
+from protect_archiver.downloader.download_file import download_file
 from protect_archiver.utils import calculate_intervals
 from protect_archiver.utils import make_camera_name_fs_safe
 
 
-def download_footage(client, start: datetime, end: datetime, camera: Camera):
+def download_footage(client: Any, start: datetime, end: datetime, camera: Camera) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 

@@ -2,6 +2,7 @@ import os
 
 from datetime import datetime
 from datetime import timezone
+from typing import Any
 
 import pytest
 
@@ -9,7 +10,9 @@ from protect_archiver.downloader import Downloader
 
 
 @pytest.fixture(autouse=True)
-def mock_api(responses, sample_bootstrap_json, sample_token_json, sample_access_key_json):
+def mock_api(
+    responses: Any, sample_bootstrap_json: Any, sample_token_json: Any, sample_access_key_json: Any
+) -> None:
     responses.add(
         responses.POST,
         "https://unifi:443/api/auth/login",
@@ -29,7 +32,7 @@ def mock_api(responses, sample_bootstrap_json, sample_token_json, sample_access_
     )
 
 
-def test_get_camera_list(client):
+def test_get_camera_list(client: Any) -> None:
     results = client.get_camera_list()
 
     assert len(results) == 1
@@ -38,7 +41,7 @@ def test_get_camera_list(client):
     assert results[0].recording_start == datetime(2020, 1, 8, 23, 26, 9, 586000)
 
 
-def test_get_camera_list_with_disconnected(client):
+def test_get_camera_list_with_disconnected(client: Any) -> None:
     results = client.get_camera_list(connected=False)
 
     assert len(results) == 2
@@ -51,7 +54,9 @@ def test_get_camera_list_with_disconnected(client):
     assert results[1].recording_start == datetime(2019, 10, 20, 18, 0, 0, 134000)
 
 
-def test_download_footage(responses, client, sample_camera, test_output_dest):
+def test_download_footage(
+    responses: Any, client: Any, sample_camera: Any, test_output_dest: Any
+) -> None:
     responses.add(
         responses.GET,
         "https://unifi:443/proxy/protect/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939000",

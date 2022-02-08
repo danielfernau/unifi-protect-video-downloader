@@ -1,12 +1,13 @@
 from datetime import datetime
 from datetime import timedelta
+from typing import Any
 from typing import Iterable
 from typing import Tuple
 
 from protect_archiver.dataclasses import Camera
 
 
-def json_encode(obj):
+def json_encode(obj: Any) -> Any:
     if isinstance(obj, datetime):
         return obj.isoformat()
     raise TypeError(f"Type {type(obj)} not serializable")
@@ -76,7 +77,7 @@ def format_bytes(size: int) -> str:
     n = 0
     power_labels = {0: "", 1: "k", 2: "m", 3: "g", 4: "t"}
     while size > power:
-        size /= power
+        size //= power
         n += 1
     return f"{int(size * 100) / 100} {power_labels[n]}b"
 
@@ -88,7 +89,7 @@ def make_camera_name_fs_safe(camera: Camera) -> str:
     )
 
 
-def print_download_stats(client):
+def print_download_stats(client: Any) -> None:
     files_total = client.files_downloaded + client.files_skipped + client.files_failed
     print(
         f"{client.files_downloaded} files downloaded ({format_bytes(client.bytes_downloaded)}), "

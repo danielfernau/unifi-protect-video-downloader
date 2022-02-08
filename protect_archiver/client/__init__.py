@@ -1,4 +1,8 @@
+from datetime import datetime
 from os import path
+from typing import Any
+from typing import List
+from typing import Optional
 
 from protect_archiver.client.legacy import LegacyClient
 from protect_archiver.client.unifi_os import UniFiOSClient
@@ -13,7 +17,7 @@ class ProtectClient:
         port: int = Config.PORT,
         protocol: str = Config.PROTOCOL,
         username: str = Config.USERNAME,
-        password: str = Config.PASSWORD,
+        password: Optional[str] = Config.PASSWORD,
         verify_ssl: bool = Config.VERIFY_SSL,
         not_unifi_os: bool = False,
         # use_unsafe_cookie_jar: bool = Config.USE_UNSAFE_COOKIE_JAR,
@@ -25,7 +29,7 @@ class ProtectClient:
         touch_files: bool = Config.TOUCH_FILES,
         # aka read_timeout - time to wait until a socket read response happens
         download_timeout: float = Config.DOWNLOAD_TIMEOUT,
-    ):
+    ) -> None:
         self.protocol = protocol
         self.address = address
         self.port = port if port is not None else 7443 if not_unifi_os else 443
@@ -55,7 +59,9 @@ class ProtectClient:
         if not_unifi_os:
             self.port = 7443
             self.base_path = "/api"
-            self.session = LegacyClient(
+
+            assert self.password
+            self.session: Any = LegacyClient(
                 self.protocol,
                 self.address,
                 self.port,
@@ -65,6 +71,7 @@ class ProtectClient:
             )
         else:
             self.port = 443
+            assert self.password
             self.session = UniFiOSClient(
                 self.protocol,
                 self.address,
@@ -74,13 +81,15 @@ class ProtectClient:
                 self.verify_ssl,
             )
 
-    def get_camera_list(self, connected=True):
+    def get_camera_list(self, connected: bool = True) -> List[Any]:
         return Downloader.get_camera_list(self.session, connected)
 
-    def get_motion_event_list(self, start, end, camera_list):
+    def get_motion_event_list(
+        self, start: datetime, end: datetime, camera_list: List[Any]
+    ) -> List[Any]:
         return Downloader.get_motion_event_list(self.session, start, end, camera_list)
 
-    def get_session(self):
+    def get_session(self) -> Any:
         return self.session
 
 

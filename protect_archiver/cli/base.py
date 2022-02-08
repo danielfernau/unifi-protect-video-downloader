@@ -2,5 +2,5 @@ import click
 
 
 @click.group()
-def cli():
+def cli() -> None:
     pass

@@ -3,7 +3,7 @@ from .events import *  # NOQA
 from .sync import *  # NOQA
 
 
-def main():
+def main() -> None:
     import logging
     import os
 

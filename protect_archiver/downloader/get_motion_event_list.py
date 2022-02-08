@@ -2,6 +2,7 @@
 import logging
 
 from datetime import datetime
+from typing import Any
 from typing import Counter
 from typing import List
 
@@ -12,7 +13,7 @@ from protect_archiver.dataclasses import MotionEvent
 
 
 def get_motion_event_list(
-    session, start: datetime, end: datetime, camera_list: List[Camera]
+    session: Any, start: datetime, end: datetime, camera_list: List[Camera]
 ) -> List[MotionEvent]:
     motion_events_uri = (
         f"{session.authority}{session.base_path}/events?type=motion"
