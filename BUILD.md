@@ -29,7 +29,7 @@ $ source $HOME/.poetry/env
 
 ### Clone the source repository
 ```bash
-$ git clone https://github.com/unifi-toolbox/unifi-protect-video-downloader
+$ git clone https://github.com/danielfernau/unifi-protect-video-downloader
 $ cd unifi-protect-video-downloader
 ```
 

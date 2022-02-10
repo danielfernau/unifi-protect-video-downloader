@@ -11,8 +11,8 @@ packages = [
     { include = "protect_archiver"}
 ]
 
-homepage = "https://github.com/unifi-toolbox/unifi-protect-video-downloader"
-repository = "https://github.com/unifi-toolbox/unifi-protect-video-downloader"
+homepage = "https://github.com/danielfernau/unifi-protect-video-downloader"
+repository = "https://github.com/danielfernau/unifi-protect-video-downloader"
 
 classifiers = [
     "Environment :: Console",
