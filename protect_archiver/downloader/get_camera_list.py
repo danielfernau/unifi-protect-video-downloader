@@ -27,14 +27,12 @@ def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
 
     camera_list = []
     for camera in cameras:
-        if connected and camera["state"] != "CONNECTED":
-            continue
         camera_list.append(
             Camera(
                 id=camera["id"],
                 name=camera["name"],
                 recording_start=datetime.utcfromtimestamp(
-                    camera["stats"]["video"]["recordingStart"] / 1000
+                    camera["stats"]["video"]["recordingStart"] or 0 / 1000
                 ),
             )
         )
