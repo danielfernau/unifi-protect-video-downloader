@@ -60,7 +60,6 @@ and [#91](https://github.com/danielfernau/unifi-protect-video-downloader/pull/91
 
 ### Fixed
 - add missing dependencies in BUILD.md
-fc47b8439fb895d1a942917e8484fbac2e6aace3
 ([#55](https://github.com/danielfernau/unifi-protect-video-downloader/pull/55) by
 [@MrStevenFeldman](https://github.com/MrStevenFeldman))
 - apply mypy code fixes
