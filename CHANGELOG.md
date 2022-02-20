@@ -19,8 +19,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.1] - 2020-05-02
 ### Added
 - add Docker images for linux/arm64
-- add support for Protect servers running on UniFi OS
+([aecc263](https://github.com/danielfernau/unifi-protect-video-downloader/commit/aecc263174b30f18dbbec34daba7d3aba400c50d) by
+[@danielfernau](https://github.com/danielfernau))
+- GitHub Actions: add dockerbuild workflow
+([#42](https://github.com/danielfernau/unifi-protect-video-downloader/pull/42) by
+[@danielfernau](https://github.com/danielfernau))
+- add BUILD.md with build instructions and development hints
+([054b163](https://github.com/danielfernau/unifi-protect-video-downloader/commit/054b1636a3c4b856100e5be3e37fd2b45af7de50) by
+[@danielfernau](https://github.com/danielfernau))
+- add support for UniFi OS authentication
+([#46](https://github.com/danielfernau/unifi-protect-video-downloader/pull/46) by
+[@danielfernau](https://github.com/danielfernau))
 
+### Changed
+- bump project's python-version from 3.8.1 to 3.8.2
+([233120b](https://github.com/danielfernau/unifi-protect-video-downloader/commit/233120b9dbc914c7d7419dd45b235d5153bb6396) by
+[@danielfernau](https://github.com/danielfernau))
+- skip motion event download if camera is not available via API
+([04f35a9](https://github.com/danielfernau/unifi-protect-video-downloader/commit/04f35a9f63efee70ec9847f57f1630e9daf462e4) by
+[@danielfernau](https://github.com/danielfernau))
+- update GitHub Actions
+([#42](https://github.com/danielfernau/unifi-protect-video-downloader/pull/42) by
+[@danielfernau](https://github.com/danielfernau))
+
+### Fixed 
+- fix Event downloads broken
+([#29](https://github.com/danielfernau/unifi-protect-video-downloader/issues/29))
+- fix Wiki links in README
+([d68f42f](https://github.com/danielfernau/unifi-protect-video-downloader/commit/d68f42fdfde1dcc6829e0f366113937ed8417772) by
+[@danielfernau](https://github.com/danielfernau))
+- fix 'object is not subscriptable' error in cli/events.py
+([b375901](https://github.com/danielfernau/unifi-protect-video-downloader/commit/b375901e99927adbad47ef292113a8ce7f701954) by
+[@danielfernau](https://github.com/danielfernau))
 
 
 ## [2.0.0] - 2020-04-06
