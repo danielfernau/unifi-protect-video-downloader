@@ -5,7 +5,58 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-> TODO
+### Added 
+- GitHub Actions: CodeQL workflow
+([#74](https://github.com/danielfernau/unifi-protect-video-downloader/pull/74) by
+[@danielfernau](https://github.com/danielfernau))
+- GitHub Actions: add dependabot scanner
+([#75](https://github.com/danielfernau/unifi-protect-video-downloader/pull/75) by
+[@ch3ck](https://github.com/ch3ck))
+- add custom port support for protect archiver
+([#76](https://github.com/danielfernau/unifi-protect-video-downloader/pull/76) by
+[@ch3ck](https://github.com/ch3ck))
+- CI: add pre-commit checks
+([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
+[@ch3ck](https://github.com/ch3ck))
+- add CHANGELOG.md and version history
+([000a8bd](https://github.com/danielfernau/unifi-protect-video-downloader/commit/000a8bd11d168dfed5e55e292a7f47466922d5ed) by
+[@ch3ck](https://github.com/ch3ck)
+and [#91](https://github.com/danielfernau/unifi-protect-video-downloader/pull/91) by
+[@danielfernau](https://github.com/danielfernau))
+- add mypy checks
+([#85](https://github.com/danielfernau/unifi-protect-video-downloader/pull/85) by
+[@ch3ck](https://github.com/ch3ck))
+
+### Changed 
+- update CI Lint checks to support Python 3.8, 3.9 and 3.10
+([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
+[@ch3ck](https://github.com/ch3ck))
+- refactor code with lint checks and fixes
+([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
+[@ch3ck](https://github.com/ch3ck))
+- transfer repository back to original GitHub user account
+([#86](https://github.com/danielfernau/unifi-protect-video-downloader/pull/86) by
+[@danielfernau](https://github.com/danielfernau))
+
+### Fixed 
+- add missing dependencies in BUILD.md
+fc47b8439fb895d1a942917e8484fbac2e6aace3
+([#55](https://github.com/danielfernau/unifi-protect-video-downloader/pull/55) by
+[@MrStevenFeldman](https://github.com/MrStevenFeldman))
+- apply mypy code fixes
+([#85](https://github.com/danielfernau/unifi-protect-video-downloader/pull/85) by
+[@ch3ck](https://github.com/ch3ck))
+
+### Security 
+- bump types-requests from 2.27.8 to 2.27.9 
+([#87](https://github.com/danielfernau/unifi-protect-video-downloader/pull/87) 
+via [dependabot](https://github.com/apps/dependabot))
+- bump pytest from 7.0.0 to 7.0.1
+([#88](https://github.com/danielfernau/unifi-protect-video-downloader/pull/88) 
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-requests from 2.27.9 to 2.27.10 
+([#90](https://github.com/danielfernau/unifi-protect-video-downloader/pull/90) 
+via [dependabot](https://github.com/apps/dependabot))
 
 
 ## [2.0.2] - 2021-05-09
