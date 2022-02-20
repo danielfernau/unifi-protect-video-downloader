@@ -5,7 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Added 
+### Added
+- TBD
+
+### Changed
+- TBD
+
+### Deprecated
+- TBD
+
+### Removed
+- TBD
+
+### Fixed
+- TBD
+
+### Security
+- TBD
+
+
+## [2.1.0] - 2022-02-20
+### Added
 - GitHub Actions: CodeQL workflow
 ([#74](https://github.com/danielfernau/unifi-protect-video-downloader/pull/74) by
 [@danielfernau](https://github.com/danielfernau))
@@ -27,7 +47,7 @@ and [#91](https://github.com/danielfernau/unifi-protect-video-downloader/pull/91
 ([#85](https://github.com/danielfernau/unifi-protect-video-downloader/pull/85) by
 [@ch3ck](https://github.com/ch3ck))
 
-### Changed 
+### Changed
 - update CI Lint checks to support Python 3.8, 3.9 and 3.10
 ([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
 [@ch3ck](https://github.com/ch3ck))
@@ -38,7 +58,7 @@ and [#91](https://github.com/danielfernau/unifi-protect-video-downloader/pull/91
 ([#86](https://github.com/danielfernau/unifi-protect-video-downloader/pull/86) by
 [@danielfernau](https://github.com/danielfernau))
 
-### Fixed 
+### Fixed
 - add missing dependencies in BUILD.md
 fc47b8439fb895d1a942917e8484fbac2e6aace3
 ([#55](https://github.com/danielfernau/unifi-protect-video-downloader/pull/55) by
@@ -47,26 +67,35 @@ fc47b8439fb895d1a942917e8484fbac2e6aace3
 ([#85](https://github.com/danielfernau/unifi-protect-video-downloader/pull/85) by
 [@ch3ck](https://github.com/ch3ck))
 
-### Security 
-- bump types-requests from 2.27.8 to 2.27.9 
-([#87](https://github.com/danielfernau/unifi-protect-video-downloader/pull/87) 
+### Security
+- remove cleartext logging of username
+([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
+[@ch3ck](https://github.com/ch3ck))
+- update dependencies in pyproject.toml
+([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
+[@ch3ck](https://github.com/ch3ck))
+- replace `zapier/python:latest` with `python:3` as Docker base image
+([#77](https://github.com/danielfernau/unifi-protect-video-downloader/pull/77) by
+[@ch3ck](https://github.com/ch3ck))
+- bump types-requests from 2.27.8 to 2.27.9
+([#87](https://github.com/danielfernau/unifi-protect-video-downloader/pull/87)
 via [dependabot](https://github.com/apps/dependabot))
 - bump pytest from 7.0.0 to 7.0.1
-([#88](https://github.com/danielfernau/unifi-protect-video-downloader/pull/88) 
+([#88](https://github.com/danielfernau/unifi-protect-video-downloader/pull/88)
 via [dependabot](https://github.com/apps/dependabot))
-- bump types-requests from 2.27.9 to 2.27.10 
-([#90](https://github.com/danielfernau/unifi-protect-video-downloader/pull/90) 
+- bump types-requests from 2.27.9 to 2.27.10
+([#90](https://github.com/danielfernau/unifi-protect-video-downloader/pull/90)
 via [dependabot](https://github.com/apps/dependabot))
 
 
 ## [2.0.2] - 2021-05-09
 ### Changed
-- improve console output of 'events' command 
+- improve console output of 'events' command
 ([#51](https://github.com/danielfernau/unifi-protect-video-downloader/pull/51) by
 [@danielfernau](https://github.com/danielfernau))
 
 ### Fixed
-- fix 'sync' command not working with updated 'ProtectClient' 
+- fix 'sync' command not working with updated 'ProtectClient'
 ([#50](https://github.com/danielfernau/unifi-protect-video-downloader/pull/50) by
 [@danielfernau](https://github.com/danielfernau))
 
@@ -97,7 +126,7 @@ via [dependabot](https://github.com/apps/dependabot))
 ([#42](https://github.com/danielfernau/unifi-protect-video-downloader/pull/42) by
 [@danielfernau](https://github.com/danielfernau))
 
-### Fixed 
+### Fixed
 - fix Event downloads broken
 ([#29](https://github.com/danielfernau/unifi-protect-video-downloader/issues/29))
 - fix Wiki links in README
@@ -116,7 +145,7 @@ via [dependabot](https://github.com/apps/dependabot))
 - add Dockerfile and Makefile
 ([d5e881b](https://github.com/danielfernau/unifi-protect-video-downloader/commit/d5e881b61b976fd8eea93329fec613483577ed80) by
 [@danielfernau](https://github.com/danielfernau))
-- add Poetry configuration 
+- add Poetry configuration
 ([#10](https://github.com/danielfernau/unifi-protect-video-downloader/pull/10)
 by [@dcramer](https://github.com/dcramer))
 - add code formatting rules using Black
@@ -138,25 +167,25 @@ by [@dcramer](https://github.com/dcramer))
 [@purpleidea](https://github.com/purpleidea) and
 [#18](https://github.com/danielfernau/unifi-protect-video-downloader/pull/18) by
 [@dcramer](https://github.com/dcramer))
-- add support for UDM-based installations using 
+- add support for UDM-based installations using
 [@Silvenga/unifi-udm-api-proxy](https://github.com/Silvenga/unifi-udm-api-proxy)
 ([#27](https://github.com/danielfernau/unifi-protect-video-downloader/pull/27) by
 [@danielfernau](https://github.com/danielfernau))
-- add CI via GitHub Actions 
+- add CI via GitHub Actions
 ([adff6a8](https://github.com/danielfernau/unifi-protect-video-downloader/commit/adff6a804b30150799875ac33cd5bc83030ca4c5) by
 [@dcramer](https://github.com/dcramer))
 
 ### Changed
-- switch from GPLv3 to MIT License 
+- switch from GPLv3 to MIT License
 (as suggested in [#8](https://github.com/danielfernau/unifi-protect-video-downloader/issues/8) by
 [@dcramer](https://github.com/dcramer))
-- change API URL in get_camera_list function 
+- change API URL in get_camera_list function
 ([#15](https://github.com/danielfernau/unifi-protect-video-downloader/issues/15) by
 [@danielfernau](https://github.com/danielfernau))
-- make video file names more readable 
+- make video file names more readable
 ([#23](https://github.com/danielfernau/unifi-protect-video-downloader/pull/23) by
 [@danielfernau](https://github.com/danielfernau))
-- change top level signature to be `protect-archiver download [--options] [dest]` 
+- change top level signature to be `protect-archiver download [--options] [dest]`
 ([#10](https://github.com/danielfernau/unifi-protect-video-downloader/pull/10) by
 [@dcramer](https://github.com/dcramer))
 - replace accessKey authorization with Bearer Token Authorization header
@@ -166,7 +195,7 @@ by [@dcramer](https://github.com/dcramer))
 ([#28](https://github.com/danielfernau/unifi-protect-video-downloader/pull/28) by
 [@danielfernau](https://github.com/danielfernau))
 
-### Removed 
+### Removed
 - remove download counting
 ([#10](https://github.com/danielfernau/unifi-protect-video-downloader/pull/10) by
 [@dcramer](https://github.com/dcramer))
