@@ -1,13 +1,9 @@
 name: Build and Publish Docker Images
 
 on:
-# workflow_run:
-#   workflows:
-#     - "Lint and Test Python Package"
-#   branches:
-#     - main
-#   types:
-#     - completed
+  push:
+    branches: [ master ]
+    tags: [ 'v*.*.*' ]
 
   workflow_dispatch:
 
@@ -35,13 +31,19 @@ jobs:
       - name: Available platforms
         run: echo ${{ steps.qemu.outputs.platforms }}
 
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: unifitoolbox/protect-archiver:latest
+          
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: unifitoolbox/protect-archiver:latest
+          tags: ${{ steps.meta.outputs.tags }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
