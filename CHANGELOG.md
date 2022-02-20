@@ -126,22 +126,40 @@ by [@dcramer](https://github.com/dcramer))
 
 ## [1.1.1] - 2019-11-30
 ### Fixed
-- fix "First time range is negative if start time doesn't start at 0 minutes" ([#2](https://github.com/danielfernau/unifi-protect-video-downloader/issues/2))
+- fix "First time range is negative if start time doesn't start at 0 minutes"
+([#2](https://github.com/danielfernau/unifi-protect-video-downloader/issues/2) by
+[@danielfernau](https://github.com/danielfernau))
 
 
 ## [1.1.0] - 2019-11-09
 ### Added
 - add option to download `.jpg` snapshots using `--snapshot` (see README)
+([807a320](https://github.com/danielfernau/unifi-protect-video-downloader/commit/807a320e5ba041424291369ca00c1a669e4cba8d) by
+[@danielfernau](https://github.com/danielfernau))
 - add exit code `6` to indicate that either the `--snapshot` or the `--start` and `--end` command line arguments are missing
+([807a320](https://github.com/danielfernau/unifi-protect-video-downloader/commit/807a320e5ba041424291369ca00c1a669e4cba8d) by
+[@danielfernau](https://github.com/danielfernau))
 
 ### Changed
 - use `dateutil.parser` instead of `datetime.strptime` to parse start and end timestamps
+([807a320](https://github.com/danielfernau/unifi-protect-video-downloader/commit/807a320e5ba041424291369ca00c1a669e4cba8d) by
+[@danielfernau](https://github.com/danielfernau))
 - use `timestamp()` instead of `strftime("%s")` to get unix timestamp
+([807a320](https://github.com/danielfernau/unifi-protect-video-downloader/commit/807a320e5ba041424291369ca00c1a669e4cba8d) by
+[@danielfernau](https://github.com/danielfernau))
 
 
 ## [1.0.0] - 2019-11-09
 ### Added
 - main.py
+([3909169](https://github.com/danielfernau/unifi-protect-video-downloader/commit/3909169e802546d1056e92b73315098b0ec08895) by
+[@danielfernau](https://github.com/danielfernau))
 - requirements.txt
+([3909169](https://github.com/danielfernau/unifi-protect-video-downloader/commit/3909169e802546d1056e92b73315098b0ec08895) by
+[@danielfernau](https://github.com/danielfernau))
 - README
+([b0ee60a](https://github.com/danielfernau/unifi-protect-video-downloader/commit/b0ee60a52dbeeaec3cc75d717f5ed49e1c55cc09) by
+[@danielfernau](https://github.com/danielfernau))
 - LICENSE
+([a269a6e](https://github.com/danielfernau/unifi-protect-video-downloader/commit/a269a6e24394917c6810e931e72fa5a355848d84) by
+[@danielfernau](https://github.com/danielfernau))
