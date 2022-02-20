@@ -10,10 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.2] - 2021-05-09
 ### Changed
-- improve console output of 'events' command ([#51](https://github.com/danielfernau/unifi-protect-video-downloader/pull/51))
+- improve console output of 'events' command 
+([#51](https://github.com/danielfernau/unifi-protect-video-downloader/pull/51) by
+[@danielfernau](https://github.com/danielfernau))
 
 ### Fixed
-- fix 'sync' command not working with updated 'ProtectClient' ([#50](https://github.com/danielfernau/unifi-protect-video-downloader/pull/50))
+- fix 'sync' command not working with updated 'ProtectClient' 
+([#50](https://github.com/danielfernau/unifi-protect-video-downloader/pull/50) by
+[@danielfernau](https://github.com/danielfernau))
 
 
 ## [2.0.1] - 2020-05-02
