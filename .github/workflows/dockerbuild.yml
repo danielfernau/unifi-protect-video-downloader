@@ -36,6 +36,9 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: unifitoolbox/protect-archiver:latest
+          tags: |
+            type=edge
+            type=semver,pattern={{version}}
           
       - name: Build and push
         id: docker_build
