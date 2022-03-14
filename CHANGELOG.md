@@ -24,6 +24,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TBD
 
 
+## [v2.1.1]
+### Added
+- GitHub Actions: add Docker image tags and automated edge builds from master branch
+([#93](https://github.com/danielfernau/unifi-protect-video-downloader/pull/93) by
+[@L3o-pold](https://github.com/L3o-pold))
+and ([#104](https://github.com/danielfernau/unifi-protect-video-downloader/pull/104) by
+[@danielfernau](https://github.com/danielfernau))
+
+### Security
+- bump click from 8.0.3 to 8.0.4
+([#94](https://github.com/danielfernau/unifi-protect-video-downloader/pull/94)
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-requests from 2.27.10 to 2.27.11
+([#95](https://github.com/danielfernau/unifi-protect-video-downloader/pull/95)
+via [dependabot](https://github.com/apps/dependabot))
+- bump actions/setup-python from 2 to 3
+([#97](https://github.com/danielfernau/unifi-protect-video-downloader/pull/97)
+via [dependabot](https://github.com/apps/dependabot))
+- bump actions/checkout from 2 to 3
+([#99](https://github.com/danielfernau/unifi-protect-video-downloader/pull/99)
+via [dependabot](https://github.com/apps/dependabot))
+- bump responses from 0.18.0 to 0.19.0
+([#100](https://github.com/danielfernau/unifi-protect-video-downloader/pull/100)
+via [dependabot](https://github.com/apps/dependabot))
+- bump pytest from 7.0.1 to 7.1.0
+([#101](https://github.com/danielfernau/unifi-protect-video-downloader/pull/101)
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-requests from 2.27.11 to 2.27.12
+([#102](https://github.com/danielfernau/unifi-protect-video-downloader/pull/102)
+via [dependabot](https://github.com/apps/dependabot))
+- bump mypy from 0.931 to 0.940
+([#103](https://github.com/danielfernau/unifi-protect-video-downloader/pull/103)
+via [dependabot](https://github.com/apps/dependabot))
+
+
 ## [2.1.0] - 2022-02-20
 ### Added
 - GitHub Actions: CodeQL workflow
