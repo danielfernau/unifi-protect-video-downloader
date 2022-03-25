@@ -33,17 +33,18 @@ def get_motion_event_list(
 
     motion_event_list = []
     for motion_event in motion_events:
-        motion_event_list.append(
-            MotionEvent(
-                id=motion_event["id"],
-                start=datetime.fromtimestamp(motion_event["start"] / 1000),
-                end=datetime.fromtimestamp(motion_event["end"] / 1000),
-                camera_id=motion_event["camera"],
-                score=motion_event["score"],
-                thumbnail_id=motion_event["thumbnail"],
-                heatmap_id=motion_event["heatmap"],
+        if not (motion_event["end"] is None):
+            motion_event_list.append(
+                MotionEvent(
+                    id=motion_event["id"],
+                    start=datetime.fromtimestamp(motion_event["start"] / 1000),
+                    end=datetime.fromtimestamp(motion_event["end"] / 1000),
+                    camera_id=motion_event["camera"],
+                    score=motion_event["score"],
+                    thumbnail_id=motion_event["thumbnail"],
+                    heatmap_id=motion_event["heatmap"],
+                )
             )
-        )
 
     # noinspection PyTypeHints
     event_count_by_camera = Counter(e.camera_id for e in motion_event_list)
