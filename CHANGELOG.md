@@ -24,6 +24,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TBD
 
 
+## [v2.1.2]
+### Fixed
+- fix ongoing `MotionEvent`s causing `NoneType` error due to missing `end` time
+([#65](https://github.com/danielfernau/unifi-protect-video-downloader/issues/65) by
+[@JimReprogle](https://github.com/JimReprogle), and
+[#115](https://github.com/danielfernau/unifi-protect-video-downloader/pull/115) by
+[@L3o-pold](https://github.com/L3o-pold) via
+[#114](https://github.com/danielfernau/unifi-protect-video-downloader/pull/114))
+
+### Security
+- bump mypy from 0.940 to 0.941
+([#105](https://github.com/danielfernau/unifi-protect-video-downloader/pull/105)
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-requests from 2.27.12 to 2.27.13
+([#107](https://github.com/danielfernau/unifi-protect-video-downloader/pull/107)
+via [dependabot](https://github.com/apps/dependabot))
+- bump pytest from 7.1.0 to 7.1.1
+([#108](https://github.com/danielfernau/unifi-protect-video-downloader/pull/108)
+via [dependabot](https://github.com/apps/dependabot))
+- bump responses from 0.19.0 to 0.20.0
+([#109](https://github.com/danielfernau/unifi-protect-video-downloader/pull/109)
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-python-dateutil from 2.8.9 to 2.8.10
+([#110](https://github.com/danielfernau/unifi-protect-video-downloader/pull/110)
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-requests from 2.27.13 to 2.27.14
+([#111](https://github.com/danielfernau/unifi-protect-video-downloader/pull/111)
+via [dependabot](https://github.com/apps/dependabot))
+- bump mypy from 0.941 to 0.942
+([#112](https://github.com/danielfernau/unifi-protect-video-downloader/pull/112)
+via [dependabot](https://github.com/apps/dependabot))
+- bump pylint from 2.12.2 to 2.13.0
+([#113](https://github.com/danielfernau/unifi-protect-video-downloader/pull/113)
+via [dependabot](https://github.com/apps/dependabot))
+- bump pylint from 2.13.0 to 2.13.2
+([#116](https://github.com/danielfernau/unifi-protect-video-downloader/pull/116)
+via [dependabot](https://github.com/apps/dependabot))
+- bump types-requests from 2.27.14 to 2.27.15
+([#117](https://github.com/danielfernau/unifi-protect-video-downloader/pull/117)
+via [dependabot](https://github.com/apps/dependabot))
+
+
 ## [v2.1.1]
 ### Added
 - GitHub Actions: add Docker image tags and automated edge builds from master branch
