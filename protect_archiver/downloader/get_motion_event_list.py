@@ -29,7 +29,8 @@ def get_motion_event_list(
         return []
 
     logging.info(f"Successfully retrieved data from {motion_events_uri}")
-    motion_events = response.json()
+    # filter ongoing event with no end date https://github.com/danielfernau/unifi-protect-video-downloader/issues/65
+    motion_events = filter(lambda motion_event: motion_event["end"], response.json())
 
     motion_event_list = []
     for motion_event in motion_events:
