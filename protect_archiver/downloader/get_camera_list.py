@@ -27,9 +27,10 @@ def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
 
     camera_list = []
     for camera in cameras:
-        if connected and camera["state"] != "CONNECTED":
-            continue
-        if camera["stats"]["video"]["recordingStart"] is None:
+        # ignore disconnected cameras and cameras without recording
+        if (connected and camera["state"] != "CONNECTED") or camera["stats"]["video"][
+            "recordingStart"
+        ] is None:
             continue
         camera_list.append(
             Camera(
