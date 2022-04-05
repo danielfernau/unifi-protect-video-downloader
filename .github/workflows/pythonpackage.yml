@@ -56,7 +56,7 @@ jobs:
         run: poetry run python -m pytest --cov=. --cov-report term --cov-report xml --cov-config .coveragerc --junitxml=testresults.xml
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v3
         with:
           flags: unittests
           env_vars: OS,PYTHON
