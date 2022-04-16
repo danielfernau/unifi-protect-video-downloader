@@ -60,10 +60,17 @@ def test_download_footage(
     responses.add(
         responses.GET,
         "https://unifi:443/proxy/protect/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939000",
-        body="abcdefg",
+        # 320 bytes of demo data
+        body=(
+            "12572d283469d8c82413787fd73e0c91456c49ea991b2d5bf5e9c87bc3633566"
+            "c8825185f86ab64ae748342f0030cf5dcabf49090a98d06c019024883d2bdd57"
+            "35704f975f15344cbd0771597ceb50d1062402e64555157abcb3a362290aa818"
+            "e1d02d3942f029bec370e7d12bd62bec347b373c66bccced3a1071fc69cef311"
+            "d19e46501c94273a42fb72f694ddbf1fcb22c257970b206e981dab011915aa42"
+        ),
         headers={
             "Content-Type": "video/mp4",
-            "Content-Length": "7",
+            "Content-Length": "320",
             "Content-Disposition": (
                 'attachment; filename="FCECDA8FE96B_0_1578622522000_1578625200000.mp4"'
             ),
@@ -83,4 +90,11 @@ def test_download_footage(
     assert os.path.exists(file_name)
 
     with open(file_name) as fp:
-        assert fp.read() == "abcdefg"
+        assert (
+            fp.read()
+            == "12572d283469d8c82413787fd73e0c91456c49ea991b2d5bf5e9c87bc3633566"
+            "c8825185f86ab64ae748342f0030cf5dcabf49090a98d06c019024883d2bdd57"
+            "35704f975f15344cbd0771597ceb50d1062402e64555157abcb3a362290aa818"
+            "e1d02d3942f029bec370e7d12bd62bec347b373c66bccced3a1071fc69cef311"
+            "d19e46501c94273a42fb72f694ddbf1fcb22c257970b206e981dab011915aa42"
+        )
