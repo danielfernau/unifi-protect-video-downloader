@@ -87,6 +87,14 @@ def download_file(client: Any, query: str, filename: str) -> None:
                         fp.write(content)
 
                 else:
+                    # skip download if remote file is smaller than 300b
+                    if total_bytes < 300:
+                        logging.warning(
+                            "File is smaller than 300 bytes (empty video clip) - skipping download"
+                        )
+                        client.files_skipped += 1
+                        return
+
                     with open(filename, "wb") as fp:
                         for chunk in response.iter_content(4096):
                             cur_bytes += len(chunk)
