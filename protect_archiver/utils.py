@@ -1,8 +1,8 @@
-from datetime import datetime
-from datetime import timedelta
-from typing import Any
-from typing import Iterable
-from typing import Tuple
+import logging
+import os
+
+from datetime import datetime, timedelta, timezone
+from typing import Any, Iterable, Tuple
 
 from protect_archiver.dataclasses import Camera
 
@@ -97,3 +97,35 @@ def print_download_stats(client: Any) -> None:
         f"{client.files_failed} files failed, "
         f"{files_total} files total"
     )
+
+
+def build_download_dir(
+    use_subfolders: bool,
+    destination_path: str,
+    interval_start: datetime,
+    use_utc_filenames: bool,
+    camera_name_fs_safe: str,
+) -> tuple[str, datetime]:
+    # support selection between local time zone and UTC for file names
+    interval_start_tz = (
+        interval_start.astimezone(timezone.utc) if use_utc_filenames else interval_start
+    )
+
+    # build file path for download
+    if bool(use_subfolders):
+        folder_year = interval_start_tz.strftime("%Y")
+        folder_month = interval_start_tz.strftime("%m")
+        folder_day = interval_start_tz.strftime("%d")
+
+        dir_by_date_and_name = f"{folder_year}/{folder_month}/{folder_day}/{camera_name_fs_safe}"
+        target_with_date_and_name = f"{destination_path}/{dir_by_date_and_name}"
+
+        download_dir = target_with_date_and_name
+        if not os.path.isdir(target_with_date_and_name):
+            os.makedirs(target_with_date_and_name, exist_ok=True)
+            logging.info(f"Created path {target_with_date_and_name}")
+            download_dir = target_with_date_and_name
+    else:
+        download_dir = destination_path
+
+    return download_dir, interval_start_tz
