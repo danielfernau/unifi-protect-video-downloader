@@ -7,7 +7,8 @@ from typing import Any
 
 from protect_archiver.dataclasses import Camera
 from protect_archiver.downloader.download_file import download_file
-from protect_archiver.utils import calculate_intervals, build_download_dir
+from protect_archiver.utils import build_download_dir
+from protect_archiver.utils import calculate_intervals
 from protect_archiver.utils import make_camera_name_fs_safe
 
 
