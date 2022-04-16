@@ -2,6 +2,7 @@ import logging
 import os
 
 from datetime import datetime
+from datetime import timezone
 from typing import Any
 
 from protect_archiver.dataclasses import Camera
@@ -14,11 +15,13 @@ def download_snapshot(client: Any, start: datetime, camera: Camera) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 
-    download_dir, interval_start_tz = build_download_dir(
+    # support selection between local time zone and UTC for file names
+    interval_start_tz = start.astimezone(timezone.utc) if client.use_utc_filenames else start
+
+    download_dir = build_download_dir(
         use_subfolders=client.use_subfolders,
         destination_path=client.destination_path,
-        interval_start=start,
-        use_utc_filenames=client.use_utc_filenames,
+        interval_start_tz=interval_start_tz,
         camera_name_fs_safe=camera_name_fs_safe,
     )
 

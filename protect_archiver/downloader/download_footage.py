@@ -2,6 +2,7 @@ import logging
 import time
 
 from datetime import datetime
+from datetime import timezone
 from os import path
 from typing import Any
 
@@ -32,11 +33,15 @@ def download_footage(client: Any, start: datetime, end: datetime, camera: Camera
         js_timestamp_range_start = int(interval_start.timestamp()) * 1000
         js_timestamp_range_end = int(interval_end.timestamp()) * 1000
 
-        download_dir, interval_start_tz = build_download_dir(
+        # support selection between local time zone and UTC for file names
+        interval_start_tz = (
+            interval_start.astimezone(timezone.utc) if client.use_utc_filenames else interval_start
+        )
+
+        download_dir = build_download_dir(
             use_subfolders=client.use_subfolders,
             destination_path=client.destination_path,
-            interval_start=interval_start,
-            use_utc_filenames=client.use_utc_filenames,
+            interval_start_tz=interval_start_tz,
             camera_name_fs_safe=camera_name_fs_safe,
         )
 

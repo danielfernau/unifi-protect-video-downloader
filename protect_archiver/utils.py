@@ -3,7 +3,6 @@ import os
 
 from datetime import datetime
 from datetime import timedelta
-from datetime import timezone
 from typing import Any
 from typing import Iterable
 from typing import Tuple
@@ -106,15 +105,9 @@ def print_download_stats(client: Any) -> None:
 def build_download_dir(
     use_subfolders: bool,
     destination_path: str,
-    interval_start: datetime,
-    use_utc_filenames: bool,
+    interval_start_tz: datetime,
     camera_name_fs_safe: str,
-) -> tuple[str, datetime]:
-    # support selection between local time zone and UTC for file names
-    interval_start_tz = (
-        interval_start.astimezone(timezone.utc) if use_utc_filenames else interval_start
-    )
-
+) -> str:
     # build file path for download
     if bool(use_subfolders):
         folder_year = interval_start_tz.strftime("%Y")
@@ -132,4 +125,4 @@ def build_download_dir(
     else:
         download_dir = destination_path
 
-    return download_dir, interval_start_tz
+    return download_dir

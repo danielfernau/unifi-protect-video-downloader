@@ -1,5 +1,6 @@
 import logging
 
+from datetime import timezone
 from typing import Any
 
 from protect_archiver.dataclasses import Camera
@@ -19,11 +20,17 @@ def download_motion_event(
     js_timestamp_start = int(motion_event.start.timestamp()) * 1000
     js_timestamp_end = int(motion_event.end.timestamp()) * 1000
 
-    download_dir, interval_start_tz = build_download_dir(
+    # support selection between local time zone and UTC for file names
+    interval_start_tz = (
+        motion_event.start.astimezone(timezone.utc)
+        if client.use_utc_filenames
+        else motion_event.start
+    )
+
+    download_dir = build_download_dir(
         use_subfolders=client.use_subfolders,
         destination_path=client.destination_path,
-        interval_start=motion_event.start,
-        use_utc_filenames=client.use_utc_filenames,
+        interval_start_tz=interval_start_tz,
         camera_name_fs_safe=camera_name_fs_safe,
     )
 
