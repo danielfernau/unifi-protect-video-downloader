@@ -147,6 +147,13 @@ from protect_archiver.utils import print_download_stats
     show_default=True,
     help="Also download motion heatmaps for event recordings",
 )
+@click.option(
+    "--use-utc-filenames",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Use UTC timestamp in file names instead of local time",
+)
 def events(
     dest: str,
     address: str,
@@ -165,6 +172,7 @@ def events(
     start: datetime,
     end: datetime,
     download_motion_heatmaps: bool,
+    use_utc_filenames: bool,
 ) -> None:
     client = ProtectClient(
         address=address,
@@ -180,6 +188,7 @@ def events(
         skip_existing_files=skip_existing_files,
         touch_files=touch_files,
         download_timeout=download_timeout,
+        use_utc_filenames=use_utc_filenames,
     )
 
     try:
