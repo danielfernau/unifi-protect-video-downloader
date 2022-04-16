@@ -79,6 +79,13 @@ from protect_archiver.utils import print_download_stats
         "Use '--cameras=all' to download footage of all available cameras."
     ),
 )
+@click.option(
+    "--use-utc-filenames",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Use UTC timestamp in file names instead of local time",
+)
 def sync(
     dest: str,
     address: str,
@@ -91,6 +98,7 @@ def sync(
     ignore_state: bool,
     ignore_failed_downloads: bool,
     cameras: str,
+    use_utc_filenames: bool,
 ) -> None:
     # normalize path to destination directory and check if it exists
     dest = path.abspath(dest)
@@ -108,6 +116,7 @@ def sync(
         destination_path=dest,
         ignore_failed_downloads=ignore_failed_downloads,
         use_subfolders=True,
+        use_utc_filenames=use_utc_filenames,
     )
 
     # get camera list
