@@ -29,6 +29,7 @@ class ProtectClient:
         touch_files: bool = Config.TOUCH_FILES,
         # aka read_timeout - time to wait until a socket read response happens
         download_timeout: float = Config.DOWNLOAD_TIMEOUT,
+        use_utc_filenames: bool = Config.USE_UTC_FILENAMES,
     ) -> None:
         self.protocol = protocol
         self.address = address
@@ -44,6 +45,7 @@ class ProtectClient:
         self.use_subfolders = use_subfolders
         self.skip_existing_files = skip_existing_files
         self.touch_files = touch_files
+        self.use_utc_filenames = use_utc_filenames
 
         self.destination_path = path.abspath(destination_path)
 
