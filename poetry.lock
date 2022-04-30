@@ -476,7 +476,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.27.23"
+version = "2.27.25"
 description = "Typing stubs for requests"
 category = "main"
 optional = false
@@ -525,7 +525,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "33fa99ba2c263d29bf8a0da9de74fe2685fd55fa2bdae2140b176cc2355b1e2a"
+content-hash = "ad8fb0e83a30e7a43399b9532f6438b746a88ff9839e70888fc6c6da45d38eaf"
 
 [metadata.files]
 astroid = [
@@ -805,8 +805,8 @@ types-python-dateutil = [
     {file = "types_python_dateutil-2.8.14-py3-none-any.whl", hash = "sha256:6ac40f66cf23a5200bd179b78d6be52e81a7750e4f8e45d7cfaf3ddda60ff01f"},
 ]
 types-requests = [
-    {file = "types-requests-2.27.23.tar.gz", hash = "sha256:13f750ed6a450c9c39a620fe901349f73cde680c8de2ee7c4319d5e77a593618"},
-    {file = "types_requests-2.27.23-py3-none-any.whl", hash = "sha256:018dc26464fd4d07fc67a230bd050e4fa250fd26fdf1f7d09b1ddbd29d06c825"},
+    {file = "types-requests-2.27.25.tar.gz", hash = "sha256:805ae7e38fd9d157153066dc4381cf585fd34dfa212f2fc1fece248c05aac571"},
+    {file = "types_requests-2.27.25-py3-none-any.whl", hash = "sha256:2444905c89731dbcb6bbcd6d873a04252445df7623917c640e463b2b28d2a708"},
 ]
 types-urllib3 = [
     {file = "types-urllib3-1.26.9.tar.gz", hash = "sha256:abd2d4857837482b1834b4817f0587678dcc531dbc9abe4cde4da28cef3f522c"},
