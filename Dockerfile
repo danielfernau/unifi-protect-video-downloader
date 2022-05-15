@@ -5,6 +5,9 @@ WORKDIR /build
 
 COPY . /build/
 
+RUN apt-get update
+RUN apt-get install -y python3-cryptography
+
 RUN pip install -U poetry
 
 RUN poetry build -f wheel --no-ansi --no-interaction
