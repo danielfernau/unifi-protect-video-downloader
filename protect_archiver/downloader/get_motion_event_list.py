@@ -19,11 +19,21 @@ def get_motion_event_list(
         f"{session.authority}{session.base_path}/events?type=motion"
         f"&start={int(start.timestamp()) * 1000}&end={int(end.timestamp()) * 1000}"
     )
-    response = requests.get(
-        motion_events_uri,
-        cookies={"TOKEN": session.get_api_token()},
-        verify=session.verify_ssl,
+
+    response = (
+        requests.get(
+            motion_events_uri,
+            cookies={"TOKEN": session.get_api_token()},
+            verify=session.verify_ssl,
+        )
+        if session.__class__.__name__ == "UniFiOSClient"
+        else requests.get(
+            motion_events_uri,
+            headers={"Authorization": f"Bearer {session.get_api_token()}"},
+            verify=session.verify_ssl,
+        )
     )
+
     if response.status_code != 200:
         print(f"Error while loading motion events list: {response.status_code}")
         return []
