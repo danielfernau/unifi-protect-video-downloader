@@ -478,7 +478,7 @@ python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "types-python-dateutil"
-version = "2.8.17"
+version = "2.8.18"
 description = "Typing stubs for python-dateutil"
 category = "main"
 optional = false
@@ -535,7 +535,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "69efdbff4dbb5da6a6df2b8e334f824ef3fc0c08a4563403f10a66489adbee4e"
+content-hash = "3a1f1cf2ad06aed08e0faed5e86d7e94d3615f3a6df16c69d2e55ddd5cc8058e"
 
 [metadata.files]
 astroid = [
@@ -815,8 +815,8 @@ tomlkit = [
     {file = "tomlkit-0.11.0.tar.gz", hash = "sha256:71ceb10c0eefd8b8f11fe34e8a51ad07812cb1dc3de23247425fbc9ddc47b9dd"},
 ]
 types-python-dateutil = [
-    {file = "types-python-dateutil-2.8.17.tar.gz", hash = "sha256:6c54265a221681dd87f61df6743bd5eab060cf1b4086ff65c1a8fd763ed6370e"},
-    {file = "types_python_dateutil-2.8.17-py3-none-any.whl", hash = "sha256:0be7435b4d382d1cd00b8c55a8a90f4e515aaad8a96f8f0bc20c22df046792e5"},
+    {file = "types-python-dateutil-2.8.18.tar.gz", hash = "sha256:8695c7d7a5b1aef4002f3ab4e1247e23b1d41cd7cc1286d4594c2d8c5593c991"},
+    {file = "types_python_dateutil-2.8.18-py3-none-any.whl", hash = "sha256:fd5ed97262b76ae684695ea38ace8dd7c1bc9491aba7eb4edf6654b7ecabc870"},
 ]
 types-requests = [
     {file = "types-requests-2.27.31.tar.gz", hash = "sha256:6fab97b99fea52b9c7b466a4dd93e06bb325bc7e7420475e87831026a8dd35cc"},
