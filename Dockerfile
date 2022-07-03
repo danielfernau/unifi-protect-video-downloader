@@ -1,4 +1,4 @@
-FROM python:3 AS build
+FROM --platform=linux/amd64 python:3 AS build
 
 RUN mkdir /build
 WORKDIR /build

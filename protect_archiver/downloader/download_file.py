@@ -31,12 +31,22 @@ def download_file(client: Any, query: str, filename: str) -> None:
         # make the GET request to retrieve the video file or snapshot
         try:
             start = time.monotonic()
-            response = requests.get(
-                uri,
-                cookies={"TOKEN": client.session.get_api_token()},
-                verify=client.verify_ssl,
-                timeout=client.download_timeout,
-                stream=True,
+            response = (
+                requests.get(
+                    uri,
+                    cookies={"TOKEN": client.session.get_api_token()},
+                    verify=client.verify_ssl,
+                    timeout=client.download_timeout,
+                    stream=True,
+                )
+                if client.session.__class__.__name__ == "UniFiOSClient"
+                else requests.get(
+                    uri,
+                    headers={"Authorization": f"Bearer {client.session.get_api_token()}"},
+                    verify=client.verify_ssl,
+                    timeout=client.download_timeout,
+                    stream=True,
+                )
             )
 
             if response.status_code == 401:
@@ -44,12 +54,24 @@ def download_file(client: Any, query: str, filename: str) -> None:
                 # as we dont want to retry on consecutive auth failures
                 # TODO: refactor this
                 start = time.monotonic()
-                response = requests.get(
-                    uri,
-                    cookies={"TOKEN": client.session.get_api_token(force=True)},
-                    verify=client.verify_ssl,
-                    timeout=client.download_timeout,
-                    stream=True,
+                response = (
+                    requests.get(
+                        uri,
+                        cookies={"TOKEN": client.session.get_api_token(force=True)},
+                        verify=client.verify_ssl,
+                        timeout=client.download_timeout,
+                        stream=True,
+                    )
+                    if client.session.__class__.__name__ == "UniFiOSClient"
+                    else requests.get(
+                        uri,
+                        headers={
+                            "Authorization": f"Bearer {client.session.get_api_token(force=True)}"
+                        },
+                        verify=client.verify_ssl,
+                        timeout=client.download_timeout,
+                        stream=True,
+                    )
                 )
 
             # write file to disk if response.status_code is 200,
@@ -87,6 +109,14 @@ def download_file(client: Any, query: str, filename: str) -> None:
                         fp.write(content)
 
                 else:
+                    # skip download if remote file is smaller than 300b
+                    if total_bytes < 300:
+                        logging.warning(
+                            "File is smaller than 300 bytes (empty video clip) - skipping download"
+                        )
+                        client.files_skipped += 1
+                        return
+
                     with open(filename, "wb") as fp:
                         for chunk in response.iter_content(4096):
                             cur_bytes += len(chunk)

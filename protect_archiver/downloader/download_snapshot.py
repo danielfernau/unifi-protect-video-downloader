@@ -2,10 +2,12 @@ import logging
 import os
 
 from datetime import datetime
+from datetime import timezone
 from typing import Any
 
 from protect_archiver.dataclasses import Camera
 from protect_archiver.downloader.download_file import download_file
+from protect_archiver.utils import build_download_dir
 from protect_archiver.utils import make_camera_name_fs_safe
 
 
@@ -13,25 +15,18 @@ def download_snapshot(client: Any, start: datetime, camera: Camera) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 
-    # file path for download
-    if bool(client.use_subfolders):
-        folder_year = start.strftime("%Y")
-        folder_month = start.strftime("%m")
-        folder_day = start.strftime("%d")
+    # support selection between local time zone and UTC for file names
+    interval_start_tz = start.astimezone(timezone.utc) if client.use_utc_filenames else start
 
-        dir_by_date_and_name = f"{folder_year}/{folder_month}/{folder_day}/{camera_name_fs_safe}"
-        target_with_date_and_name = f"{client.destination_path}/{dir_by_date_and_name}"
-
-        download_dir = target_with_date_and_name
-        if not os.path.isdir(target_with_date_and_name):
-            os.makedirs(target_with_date_and_name, exist_ok=True)
-            logging.info(f"Created path {target_with_date_and_name}")
-            download_dir = target_with_date_and_name
-    else:
-        download_dir = client.destination_path
+    download_dir = build_download_dir(
+        use_subfolders=client.use_subfolders,
+        destination_path=client.destination_path,
+        interval_start_tz=interval_start_tz,
+        camera_name_fs_safe=camera_name_fs_safe,
+    )
 
     # file name for download
-    filename_timestamp = start.strftime("%Y-%m-%d - %H.%M.%S%z")
+    filename_timestamp = interval_start_tz.strftime("%Y-%m-%d - %H.%M.%S%z")
     filename = f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.jpg"
 
     logging.info(

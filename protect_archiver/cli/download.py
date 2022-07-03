@@ -151,6 +151,13 @@ from protect_archiver.utils import print_download_stats
         "This flag cannot be used in combination with the normal video download mode."
     ),
 )
+@click.option(
+    "--use-utc-filenames",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Use UTC timestamp in file names instead of local time",
+)
 def download(
     dest: str,
     address: str,
@@ -169,6 +176,7 @@ def download(
     start: datetime,
     end: datetime,
     create_snapshot: bool,
+    use_utc_filenames: bool,
 ) -> None:
     # check the provided command line arguments
     # TODO(danielfernau): remove exit codes 1 (path invalid) and 6 (start/end/snapshot) from docs: no longer valid
@@ -194,6 +202,7 @@ def download(
         skip_existing_files=skip_existing_files,
         touch_files=touch_files,
         download_timeout=download_timeout,
+        use_utc_filenames=use_utc_filenames,
     )
 
     try:
