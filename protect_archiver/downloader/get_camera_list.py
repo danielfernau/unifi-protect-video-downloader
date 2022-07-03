@@ -36,12 +36,12 @@ def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
 
     camera_list = []
     for camera in cameras:
-        cameraData = Camera(id=camera["id"], name=camera["name"], recording_start=0)
+        camera_data = Camera(id=camera["id"], name=camera["name"], recording_start=datetime.min)
         if camera["stats"]["video"]["recordingStart"]:
-            cameraData.recording_start = datetime.utcfromtimestamp(
+            camera_data.recording_start = datetime.utcfromtimestamp(
                 camera["stats"]["video"]["recordingStart"] / 1000
             )
-        camera_list.append(cameraData)
+        camera_list.append(camera_data)
 
     logging.info(
         "Cameras found:\n{}".format(
