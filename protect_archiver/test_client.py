@@ -35,15 +35,6 @@ def mock_api(
 def test_get_camera_list(client: Any) -> None:
     results = client.get_camera_list()
 
-    assert len(results) == 1
-    assert results[0].id == "exteriorCameraId"
-    assert results[0].name == "Exterior"
-    assert results[0].recording_start == datetime(2020, 1, 8, 23, 26, 9, 586000)
-
-
-def test_get_camera_list_with_disconnected(client: Any) -> None:
-    results = client.get_camera_list(connected=False)
-
     assert len(results) == 2
     assert results[0].id == "exteriorCameraId"
     assert results[0].name == "Exterior"

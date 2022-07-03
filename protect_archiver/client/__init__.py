@@ -83,8 +83,8 @@ class ProtectClient:
                 self.verify_ssl,
             )
 
-    def get_camera_list(self, connected: bool = True) -> List[Any]:
-        return Downloader.get_camera_list(self.session, connected)
+    def get_camera_list(self) -> List[Any]:
+        return Downloader.get_camera_list(self.session)
 
     def get_motion_event_list(
         self, start: datetime, end: datetime, camera_list: List[Any]

@@ -29,8 +29,8 @@ class Downloader:
         self.download_wait = download_wait
 
     @staticmethod
-    def get_camera_list(session: Any, connected: bool) -> List[Any]:
-        return get_camera_list(session, connected)
+    def get_camera_list(session: Any) -> List[Any]:
+        return get_camera_list(session)
 
     @staticmethod
     def get_motion_event_list(

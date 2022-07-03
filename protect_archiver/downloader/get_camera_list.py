@@ -10,7 +10,7 @@ import requests
 from protect_archiver.dataclasses import Camera
 
 
-def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
+def get_camera_list(session: Any) -> List[Camera]:
     cameras_uri = f"{session.authority}{session.base_path}/cameras"
 
     response = (
