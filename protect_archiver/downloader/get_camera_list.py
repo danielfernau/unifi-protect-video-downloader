@@ -10,7 +10,7 @@ import requests
 from protect_archiver.dataclasses import Camera
 
 
-def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
+def get_camera_list(session: Any) -> List[Camera]:
     cameras_uri = f"{session.authority}{session.base_path}/cameras"
 
     response = (
@@ -36,21 +36,12 @@ def get_camera_list(session: Any, connected: bool = True) -> List[Camera]:
 
     camera_list = []
     for camera in cameras:
-        if connected and camera["state"] != "CONNECTED":  # ignore disconnected cameras
-            continue
-
-        if camera["stats"]["video"]["recordingStart"] is None:  # ignore cameras without recordings
-            continue
-
-        camera_list.append(
-            Camera(
-                id=camera["id"],
-                name=camera["name"],
-                recording_start=datetime.utcfromtimestamp(
-                    camera["stats"]["video"]["recordingStart"] / 1000
-                ),
+        camera_data = Camera(id=camera["id"], name=camera["name"], recording_start=datetime.min)
+        if camera["stats"]["video"]["recordingStart"]:
+            camera_data.recording_start = datetime.utcfromtimestamp(
+                camera["stats"]["video"]["recordingStart"] / 1000
             )
-        )
+        camera_list.append(camera_data)
 
     logging.info(
         "Cameras found:\n{}".format(
