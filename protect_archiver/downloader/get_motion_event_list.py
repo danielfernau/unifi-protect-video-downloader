@@ -16,7 +16,7 @@ def get_motion_event_list(
     session: Any, start: datetime, end: datetime, camera_list: List[Camera]
 ) -> List[MotionEvent]:
     motion_events_uri = (
-        f"{session.authority}{session.base_path}/events?type=motion"
+        f"{session.authority}{session.base_path}/events?type=ring,motion,smartDetectZone,smartDetectLine"
         f"&start={int(start.timestamp()) * 1000}&end={int(end.timestamp()) * 1000}"
     )
 
