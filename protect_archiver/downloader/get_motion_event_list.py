@@ -16,7 +16,10 @@ def get_motion_event_list(
     session: Any, start: datetime, end: datetime, camera_list: List[Camera]
 ) -> List[MotionEvent]:
     motion_events_uri = (
-        f"{session.authority}{session.base_path}/events?type=motion"
+        # path: "/events", method: "GET", query: {start?: timestamp, end?: timestamp, cameras?: list,
+        #   smartDetectTypes?: list, type?: string, types?: list, limit?: int, offset?: unknown,
+        #   orderDirection?: string, addTimelapseDescriptions?: bool, allCameras?: bool}
+        f"{session.authority}{session.base_path}/events?types=ring,motion,smartDetectZone,smartDetectLine"
         f"&start={int(start.timestamp()) * 1000}&end={int(end.timestamp()) * 1000}"
     )
 
