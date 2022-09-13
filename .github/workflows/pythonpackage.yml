@@ -15,7 +15,7 @@ jobs:
       matrix:
         os: [Ubuntu]
         python-version: ["3.8", "3.9", "3.10"]
-        poetry-version: ["1.1.12"]
+        poetry-version: ["1.2.0"]
         include:
           - os: Ubuntu
             image: ubuntu-latest
