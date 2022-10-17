@@ -379,7 +379,7 @@ pytest = ">=3.10"
 
 [[package]]
 name = "pytest-responses"
-version = "0.5.0"
+version = "0.5.1"
 description = "py.test integration for responses"
 category = "dev"
 optional = false
@@ -802,7 +802,7 @@ pytest-forked = [
     {file = "pytest_forked-1.4.0-py3-none-any.whl", hash = "sha256:bbbb6717efc886b9d64537b41fb1497cfaf3c9601276be8da2cccfea5a3c8ad8"},
 ]
 pytest-responses = [
-    {file = "pytest_responses-0.5.0-py2.py3-none-any.whl", hash = "sha256:6fffd7412294c8a01ccfec05ae51910db76aeb0df877c5fac16c64991cb465e6"},
+    {file = "pytest_responses-0.5.1-py2.py3-none-any.whl", hash = "sha256:4172e565b94ac1ea3b10aba6e40855ad60cd7f141476b2d8a47e4b5f250be734"},
 ]
 pytest-xdist = [
     {file = "pytest-xdist-2.5.0.tar.gz", hash = "sha256:4580deca3ff04ddb2ac53eba39d76cb5dd5edeac050cb6fbc768b0dd712b4edf"},
