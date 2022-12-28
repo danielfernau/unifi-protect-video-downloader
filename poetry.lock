@@ -126,6 +126,17 @@ python-versions = ">=2.7, !=3.0.*"
 graph = ["objgraph (>=1.7.2)"]
 
 [[package]]
+name = "dill"
+version = "0.3.6"
+description = "serialize all of python"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+graph = ["objgraph (>=1.7.2)"]
+
+[[package]]
 name = "exceptiongroup"
 version = "1.0.0rc9"
 description = "Backport of PEP 654 (exception groups)"
@@ -302,7 +313,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "pylint"
-version = "2.15.8"
+version = "2.15.9"
 description = "python code static checker"
 category = "dev"
 optional = false
@@ -311,7 +322,10 @@ python-versions = ">=3.7.2"
 [package.dependencies]
 astroid = ">=2.12.13,<=2.14.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
-dill = ">=0.2"
+dill = [
+    {version = ">=0.2", markers = "python_version < \"3.11\""},
+    {version = ">=0.3.6", markers = "python_version >= \"3.11\""},
+]
 isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.8"
 platformdirs = ">=2.2.0"
@@ -637,6 +651,8 @@ coverage = [
 dill = [
     {file = "dill-0.3.4-py2.py3-none-any.whl", hash = "sha256:7e40e4a70304fd9ceab3535d36e58791d9c4a776b38ec7f7ec9afc8d3dca4d4f"},
     {file = "dill-0.3.4.zip", hash = "sha256:9f9734205146b2b353ab3fec9af0070237b6ddae78452af83d2fca84d739e675"},
+    {file = "dill-0.3.6-py3-none-any.whl", hash = "sha256:a07ffd2351b8c678dfc4a856a3005f8067aea51d6ba6c700796a4d9e280f39f0"},
+    {file = "dill-0.3.6.tar.gz", hash = "sha256:e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373"},
 ]
 exceptiongroup = [
     {file = "exceptiongroup-1.0.0rc9-py3-none-any.whl", hash = "sha256:2e3c3fc1538a094aab74fad52d6c33fc94de3dfee3ee01f187c0e0c72aec5337"},
@@ -770,8 +786,8 @@ pyflakes = [
     {file = "pyflakes-2.5.0.tar.gz", hash = "sha256:491feb020dca48ccc562a8c0cbe8df07ee13078df59813b83959cbdada312ea3"},
 ]
 pylint = [
-    {file = "pylint-2.15.8-py3-none-any.whl", hash = "sha256:ea82cd6a1e11062dc86d555d07c021b0fb65afe39becbe6fe692efd6c4a67443"},
-    {file = "pylint-2.15.8.tar.gz", hash = "sha256:ec4a87c33da054ab86a6c79afa6771dc8765cb5631620053e727fcf3ef8cbed7"},
+    {file = "pylint-2.15.9-py3-none-any.whl", hash = "sha256:349c8cd36aede4d50a0754a8c0218b43323d13d5d88f4b2952ddfe3e169681eb"},
+    {file = "pylint-2.15.9.tar.gz", hash = "sha256:18783cca3cfee5b83c6c5d10b3cdb66c6594520ffae61890858fe8d932e1c6b4"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.7-py3-none-any.whl", hash = "sha256:a6c06a88f252e6c322f65faf8f418b16213b51bdfaece0524c1c1bc30c63c484"},
