@@ -6,6 +6,7 @@ or [discussion](https://github.com/danielfernau/unifi-protect-video-downloader/d
 
 ---
 
-## Issues related to Docker/Podman
+## Docker
+> This section tracks common issues and solutions related to using the tool's image with Docker or Podman.
 
 WIP
