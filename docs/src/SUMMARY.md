@@ -3,9 +3,10 @@
 [Introduction](./introduction.md)
 
 # User Guide
+
 - [Getting Started](./getting_started.md)
 - [Usage](./usage/index.md)
-  - [protect-archiver](./usage/protect_archiver/index.md)
-    - [protect-archiver download](./usage/protect_archiver/protect_archiver_download.md)
-    - [protect-archiver events](./usage/protect_archiver/protect_archiver_events.md)
-    - [protect-archiver sync](./usage/protect_archiver/protect_archiver_sync.md)
+    - [protect-archiver](./usage/protect_archiver/index.md)
+        - [protect-archiver download](./usage/protect_archiver/download.md)
+        - [protect-archiver events](./usage/protect_archiver/events.md)
+        - [protect-archiver sync](./usage/protect_archiver/sync.md)

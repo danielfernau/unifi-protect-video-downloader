@@ -11,7 +11,7 @@ section for additional instructions.
 ## Using Docker (recommended)
 
 > Refer to `this documentation` on how to set up Docker on your machine.
-> 
+>
 > A collection of hints related to using this tool's Docker image can be found under the `FAQ/Docker` section.
 
 ### For downloading clips from consoles running UniFi OS
@@ -25,16 +25,17 @@ docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiv
 [wiki/Usage-(v2.x)](https://github.com/danielfernau/unifi-protect-video-downloader/wiki/Usage-(v2.x)))
 
 Example:
+
 ```shell
 docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download [OPTIONS] /downloads
 ```
-
 
 ### For downloading clips from consoles with older firmware (<= v?.?.?)
 
 To use the tool with older systems, just add the `--not-unifi-os` flag to your options list.
 
 Example:
+
 ```shell
 docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiver download --not-unifi-os [OPTIONS] /downloads
 ```
