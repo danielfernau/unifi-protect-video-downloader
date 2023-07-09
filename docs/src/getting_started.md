@@ -10,8 +10,10 @@ section for additional instructions.
 
 ## Using Docker (recommended)
 
-> Refer to `this documentation` on how to set up Docker on your machine.
->
+> Refer to [this documentation](https://docs.docker.com/get-docker/) on how to set up Docker on your machine.
+> 
+> If you prefer to use Podman, you can find the installation instructions [here](https://podman.io/docs/installation).
+> 
 > A collection of hints related to using this tool's Docker image can be found under the `FAQ/Docker` section.
 
 ### For downloading clips from consoles running UniFi OS
