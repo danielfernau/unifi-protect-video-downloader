@@ -118,7 +118,7 @@ def download_file(client: Any, query: str, filename: str) -> None:
                         return
 
                     with open(filename, "wb") as fp:
-                        for chunk in response.iter_content(4096):
+                        for chunk in response.iter_content(None):
                             cur_bytes += len(chunk)
                             fp.write(chunk)
                             # TODO
