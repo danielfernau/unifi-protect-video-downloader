@@ -513,13 +513,13 @@ files = [
 
 [[package]]
 name = "pip"
-version = "23.1.2"
+version = "23.2.1"
 description = "The PyPA recommended tool for installing Python packages."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pip-23.1.2-py3-none-any.whl", hash = "sha256:3ef6ac33239e4027d9a5598a381b9d30880a1477e50039db2eac6e8a8f6d1b18"},
-    {file = "pip-23.1.2.tar.gz", hash = "sha256:0e7c86f486935893c708287b30bd050a36ac827ec7fe5e43fe7cb198dd835fba"},
+    {file = "pip-23.2.1-py3-none-any.whl", hash = "sha256:7ccf472345f20d35bdc9d1841ff5f313260c2c33fe417f48c30ac46cccabf5be"},
+    {file = "pip-23.2.1.tar.gz", hash = "sha256:fb0bd5435b3200c602b5bf61d2d43c2f13c02e29c1707567ae7fbc514eb9faf2"},
 ]
 
 [[package]]
