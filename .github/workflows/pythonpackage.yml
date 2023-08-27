@@ -7,6 +7,10 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ master ]
 
+concurrency:
+  group: pythonpackage-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   package-lint-and-test:
     name: ${{ matrix.os }} / ${{ matrix.python-version }} ${{ matrix.suffix }}
