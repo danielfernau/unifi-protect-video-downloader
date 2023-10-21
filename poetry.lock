@@ -459,13 +459,13 @@ files = [
 
 [[package]]
 name = "pip"
-version = "23.2.1"
+version = "23.3"
 description = "The PyPA recommended tool for installing Python packages."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pip-23.2.1-py3-none-any.whl", hash = "sha256:7ccf472345f20d35bdc9d1841ff5f313260c2c33fe417f48c30ac46cccabf5be"},
-    {file = "pip-23.2.1.tar.gz", hash = "sha256:fb0bd5435b3200c602b5bf61d2d43c2f13c02e29c1707567ae7fbc514eb9faf2"},
+    {file = "pip-23.3-py3-none-any.whl", hash = "sha256:bc38bb52bc286514f8f7cb3a1ba5ed100b76aaef29b521d48574329331c5ae7b"},
+    {file = "pip-23.3.tar.gz", hash = "sha256:bb7d4f69f488432e4e96394612f43ab43dd478d073ef7422604a570f7157561e"},
 ]
 
 [[package]]
@@ -788,13 +788,13 @@ files = [
 
 [[package]]
 name = "types-requests"
-version = "2.31.0.8"
+version = "2.31.0.10"
 description = "Typing stubs for requests"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "types-requests-2.31.0.8.tar.gz", hash = "sha256:e1b325c687b3494a2f528ab06e411d7092cc546cc9245c000bacc2fca5ae96d4"},
-    {file = "types_requests-2.31.0.8-py3-none-any.whl", hash = "sha256:39894cbca3fb3d032ed8bdd02275b4273471aa5668564617cc1734b0a65ffdf8"},
+    {file = "types-requests-2.31.0.10.tar.gz", hash = "sha256:dc5852a76f1eaf60eafa81a2e50aefa3d1f015c34cf0cba130930866b1b22a92"},
+    {file = "types_requests-2.31.0.10-py3-none-any.whl", hash = "sha256:b32b9a86beffa876c0c3ac99a4cd3b8b51e973fb8e3bd4e0a6bb32c7efad80fc"},
 ]
 
 [package.dependencies]
@@ -813,13 +813,13 @@ files = [
 
 [[package]]
 name = "urllib3"
-version = "2.0.6"
+version = "2.0.7"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "urllib3-2.0.6-py3-none-any.whl", hash = "sha256:7a7c7003b000adf9e7ca2a377c9688bbc54ed41b985789ed576570342a375cd2"},
-    {file = "urllib3-2.0.6.tar.gz", hash = "sha256:b19e1a85d206b56d7df1d5e683df4a7725252a964e3993648dd0fb5a1c157564"},
+    {file = "urllib3-2.0.7-py3-none-any.whl", hash = "sha256:fdb6d215c776278489906c2f8916e6e7d4f5a9b602ccbcfdf7f016fc8da0596e"},
+    {file = "urllib3-2.0.7.tar.gz", hash = "sha256:c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"},
 ]
 
 [package.extras]
