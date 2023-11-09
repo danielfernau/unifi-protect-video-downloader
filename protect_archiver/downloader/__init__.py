@@ -43,8 +43,8 @@ class Downloader:
         return download_file(client, video_export_query, filename)
 
     @staticmethod
-    def download_footage(client: Any, start: datetime, end: datetime, camera: Any) -> Any:
-        return download_footage(client, start, end, camera)
+    def download_footage(client: Any, start: datetime, end: datetime, camera: Any, skip_round_to_hour: bool) -> Any:
+        return download_footage(client, start, end, camera, skip_round_to_hour)
 
     @staticmethod
     def download_snapshot(client: Any, start: datetime, camera: Any) -> Any:

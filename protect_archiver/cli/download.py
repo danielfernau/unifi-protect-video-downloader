@@ -141,6 +141,14 @@ from protect_archiver.utils import print_download_stats
     ),
 )
 @click.option(
+    "--skip-round-to-hour",
+    "skip_round_to_hour",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Skips rounding the clips to hour markers."
+)
+@click.option(
     "--snapshot",
     "create_snapshot",
     is_flag=True,
@@ -175,6 +183,7 @@ def download(
     ignore_failed_downloads: bool,
     start: datetime,
     end: datetime,
+    skip_round_to_hour: bool,
     create_snapshot: bool,
     use_utc_filenames: bool,
 ) -> None:
@@ -224,7 +233,7 @@ def download(
                     f" {camera.name}"
                 )
 
-                Downloader.download_footage(client, start, end, camera)
+                Downloader.download_footage(client, start, end, camera, skip_round_to_hour)
         else:
             click.echo(
                 f"Downloading snapshot files for {start.ctime()}"
