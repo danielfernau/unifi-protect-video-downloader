@@ -146,7 +146,7 @@ from protect_archiver.utils import print_download_stats
     is_flag=True,
     default=False,
     show_default=True,
-    help="Skips rounding the clips to hour markers."
+    help="Skips rounding the clips to hour markers.",
 )
 @click.option(
     "--snapshot",
