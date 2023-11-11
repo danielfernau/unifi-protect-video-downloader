@@ -13,7 +13,9 @@ from protect_archiver.utils import calculate_intervals
 from protect_archiver.utils import make_camera_name_fs_safe
 
 
-def download_footage(client: Any, start: datetime, end: datetime, camera: Camera, skip_round_to_hour: bool) -> None:
+def download_footage(
+    client: Any, start: datetime, end: datetime, camera: Camera, skip_round_to_hour: bool
+) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 
