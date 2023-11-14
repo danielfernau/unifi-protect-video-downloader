@@ -24,7 +24,7 @@ def download_footage(
     if skip_round_to_hour:
         intervals = [(start, end)]
     else:
-        intervals = calculate_intervals(start, end)
+        intervals = calculate_intervals(start, end) # type: ignore  # noqa
 
     # split requested time frame into chunks of 1 hour or less and download them one by one
     for interval_start, interval_end in intervals:

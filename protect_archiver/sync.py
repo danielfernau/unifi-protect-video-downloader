@@ -52,7 +52,7 @@ class ProtectSync:
                 )
                 end = datetime.now().replace(minute=0, second=0, microsecond=0)
                 for interval_start, interval_end in calculate_intervals(start, end):
-                    Downloader.download_footage(self.client, interval_start, interval_end, camera)
+                    Downloader.download_footage(self.client, interval_start, interval_end, camera, False)
                     state["cameras"][camera.id] = {
                         "last": interval_end,
                         "name": camera.name,

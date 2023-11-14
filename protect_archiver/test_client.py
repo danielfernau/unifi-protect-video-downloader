@@ -75,7 +75,7 @@ def test_download_footage(
     start = datetime(2020, 1, 8, 23, 0, 0, tzinfo=timezone.utc)
     end = datetime(2020, 1, 8, 23, 59, 0, tzinfo=timezone.utc)
 
-    Downloader.download_footage(client, start, end, sample_camera)
+    Downloader.download_footage(client, start, end, sample_camera, False)
 
     file_name = os.path.join(
         test_output_dest,
