@@ -52,8 +52,9 @@ def calculate_intervals(start: datetime, end: datetime) -> Iterable[Tuple[dateti
     start_diff_to_next_full_hour = diff_round_up_to_full_hour(start) - start
     end_diff_to_past_full_hour = end - diff_round_down_to_full_hour(end)
 
-    if start_diff_to_next_full_hour.seconds != 0:
-        # start is not on full hour, yield interval from start to first full hour
+    if start_diff_to_next_full_hour.seconds != 0 and (end - start) >= start_diff_to_next_full_hour:
+        # start is not on full hour, and total length is greater than difference to next full hour
+        # yield interval from start to first full hour
         yield start, start + start_diff_to_next_full_hour
         start = start + start_diff_to_next_full_hour
 
@@ -66,8 +67,11 @@ def calculate_intervals(start: datetime, end: datetime) -> Iterable[Tuple[dateti
         full_hour_end = end
 
     # yield all full-hour intervals
-    for n in range(int((end - start).total_seconds() / 3600)):
-        yield start + timedelta(seconds=n * 3600), start + timedelta(seconds=((n + 1) * 3600) - 1)
+    start_to_end_seconds = int((end - start).total_seconds())
+    full_hour_count = int(start_to_end_seconds / 3600)
+    if start_to_end_seconds >= 60:
+        for n in range(full_hour_count):
+            yield start + timedelta(seconds=n * 3600), start + timedelta(seconds=((n + 1) * 3600) - 1)
 
     if original_end != full_hour_end:
         # if end is not on full hour, yield the interval between the last full hour and the end
