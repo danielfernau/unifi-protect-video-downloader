@@ -52,30 +52,24 @@ def calculate_intervals(start: datetime, end: datetime) -> Iterable[Tuple[dateti
     start_diff_to_next_full_hour = diff_round_up_to_full_hour(start) - start
     end_diff_to_past_full_hour = end - diff_round_down_to_full_hour(end)
 
-    if start_diff_to_next_full_hour.seconds != 0 and (end - start) >= start_diff_to_next_full_hour:
-        # start is not on full hour, and total length is greater than difference to next full hour
-        # yield interval from start to first full hour
-        yield start, start + start_diff_to_next_full_hour
-        start = start + start_diff_to_next_full_hour
-
+    # save original start and end for later
+    original_start = start
     original_end = end
+
+    # yield interval from start to first full hour and align start to full hours
+    # but only if the end datetime is past the next full hour after start datetime
+    if start_diff_to_next_full_hour.seconds != 0 and (original_end - original_start) >= start_diff_to_next_full_hour:
+        yield start, start + (start_diff_to_next_full_hour - timedelta(milliseconds=1))
+        start = start + start_diff_to_next_full_hour # update start time
+
+    # yield all remaining full-hour intervals
+    for _ in range(int((end - start).total_seconds() / 3600)):
+        yield start, start + timedelta(minutes=59, seconds=59, milliseconds=999)
+        start = start + timedelta(minutes=60) # update start time
+
+    # if end is not on full hour, yield remaining segment
     if end_diff_to_past_full_hour.seconds != 0:
-        # end is not on full hour
-        full_hour_end = end - end_diff_to_past_full_hour
-        end = end - end_diff_to_past_full_hour
-    else:
-        full_hour_end = end
-
-    # yield all full-hour intervals
-    start_to_end_seconds = int((end - start).total_seconds())
-    full_hour_count = int(start_to_end_seconds / 3600)
-    if start_to_end_seconds >= 60:
-        for n in range(full_hour_count):
-            yield start + timedelta(seconds=n * 3600), start + timedelta(seconds=((n + 1) * 3600) - 1)
-
-    if original_end != full_hour_end:
-        # if end is not on full hour, yield the interval between the last full hour and the end
-        yield full_hour_end, original_end - timedelta(seconds=1)
+        yield start, original_end - timedelta(milliseconds=1)
 
 
 def format_bytes(size: int) -> str:
