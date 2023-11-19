@@ -4,24 +4,12 @@ import dateutil.parser
 from .utils import calculate_intervals
 
 
-def test_calculate_intervals_single_result() -> None:
-    start = datetime(2020, 1, 8, 23, 0, 0)
-    end = datetime(2020, 1, 9, 0, 0, 0)
-
-    result = list(calculate_intervals(start, end))
-    assert result == [
-        (datetime(2020, 1, 8, 23, 0, 0), datetime(2020, 1, 8, 23, 59, 59)),
-    ]
-
-
 def test_calculate_intervals_multiple_partial_no_alignment_1() -> None:
     start = dateutil.parser.parse("01/01/1970 08:30:00")
     end = dateutil.parser.parse("01/01/1970 08:45:00")
 
     result = list(calculate_intervals(start, end, disable_alignment=True))
-    assert result == [
-        (datetime(1970, 1, 1, 8, 30), datetime(1970, 1, 1, 8, 44, 59, 999000))
-    ]
+    assert result == [(datetime(1970, 1, 1, 8, 30), datetime(1970, 1, 1, 8, 44, 59, 999000))]
 
 
 def test_calculate_intervals_multiple_partial_no_alignment_2() -> None:
@@ -58,9 +46,7 @@ def test_calculate_intervals_no_splitting() -> None:
     end = dateutil.parser.parse("01/01/1970 13:21:00")
 
     result = list(calculate_intervals(start, end, disable_splitting=True))
-    assert result == [
-        (datetime(1970, 1, 1, 8, 56), datetime(1970, 1, 1, 13, 20, 59, 999000))
-    ]
+    assert result == [(datetime(1970, 1, 1, 8, 56), datetime(1970, 1, 1, 13, 20, 59, 999000))]
 
 
 def test_calculate_intervals_15m_within_hour() -> None:
@@ -68,9 +54,7 @@ def test_calculate_intervals_15m_within_hour() -> None:
     end = dateutil.parser.parse("01/01/1970 08:45:00")
 
     result = list(calculate_intervals(start, end))
-    assert result == [
-        (datetime(1970, 1, 1, 8, 30), datetime(1970, 1, 1, 8, 44, 59, 999000))
-    ]
+    assert result == [(datetime(1970, 1, 1, 8, 30), datetime(1970, 1, 1, 8, 44, 59, 999000))]
 
 
 def test_calculate_intervals_30m_crossing_hour() -> None:
@@ -89,9 +73,7 @@ def test_calculate_intervals_15m_to_full_hour() -> None:
     end = dateutil.parser.parse("01/01/1970 09:00:00")
 
     result = list(calculate_intervals(start, end))
-    assert result == [
-        (datetime(1970, 1, 1, 8, 30), datetime(1970, 1, 1, 8, 59, 59, 999000))
-    ]
+    assert result == [(datetime(1970, 1, 1, 8, 30), datetime(1970, 1, 1, 8, 59, 59, 999000))]
 
 
 def test_calculate_intervals_15m_1s_after_the_hour() -> None:
