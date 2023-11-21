@@ -10,6 +10,7 @@ import requests
 
 from protect_archiver.errors import Errors
 from protect_archiver.utils import format_bytes
+from protect_archiver.utils import print_download_stats
 
 
 def download_file(client: Any, query: str, filename: str) -> None:
@@ -160,7 +161,7 @@ def download_file(client: Any, query: str, filename: str) -> None:
             "To skip failed downloads and continue with next file, add argument"
             " '--ignore-failed-downloads'"
         )
-        client.print_download_stats()
+        print_download_stats(client)
         raise Errors.ProtectError(exit_code)
     else:
         logging.info(
