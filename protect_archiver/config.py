@@ -17,6 +17,8 @@ class Config:
     TOUCH_FILES: bool = False
     SKIP_EXISTING_FILES: bool = False
     IGNORE_FAILED_DOWNLOADS: bool = False
+    DISABLE_ALIGNMENT: bool = False
+    DISABLE_SPLITTING: bool = False
     DOWNLOAD_WAIT: int = 0
     DOWNLOAD_TIMEOUT: float = (
         60.0  # aka read_timeout - time to wait until a socket read response happens

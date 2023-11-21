@@ -43,8 +43,15 @@ class Downloader:
         return download_file(client, video_export_query, filename)
 
     @staticmethod
-    def download_footage(client: Any, start: datetime, end: datetime, camera: Any) -> Any:
-        return download_footage(client, start, end, camera)
+    def download_footage(
+        client: Any,
+        start: datetime,
+        end: datetime,
+        camera: Any,
+        disable_alignment: bool = Config.DISABLE_ALIGNMENT,
+        disable_splitting: bool = Config.DISABLE_SPLITTING,
+    ) -> Any:
+        return download_footage(client, start, end, camera, disable_alignment, disable_splitting)
 
     @staticmethod
     def download_snapshot(client: Any, start: datetime, camera: Any) -> Any:

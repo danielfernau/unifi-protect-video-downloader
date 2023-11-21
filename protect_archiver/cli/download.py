@@ -141,6 +141,29 @@ from protect_archiver.utils import print_download_stats
     ),
 )
 @click.option(
+    "--disable-alignment",
+    "disable_alignment",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help=(
+        "Disables alignment of the 1-hour segments to absolute hours. "
+        "If set, results in 8:45, 9:45, 10:45 instead of 8:45, 9:00, 10:00, 10:45."
+    ),
+)
+@click.option(
+    "--disable-splitting",
+    "disable_splitting",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help=(
+        "Disables splitting the datetime selection in 1-hour segments. "
+        "USE WITH CAUTION: requesting segments longer than 1 hour via the "
+        "API can cause the Protect console to crash and restart unexpectedly."
+    ),
+)
+@click.option(
     "--snapshot",
     "create_snapshot",
     is_flag=True,
@@ -175,6 +198,8 @@ def download(
     ignore_failed_downloads: bool,
     start: datetime,
     end: datetime,
+    disable_alignment: bool,
+    disable_splitting: bool,
     create_snapshot: bool,
     use_utc_filenames: bool,
 ) -> None:
@@ -224,7 +249,9 @@ def download(
                     f" {camera.name}"
                 )
 
-                Downloader.download_footage(client, start, end, camera)
+                Downloader.download_footage(
+                    client, start, end, camera, disable_alignment, disable_splitting
+                )
         else:
             click.echo(
                 f"Downloading snapshot files for {start.ctime()}"
