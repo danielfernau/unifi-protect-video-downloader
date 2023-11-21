@@ -13,14 +13,26 @@ from protect_archiver.utils import calculate_intervals
 from protect_archiver.utils import make_camera_name_fs_safe
 
 
-def download_footage(client: Any, start: datetime, end: datetime, camera: Camera) -> None:
+def download_footage(
+    client: Any,
+    start: datetime,
+    end: datetime,
+    camera: Camera,
+    disable_alignment: bool,
+    disable_splitting: bool,
+) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 
     logging.info(f"Downloading footage for camera '{camera.name}' ({camera.id})")
 
     # split requested time frame into chunks of 1 hour or less and download them one by one
-    for interval_start, interval_end in calculate_intervals(start, end):
+    for interval_start, interval_end in calculate_intervals(
+        start,
+        end,
+        disable_alignment,
+        disable_splitting,
+    ):
         # wait n seconds before starting next download (if parameter is set)
         if client.download_wait != 0 and client.files_downloaded == 0:
             logging.debug(

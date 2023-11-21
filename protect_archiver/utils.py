@@ -91,6 +91,7 @@ def calculate_intervals(
     if end_diff_to_past_full_hour.seconds != 0:
         yield start, original_end - timedelta(milliseconds=1)
 
+
 def format_bytes(size: int) -> str:
     # 2**10 = 1024
     power = 2**10

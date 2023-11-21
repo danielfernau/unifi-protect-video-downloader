@@ -19,6 +19,8 @@ class Downloader:
         verify_ssl: bool = Config.VERIFY_SSL,
         max_retries: int = Config.MAX_RETRIES,
         skip_existing_files: bool = Config.SKIP_EXISTING_FILES,
+        disable_alignment: bool = Config.DISABLE_ALIGNMENT,
+        disable_splitting: bool = Config.DISABLE_SPLITTING,
         download_wait: int = Config.DOWNLOAD_WAIT,
     ) -> None:
         self.ignore_failed_downloads = ignore_failed_downloads
@@ -26,6 +28,8 @@ class Downloader:
         self.verify_ssl = verify_ssl
         self.max_retries = max_retries
         self.skip_existing_files = skip_existing_files
+        self.disable_alignment = disable_alignment
+        self.disable_splitting = disable_splitting
         self.download_wait = download_wait
 
     @staticmethod
@@ -43,8 +47,15 @@ class Downloader:
         return download_file(client, video_export_query, filename)
 
     @staticmethod
-    def download_footage(client: Any, start: datetime, end: datetime, camera: Any) -> Any:
-        return download_footage(client, start, end, camera)
+    def download_footage(
+        client: Any,
+        start: datetime,
+        end: datetime,
+        camera: Any,
+        disable_alignment: bool,
+        disable_splitting: bool,
+    ) -> Any:
+        return download_footage(client, start, end, camera, disable_alignment, disable_splitting)
 
     @staticmethod
     def download_snapshot(client: Any, start: datetime, camera: Any) -> Any:
