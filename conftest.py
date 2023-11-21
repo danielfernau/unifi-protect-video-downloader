@@ -53,7 +53,7 @@ def client(test_output_dest: str) -> Any:
     return ProtectClient(destination_path=test_output_dest, password="test", download_timeout=0.01)
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def responses() -> Any:
     # XXX(dcramer): pytest-responses doesnt let you change this behavior yet
     with responses_.RequestsMock(assert_all_requests_are_fired=False) as rsps:

@@ -18,8 +18,8 @@ def download_footage(
     start: datetime,
     end: datetime,
     camera: Camera,
-    disable_alignment: bool,
-    disable_splitting: bool,
+    disable_alignment: bool = False,
+    disable_splitting: bool = False,
 ) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
