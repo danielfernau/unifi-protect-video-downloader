@@ -1,4 +1,5 @@
 from datetime import datetime
+
 import dateutil.parser
 
 from .utils import calculate_intervals
