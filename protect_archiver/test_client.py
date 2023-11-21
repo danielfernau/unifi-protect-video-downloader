@@ -54,7 +54,7 @@ def test_download_footage(
 ) -> None:
     responses.add(
         responses.GET,
-        "https://unifi:443/proxy/protect/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939000",
+        "https://unifi:443/proxy/protect/api/video/export?camera=exteriorCameraId&start=1578524400000&end=1578527939999",
         # 320 bytes of demo data
         body=(
             "12572d283469d8c82413787fd73e0c91456c49ea991b2d5bf5e9c87bc3633566"
