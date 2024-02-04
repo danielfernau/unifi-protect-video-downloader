@@ -16,10 +16,14 @@ def get_motion_event_list(
     session: Any, start: datetime, end: datetime, camera_list: List[Camera]
 ) -> List[MotionEvent]:
     motion_events_uri = (
-        # path: "/events", method: "GET", query: {start?: timestamp, end?: timestamp, cameras?: list,
-        #   smartDetectTypes?: list, type?: string, types?: list, limit?: int, offset?: unknown,
-        #   orderDirection?: string, addTimelapseDescriptions?: bool, allCameras?: bool}
-        f"{session.authority}{session.base_path}/events?types=ring,motion,smartDetectZone,smartDetectLine"
+        # TODO: REMARK 2024-Jan-29 @danielfernau #388
+        # TODO: The API has been updated and now uses 'type' multiple times instead of a list.
+        # TODO: The query parameters documented below are mostly still correct but need to be checked.
+        # TODO: Param "withoutDescriptions=true" should be present to avoid unnecessary data in the response.
+        f"{session.authority}{session.base_path}/events?"
+        "type=motion&type=smartDetectZone&type=smartDetectLine&type=smartAudioDetect&type=ring&"
+        "type=doorAccess&smartDetectType=licensePlate&withoutDescriptions=true"
+        f"&start={int(start.timestamp()) * 1000}&end={int(end.timestamp()) * 1000}"
         f"&start={int(start.timestamp()) * 1000}&end={int(end.timestamp()) * 1000}"
     )
 
