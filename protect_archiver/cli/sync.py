@@ -13,17 +13,21 @@ from protect_archiver.utils import print_download_stats
 @click.argument("dest", type=click.Path(exists=True, writable=True, resolve_path=True))
 @click.option(
     "--address",
-    default="unifi",
+    default=Config.ADDRESS,
     show_default=True,
     required=True,
-    help="CloudKey IP address or hostname",
+    help="IP address or hostname of the UniFi Protect Server",
+    envvar="PROTECT_ADDRESS",
+    show_envvar=True,
 )
 @click.option(
     "--port",
     default=Config.PORT,
     show_default=True,
     required=False,
-    help="CloudKey port",
+    help="The port of the UniFi Protect Server",
+    envvar="PROTECT_PORT",
+    show_envvar=True,
 )
 @click.option(
     "--not-unifi-os",
@@ -31,12 +35,16 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Use this for systems without UniFi OS",
+    envvar="PROTECT_NOT_UNIFI_OS",
+    show_envvar=True,
 )
 @click.option(
     "--username",
     required=True,
     help="Username of user with local access",
     prompt="Username of local Protect user",
+    envvar="PROTECT_USERNAME",
+    show_envvar=True,
 )
 @click.option(
     "--password",
@@ -44,31 +52,17 @@ from protect_archiver.utils import print_download_stats
     help="Password of user with local access",
     prompt="Password for local Protect user",
     hide_input=True,
-)
-@click.option(
-    "--statefile",
-    default="sync.state",
-    show_default=True,
-)
-@click.option(
-    "--ignore-state",
-    is_flag=True,
-    default=False,
-    show_default=True,
+    envvar="PROTECT_PASSWORD",
+    show_envvar=True,
 )
 @click.option(
     "--verify-ssl",
     is_flag=True,
     default=False,
     show_default=True,
-    help="Verify CloudKey SSL certificate",
-)
-@click.option(
-    "--ignore-failed-downloads",
-    is_flag=True,
-    default=False,
-    show_default=True,
-    help="Ignore failed downloads and continue with next download",
+    help="Verify Protect SSL certificate",
+    envvar="PROTECT_VERIFY_SSL",
+    show_envvar=True,
 )
 @click.option(
     "--cameras",
@@ -78,13 +72,42 @@ from protect_archiver.utils import print_download_stats
         "Comma-separated list of one or more camera IDs ('--cameras=\"id_1,id_2,id_3,...\"'). "
         "Use '--cameras=all' to download footage of all available cameras."
     ),
+    envvar="PROTECT_CAMERAS",
+    show_envvar=True,
 )
+@click.option(
+    "--ignore-failed-downloads",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Ignore failed downloads and continue with next download",
+    envvar="PROTECT_IGNORE_FAILED_DOWNLOADS",
+    show_envvar=True,
+)
+
 @click.option(
     "--use-utc-filenames",
     is_flag=True,
     default=False,
     show_default=True,
     help="Use UTC timestamp in file names instead of local time",
+    envvar="PROTECT_USE_UTC",
+    show_envvar=True,
+)
+@click.option(
+    "--statefile",
+    default="sync.state",
+    show_default=True,
+    envvar="PROTECT_SYNC_STATEFILE",
+    show_envvar=True,
+)
+@click.option(
+    "--ignore-state",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    envvar="PROTECT_SYNC_IGNORE_STATE",
+    show_envvar=True,
 )
 def sync(
     dest: str,
