@@ -84,7 +84,6 @@ from protect_archiver.utils import print_download_stats
     envvar="PROTECT_IGNORE_FAILED_DOWNLOADS",
     show_envvar=True,
 )
-
 @click.option(
     "--use-utc-filenames",
     is_flag=True,
