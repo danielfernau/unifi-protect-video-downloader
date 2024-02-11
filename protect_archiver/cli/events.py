@@ -18,6 +18,8 @@ from protect_archiver.utils import print_download_stats
     show_default=True,
     required=True,
     help="IP address or hostname of the UniFi Protect Server",
+    envvar="PROTECT_ADDRESS",
+    show_envvar=True,
 )
 @click.option(
     "--port",
@@ -25,6 +27,8 @@ from protect_archiver.utils import print_download_stats
     show_default=True,
     required=False,
     help="The port of the UniFi Protect Server",
+    envvar="PROTECT_PORT",
+    show_envvar=True,
 )
 @click.option(
     "--not-unifi-os",
@@ -32,12 +36,16 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Use this for systems without UniFi OS",
+    envvar="PROTECT_NOT_UNIFI_OS",
+    show_envvar=True,
 )
 @click.option(
     "--username",
     required=True,
     help="Username of user with local access",
     prompt="Username of local Protect user",
+    envvar="PROTECT_USERNAME",
+    show_envvar=True,
 )
 @click.option(
     "--password",
@@ -45,6 +53,8 @@ from protect_archiver.utils import print_download_stats
     help="Password of user with local access",
     prompt="Password for local Protect user",
     hide_input=True,
+    envvar="PROTECT_PASSWORD",
+    show_envvar=True,
 )
 @click.option(
     "--verify-ssl",
@@ -52,6 +62,8 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Verify Protect SSL certificate",
+    envvar="PROTECT_VERIFY_SSL",
+    show_envvar=True,
 )
 @click.option(
     "--cameras",
@@ -61,6 +73,8 @@ from protect_archiver.utils import print_download_stats
         "Comma-separated list of one or more camera IDs ('--cameras=\"id_1,id_2,id_3,...\"'). "
         "Use '--cameras=all' to download footage of all available cameras."
     ),
+    envvar="PROTECT_CAMERAS",
+    show_envvar=True,
 )
 @click.option(
     "--wait-between-downloads",
@@ -68,6 +82,8 @@ from protect_archiver.utils import print_download_stats
     default=0,
     show_default=True,
     help="Time to wait between file downloads, in seconds",
+    envvar="PROTECT_WAIT_BETWEEN_DOWNLOADS",
+    show_envvar=True,
 )
 @click.option(
     "--ignore-failed-downloads",
@@ -75,6 +91,8 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Ignore failed downloads and continue with next download",
+    envvar="PROTECT_IGNORE_FAILED_DOWNLOADS",
+    show_envvar=True,
 )
 @click.option(
     "--skip-existing-files",
@@ -82,6 +100,8 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Skip downloading files which already exist on disk",
+    envvar="PROTECT_SKIP_EXISTING",
+    show_envvar=True,
 )
 @click.option(
     "--touch-files",
@@ -92,12 +112,16 @@ from protect_archiver.utils import print_download_stats
         "Create local file without content for current download - "
         "useful in combination with '--skip-existing-files' to skip problematic segments"
     ),
+    envvar="PROTECT_TOUCH_FILES",
+    show_envvar=True,
 )
 @click.option(
     "--use-subfolders/--no-use-subfolders",
     default=True,
     show_default=True,
     help="Save footage to folder structure with format 'YYYY/MM/DD/camera_name/'",
+    envvar="PROTECT_USE_SUBFOLDERS",
+    show_envvar=True,
 )
 @click.option(
     "--download-request-timeout",
@@ -105,6 +129,8 @@ from protect_archiver.utils import print_download_stats
     default=60.0,
     show_default=True,
     help="Time to wait before aborting download request, in seconds",
+    envvar="PROTECT_DOWNLOAD_TIMEOUT",
+    show_envvar=True,
 )
 @click.option(
     "--start",
@@ -122,6 +148,8 @@ from protect_archiver.utils import print_download_stats
         # TODO(danielfernau): uncomment the next line as soon as the feature is implemented
         # "If omitted, the time of the first available recording for each camera will be used."
     ),
+    envvar="PROTECT_START_TIME",
+    show_envvar=True,
 )
 @click.option(
     "--end",
@@ -139,6 +167,8 @@ from protect_archiver.utils import print_download_stats
         # TODO(danielfernau): uncomment the next line as soon as the feature is implemented
         # "If omitted, the time of the last available recording for each camera will be used."
     ),
+    envvar="PROTECT_END_TIME",
+    show_envvar=True,
 )
 @click.option(
     "--download-motion-heatmaps",
@@ -146,6 +176,8 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Also download motion heatmaps for event recordings",
+    envvar="PROTECT_DOWNLOAD_MOTION_HEATMAPS",
+    show_envvar=True,
 )
 @click.option(
     "--use-utc-filenames",
@@ -153,6 +185,8 @@ from protect_archiver.utils import print_download_stats
     default=False,
     show_default=True,
     help="Use UTC timestamp in file names instead of local time",
+    envvar="PROTECT_USE_UTC",
+    show_envvar=True,
 )
 def events(
     dest: str,
