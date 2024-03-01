@@ -27,7 +27,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8.2"
 pip = "*"
-python-dateutil = "^2.8.1"
+python-dateutil = "^2.9.0"
 requests = {extras = ["security"], version = "^2.31.0"}
 click = "^8.1.7"
 types-python-dateutil = "^2.8.19"
