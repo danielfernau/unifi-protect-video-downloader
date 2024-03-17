@@ -1,0 +1,1691 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen-a1ce949a.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-bccf8c07.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-c5541673.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar-cad8cdcb.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo-1e815a84.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#user-authentication" class="toc-h2 toc-link" data-title="User Authentication">User Authentication</a>
+                  </li>
+                  <li>
+                    <a href="#api-access-key" class="toc-h2 toc-link" data-title="API Access Key">API Access Key</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#cameras" class="toc-h1 toc-link" data-title="Cameras">Cameras</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-camera-list" class="toc-h2 toc-link" data-title="Get Camera List">Get Camera List</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>The <em>incomplete and unofficial</em> documentation of the UniFi Protect API as part of the <a href="https://github.com/unifi-toolbox/unifi-protect-video-downloader" target="_blank">UniFi Toolbox project</a>.</p>
+
+<p>This API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>.</p>
+<h1 id='authentication'>Authentication</h1><h2 id='user-authentication'>User Authentication</h2>
+<p>Authenticate with the username and password of a local user to receive an OAuth Bearer Token.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://{cloud-key-address}:7443/api/auth</code></p>
+<h3 id='headers'>Headers</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Request Body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="err">my_username</span><span class="p">,</span><span class="w"> </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="err">my_password</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="notice">
+You must replace <code>my_username</code> and <code>my_password</code> with the username and password of a local user.
+</aside>
+
+<p>If the authentication was successful, you will receive a JSON Response Body containing some general information about your user account.</p>
+
+<aside class="success">
+As part of the <b>Response Headers</b> you will receive your <code>Authorization</code> containing an OAuth Bearer Token. This token can be used for all future API calls that require user authentication.
+</aside>
+
+<blockquote>
+<p>Example Response Body for <code>200 OK</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"user:read,write,delete:$"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"liveview:create"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"lastLoginIp"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastLoginTime"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"isOwner"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"localUsername"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your_username"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"enableNotifications"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"syncSso"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"000000000000000000000000"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"cloudAccount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"alertRules"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"111111111111111111111111"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hasAcceptedInvite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"allPermissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"user:read,write,delete:$"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"liveview:create"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"nvr:read:*"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"camera:read,readmedia:*"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"modelKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example Response Body for <code>401 Unauthorized</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid username or password"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='api-access-key'>API Access Key</h2>
+<p>Use the OAuth Bearer Token to request an API Access Key which is required for API calls that require an <code>accessKey</code> query parameter.</p>
+
+<aside class="notice">
+The API Access Key has a limited lifetime and needs to be renewed periodically. The expiration time is returned as timestamp in milliseconds as part of the <code>accessKey</code> response.
+</aside>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://{cloud-key-address}:7443/api/auth/access-key</code></p>
+<h3 id='headers-2'>Headers</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>Bearer {your_oauth_bearer_token}</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+You must replace <code>{your_oauth_bearer_token}</code> with the OAuth Bearer Token from the <b>User Authentication</b> step above.
+</aside>
+
+<blockquote>
+<p>Request Body</p>
+</blockquote>
+<pre class="highlight plaintext"><code>No Request Body content is required for this request.
+</code></pre>
+<p>If the authentication was successful, you will receive a JSON Response Body containing your API <code>accessKey</code>.</p>
+
+<aside class="success">
+As part of the <b>Response Headers</b> you will receive your <code>Authorization</code> containing an OAuth Bearer Token. This token can be used for all future API calls that require user authentication.
+</aside>
+
+<blockquote>
+<p>Example Response Body for <code>200 OK</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"accessKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890123:abcdef1234567890abcdef12:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The access key consists of three parts using a <code>:</code> as delimiter: <code>{expiration_timestamp_milliseconds}:{user_id}:{access_key_data}</code>.</p>
+
+<table><thead>
+<tr>
+<th>Part</th>
+<th> Type</th>
+<th> Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>unix timestamp in milliseconds</td>
+<td>date and time until which the accessKey is valid</td>
+</tr>
+<tr>
+<td>2</td>
+<td>24 byte hex data</td>
+<td> ID of the user that requested the <code>accessKey</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>128 byte hex data</td>
+<td> the access key itself</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example Response Body for <code>401 Unauthorized</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unauthorized"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AuthenticationError"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='cameras'>Cameras</h1><h2 id='get-camera-list'>Get Camera List</h2>
+<p>Lists all cameras and their configuration the user is allowed to access.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://{cloud-key-address}:7443/api/cameras</code> <span title="Authentication required">&#128274; <small>Authentication required</small></span></p>
+<h3 id='headers'>Headers</h3>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>Bearer {your_oauth_bearer_token}</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+You must replace <code>{your_oauth_bearer_token}</code> with the OAuth Bearer Token from the <b>User Authentication</b> step above.
+</aside>
+
+<blockquote>
+<p>Request Body</p>
+</blockquote>
+<pre class="highlight plaintext"><code>No Request Body content is required for this request.
+</code></pre>
+<p>You will receive a JSON Response Body containing all cameras and their current configuration your user account is allowed to access.</p>
+
+<p>If you are not allowed access to any cameras, the response will be <code>200 OK</code> and empty (<code>[]</code>).</p>
+<h3 id='response'>Response</h3>
+<blockquote>
+<p>Example Response Body for <code>200 OK</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"isDeleting"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"mac"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AABBCCDDEEFF"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.20.30.40"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"connectionHost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.10.10.10"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UVC G3 Flex"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Camera"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upSince"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lastSeen"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"connectedSince"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONNECTED"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hardwareRevision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"firmwareVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.18.37"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"firmwareBuild"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fcdcec.191223.613"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isUpdating"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isAdopting"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isManaged"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isProvisioned"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isRebooting"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isSshEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"canManage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isHidden"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lastMotion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"micVolume"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isMicEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isRecording"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isMotionDetected"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isAttemptingToConnect"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phyRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hdrMode"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isProbingForWifi"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"apMac"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"apRssi"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"elementInfo"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chimeDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isDark"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"motionStartCalls"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"lastRing"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"wiredConnectionState"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"phyRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"channels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"isRtspEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"rtspAlias"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"fps"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"bitrate"</span><span class="p">:</span><span class="w"> </span><span class="mi">3000000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"minBitrate"</span><span class="p">:</span><span class="w"> </span><span class="mi">750000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"maxBitrate"</span><span class="p">:</span><span class="w"> </span><span class="mi">6000000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"fpsValues"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">3</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">4</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">5</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">6</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">8</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">9</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">12</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">15</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">16</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">18</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">20</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">24</span><span class="p">,</span><span class="w">
+                    </span><span class="mi">25</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"idrInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">...</span><span class="w"> </span><span class="err">additional</span><span class="w"> </span><span class="err">channels</span><span class="w"> </span><span class="err">...</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"ispSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"aeMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"irLedMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"irLedLevel"</span><span class="p">:</span><span class="w"> </span><span class="mi">215</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"wdr"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"icrSensitivity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brightness"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"contrast"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hue"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"saturation"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sharpness"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"denoise"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isFlippedVertical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isFlippedHorizontal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isAutoRotateEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isLdcEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"is3dnrEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isExternalIrEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isAggressiveAntiFlickerEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isPauseMotionEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dZoomCenterX"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dZoomCenterY"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dZoomScale"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dZoomStreamId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"focusMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ztrig"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"focusPosition"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"touchFocusX"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"touchFocusY"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"zoomPosition"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"talkbackSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"typeFmt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aac"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"typeIn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"serverudp"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bindAddr"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.0.0"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bindPort"</span><span class="p">:</span><span class="w"> </span><span class="mi">7004</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"filterAddr"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"filterPort"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"channels"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"samplingRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">22050</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bitsPerSample"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"quality"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"osdSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"isNameEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isDateEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isLogoEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"isDebugEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"ledSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"isEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"blinkRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"speakerSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"isEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"areSystemSoundsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"recordingSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"prePaddingSecs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"postPaddingSecs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"minMotionEventTrigger"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"endMotionEventDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">3000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"suppressIlluminationSurge"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"always"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"geofencing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"useNewMotionAlgorithm"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"enablePirTimelapse"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"recordingSchedule"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"motionZones"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#586CED"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"points"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">[</span><span class="w">
+                        </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                        </span><span class="mi">0</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="p">[</span><span class="w">
+                        </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                        </span><span class="mi">0</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="p">[</span><span class="w">
+                        </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                        </span><span class="mi">1</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="p">[</span><span class="w">
+                        </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                        </span><span class="mi">1</span><span class="w">
+                    </span><span class="p">]</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"sensitivity"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="err">...</span><span class="w"> </span><span class="err">additional</span><span class="w"> </span><span class="err">motion</span><span class="w"> </span><span class="err">zones</span><span class="w"> </span><span class="err">...</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"privacyZones"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="err">similar</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">motionZones?</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"stats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"rxBytes"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234567890</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"txBytes"</span><span class="p">:</span><span class="w"> </span><span class="mi">9876543210</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"wifi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"channel"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"linkSpeedMbps"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"signalQuality"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"signalStrength"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"battery"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"isCharging"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"sleepState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"awake"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"video"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"recordingStart"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"recordingEnd"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"recordingStartLQ"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"recordingEndLQ"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"timelapseStart"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"timelapseEnd"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"timelapseStartLQ"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"timelapseEndLQ"</span><span class="p">:</span><span class="w"> </span><span class="mi">1577836800000</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"wifiQuality"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"wifiStrength"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"featureFlags"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"canAdjustIrLedLevel"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"canMagicZoom"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"canOpticalZoom"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"canTouchFocus"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasAccelerometer"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasAec"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasBattery"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasBluetooth"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasChime"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasExternalIr"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasIcrSensitivity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasLdc"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasLedIr"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasLedStatus"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasLineIn"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasMic"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasPrivacyMask"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasRtc"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasSdCard"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasSpeaker"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasWifi"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasHdr"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasAutoICROnly"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"hasMotionZones"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"pirSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"pirSensitivity"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pirMotionClipLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"timelapseFrameInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"timelapseTransferInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"wifiConnectionState"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"channel"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"phyRate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"signalQuality"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"signalStrength"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789abcdef123456789"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"isConnected"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s2l"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hasSpeaker"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hasWifi"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"audioBitrate"</span><span class="p">:</span><span class="w"> </span><span class="mi">64000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"modelKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"camera"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w"> </span><span class="err">additional</span><span class="w"> </span><span class="err">cameras</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th> Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>isDeleting</td>
+<td>Bool</td>
+<td>camera is being deleted?</td>
+</tr>
+<tr>
+<td>mac</td>
+<td> 12 bytes hex / String</td>
+<td> MAC address of the camera</td>
+</tr>
+<tr>
+<td>host</td>
+<td> IP address / String</td>
+<td> IP address of the camera</td>
+</tr>
+<tr>
+<td>connectionHost</td>
+<td> IP address / String</td>
+<td> IP address of the Protect system</td>
+</tr>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>camera model description</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td> camera name</td>
+</tr>
+<tr>
+<td>upSince</td>
+<td>unix timestamp in milliseconds / Number</td>
+<td>date/time since camera is on</td>
+</tr>
+<tr>
+<td>lastSeen</td>
+<td>unix timestamp in milliseconds / Number</td>
+<td>date/time of last connection</td>
+</tr>
+<tr>
+<td>connectedSince</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time since camera is connected</td>
+</tr>
+<tr>
+<td>state</td>
+<td>String</td>
+<td> connection state</td>
+</tr>
+<tr>
+<td>hardwareRevision</td>
+<td>String</td>
+<td>hardware revision code</td>
+</tr>
+<tr>
+<td>firmwareVersion</td>
+<td>String</td>
+<td>firmware version number</td>
+</tr>
+<tr>
+<td>firmwareBuild</td>
+<td>String</td>
+<td>firmware build code</td>
+</tr>
+<tr>
+<td>isUpdating</td>
+<td>Bool</td>
+<td>camera is updating (settings?)</td>
+</tr>
+<tr>
+<td>isAdopting</td>
+<td>Bool</td>
+<td>camera is currently being adopted</td>
+</tr>
+<tr>
+<td>isManaged</td>
+<td>Bool</td>
+<td>camera is managed/adopted</td>
+</tr>
+<tr>
+<td>isProvisioned</td>
+<td>Bool</td>
+<td>camera is provisioned</td>
+</tr>
+<tr>
+<td>isRebooting</td>
+<td>Bool</td>
+<td>camera is currently rebooting</td>
+</tr>
+<tr>
+<td>isSshEnabled</td>
+<td>Bool</td>
+<td>SSH access enabled</td>
+</tr>
+<tr>
+<td>canManage</td>
+<td>Bool</td>
+<td>user is allowed to manage this camera</td>
+</tr>
+<tr>
+<td>isHidden</td>
+<td>Bool</td>
+<td>camera is hidden? (from user?)</td>
+</tr>
+<tr>
+<td>lastMotion</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of last motion detection</td>
+</tr>
+<tr>
+<td>micVolume</td>
+<td>Number</td>
+<td>volume of the integrated microphone (0...100?)</td>
+</tr>
+<tr>
+<td>isMicEnabled</td>
+<td>Bool</td>
+<td>integrated microphone enabled/disabled</td>
+</tr>
+<tr>
+<td>isRecording</td>
+<td>Bool</td>
+<td>camera is currently recording</td>
+</tr>
+<tr>
+<td>isMotionDetected</td>
+<td>Bool</td>
+<td>camera is currently detecting motion</td>
+</tr>
+<tr>
+<td>isAttemptingToConnect</td>
+<td>Bool</td>
+<td>camera is attempting to connect</td>
+</tr>
+<tr>
+<td>phyRate</td>
+<td>Number</td>
+<td>network link speed in Mbps</td>
+</tr>
+<tr>
+<td>hdrMode</td>
+<td>Bool</td>
+<td>image HDR enabled/disabled</td>
+</tr>
+<tr>
+<td>isProbingForWifi</td>
+<td>Bool?</td>
+<td>searching for Wi-Fi network(s)?</td>
+</tr>
+<tr>
+<td>apMac</td>
+<td> 12 bytes hex / String?</td>
+<td>MAC address of connected Wi-Fi access point?</td>
+</tr>
+<tr>
+<td>apRssi</td>
+<td>Number?</td>
+<td>Wi-Fi RSSI camera &lt;--&gt; access point?</td>
+</tr>
+<tr>
+<td>elementInfo</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>chimeDuration</td>
+<td>Number</td>
+<td>?</td>
+</tr>
+<tr>
+<td>isDark</td>
+<td>Bool</td>
+<td>camera image dark / low light?</td>
+</tr>
+<tr>
+<td>motionStartCalls</td>
+<td>Number</td>
+<td> ?</td>
+</tr>
+<tr>
+<td>lastRing</td>
+<td> ?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>wiredConnectionState</td>
+<td>Dictionary</td>
+<td>status of the wired network connection</td>
+</tr>
+<tr>
+<td>wiredConnectionState.phyRate</td>
+<td> Number</td>
+<td>wired network link speed in Mbps</td>
+</tr>
+<tr>
+<td>channels</td>
+<td> Array</td>
+<td>video stream channels</td>
+</tr>
+<tr>
+<td>channels[n]</td>
+<td>Dictionary</td>
+<td>video stream channel settings</td>
+</tr>
+<tr>
+<td>channels[n].id</td>
+<td>Number</td>
+<td>ID of video stream channel</td>
+</tr>
+<tr>
+<td>channels[n].name</td>
+<td>String</td>
+<td>name of video stream channel</td>
+</tr>
+<tr>
+<td>channels[n].enabled</td>
+<td>Bool</td>
+<td>channel enabled/disabled</td>
+</tr>
+<tr>
+<td>channels[n].isRtspEnabled</td>
+<td>Bool</td>
+<td>RTSP for channel enabled/disabled</td>
+</tr>
+<tr>
+<td>channels[n].rtspAlias</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>channels[n].width</td>
+<td>Number</td>
+<td>stream/channel width</td>
+</tr>
+<tr>
+<td>channels[n].height</td>
+<td>Number</td>
+<td>stream/channel height</td>
+</tr>
+<tr>
+<td>channels[n].fps</td>
+<td>Number</td>
+<td>stream/channel frames per second</td>
+</tr>
+<tr>
+<td>channels[n].bitrate</td>
+<td>Number</td>
+<td>stream/channel bitrate</td>
+</tr>
+<tr>
+<td>channels[n].minBitrate</td>
+<td>Number</td>
+<td>stream/channel minimum bitrate</td>
+</tr>
+<tr>
+<td>channels[n].maxBitrate</td>
+<td>Number</td>
+<td>stream/channel maximum bitrate</td>
+</tr>
+<tr>
+<td>channels[n].fpsValues</td>
+<td>Array</td>
+<td>stream/channel possible/supported FPS values</td>
+</tr>
+<tr>
+<td>channels[n].fpsValues[n]</td>
+<td>Number</td>
+<td>frames per second value</td>
+</tr>
+<tr>
+<td>channels[n].idrInterval</td>
+<td>Number</td>
+<td>?</td>
+</tr>
+<tr>
+<td>ispSettings</td>
+<td>Dictionary</td>
+<td>image settings</td>
+</tr>
+<tr>
+<td>ispSettings.aeMode</td>
+<td>String</td>
+<td>auto exposure (AE) mode</td>
+</tr>
+<tr>
+<td>ispSettings.irLedMode</td>
+<td>String</td>
+<td>infrared mode</td>
+</tr>
+<tr>
+<td>ispSettings.irLedLevel</td>
+<td> Number</td>
+<td>infrared mode activation sensitivity</td>
+</tr>
+<tr>
+<td>ispSettings.wdr</td>
+<td>Number</td>
+<td>?</td>
+</tr>
+<tr>
+<td>ispSettings.icrSensitivity</td>
+<td>Number</td>
+<td>?</td>
+</tr>
+<tr>
+<td>ispSettings.brightness</td>
+<td>Number</td>
+<td>image brightness</td>
+</tr>
+<tr>
+<td>ispSettings.contrast</td>
+<td>Number</td>
+<td>image contrast</td>
+</tr>
+<tr>
+<td>ispSettings.hue</td>
+<td>Number</td>
+<td>image hue</td>
+</tr>
+<tr>
+<td>ispSettings.saturation</td>
+<td>Number</td>
+<td>image saturation</td>
+</tr>
+<tr>
+<td>ispSettings.sharpness</td>
+<td>Number</td>
+<td>image sharpness</td>
+</tr>
+<tr>
+<td>ispSettings.denoise</td>
+<td>Number</td>
+<td>image denoise level</td>
+</tr>
+<tr>
+<td>ispSettings.isFlippedVertical</td>
+<td>Bool</td>
+<td>image flipped vertically</td>
+</tr>
+<tr>
+<td>ispSettings.isFlippedHorizontal</td>
+<td>Bool</td>
+<td>image flipped horizontally</td>
+</tr>
+<tr>
+<td>ispSettings.isAutoRotateEnabled</td>
+<td>Bool</td>
+<td>auto-detect orientation of camera</td>
+</tr>
+<tr>
+<td>ispSettings.isLdcEnabled</td>
+<td>Bool</td>
+<td>lens distortion correction</td>
+</tr>
+<tr>
+<td>ispSettings.is3dnrEnabled</td>
+<td>Bool</td>
+<td>?</td>
+</tr>
+<tr>
+<td>ispSettings.isExternalIrEnabled</td>
+<td>Bool</td>
+<td>external infrared</td>
+</tr>
+<tr>
+<td>ispSettings.isAggressiveAntiFlickerEnabled</td>
+<td>Bool</td>
+<td>aggressive anti-flicker</td>
+</tr>
+<tr>
+<td>ispSettings.isPauseMotionEnabled</td>
+<td>Bool</td>
+<td>?</td>
+</tr>
+<tr>
+<td>ispSettings.dZoomCenterX</td>
+<td>Number</td>
+<td>digital zoom center point x</td>
+</tr>
+<tr>
+<td>ispSettings.dZoomCenterY</td>
+<td>Number</td>
+<td>digital zoom center point y</td>
+</tr>
+<tr>
+<td>ispSettings.dZoomScale</td>
+<td>Number</td>
+<td>digital zoom scale</td>
+</tr>
+<tr>
+<td>ispSettings.dZoomStreamId</td>
+<td>Number</td>
+<td>digital zoom stream ID</td>
+</tr>
+<tr>
+<td>ispSettings.focusMode</td>
+<td>String</td>
+<td>current focus mode</td>
+</tr>
+<tr>
+<td>ispSettings.focusPosition</td>
+<td>Number</td>
+<td>current focus position (0...1?)</td>
+</tr>
+<tr>
+<td>ispSettings.touchFocusX</td>
+<td>Number</td>
+<td>manual focus point x?</td>
+</tr>
+<tr>
+<td>ispSettings.touchFocusY</td>
+<td>Number</td>
+<td>manual focus point y?</td>
+</tr>
+<tr>
+<td>ispSettings.zoomPosition</td>
+<td>Number</td>
+<td>zoom position</td>
+</tr>
+<tr>
+<td>talkbackSettings</td>
+<td> Dictionary</td>
+<td>talkback configuration</td>
+</tr>
+<tr>
+<td>talkbackSettings.typeFmt</td>
+<td> String</td>
+<td>stream format</td>
+</tr>
+<tr>
+<td>talkbackSettings.typeIn</td>
+<td>String</td>
+<td>stream input type</td>
+</tr>
+<tr>
+<td>talkbackSettings.bindAddr</td>
+<td>IP address / String</td>
+<td>stream bind address</td>
+</tr>
+<tr>
+<td>talkbackSettings.bindPort</td>
+<td> Number</td>
+<td>stream bind port</td>
+</tr>
+<tr>
+<td>talkbackSettings.filterAddr</td>
+<td>IP address / String?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>talkbackSettings.filterPort</td>
+<td>Number?</td>
+<td>?</td>
+</tr>
+<tr>
+<td>talkbackSettings.channels</td>
+<td>Number</td>
+<td>number of audio channels?</td>
+</tr>
+<tr>
+<td>talkbackSettings.samplingRate</td>
+<td> Number</td>
+<td>audio stream sampling rate</td>
+</tr>
+<tr>
+<td>talkbackSettings.bitsPerSample</td>
+<td>Number</td>
+<td>audio stream bits per sample</td>
+</tr>
+<tr>
+<td>talkbackSettings.quality</td>
+<td>Number</td>
+<td>audio stream quality (0...100?)</td>
+</tr>
+<tr>
+<td>osdSettings</td>
+<td> Dictionary</td>
+<td>image overlay settings</td>
+</tr>
+<tr>
+<td>osdSettings.isNameEnabled</td>
+<td> Bool</td>
+<td>show camera name in frame/stream</td>
+</tr>
+<tr>
+<td>osdSettings.isDateEnabled</td>
+<td>Bool</td>
+<td>show date/time in frame/stream</td>
+</tr>
+<tr>
+<td>osdSettings.isLogoEnabled</td>
+<td>Bool</td>
+<td>show logo in frame/stream</td>
+</tr>
+<tr>
+<td>osdSettings.isDebugEnabled</td>
+<td>Bool</td>
+<td>show debug information in frame/stream</td>
+</tr>
+<tr>
+<td>ledSettings</td>
+<td>Dictionary</td>
+<td>status LED settings</td>
+</tr>
+<tr>
+<td>ledSettings.isEnabled</td>
+<td>Bool</td>
+<td>status LED enabled/disabled</td>
+</tr>
+<tr>
+<td>ledSettings.blinkRate</td>
+<td> Number</td>
+<td>status LED blink rate</td>
+</tr>
+<tr>
+<td>speakerSettings</td>
+<td> Dictionary</td>
+<td>settings related to integrated speaker</td>
+</tr>
+<tr>
+<td>speakerSettings.isEnabled</td>
+<td> Bool</td>
+<td>speaker enabled/disabled</td>
+</tr>
+<tr>
+<td>speakerSettings.areSystemSoundsEnabled</td>
+<td> Bool</td>
+<td>play system sounds through speaker</td>
+</tr>
+<tr>
+<td>speakerSettings.volume</td>
+<td> Number</td>
+<td>volume of the speaker</td>
+</tr>
+<tr>
+<td>recordingSettings</td>
+<td>Dictionary</td>
+<td>settings related to video recording</td>
+</tr>
+<tr>
+<td>recordingSettings.prePaddingSecs</td>
+<td>Number</td>
+<td>number of seconds to record before motion was detected</td>
+</tr>
+<tr>
+<td>recordingSettings.postPaddingSecs</td>
+<td>Number</td>
+<td>number of seconds to continue recording after motion has ended</td>
+</tr>
+<tr>
+<td>recordingSettings.minMotionEventTrigger</td>
+<td>Number</td>
+<td>number of milliseconds motion needs to be detected for before starting a recording/event</td>
+</tr>
+<tr>
+<td>recordingSettings.endMotionEventDelay</td>
+<td>Number</td>
+<td>number of milliseconds without motion before ending a motion event</td>
+</tr>
+<tr>
+<td>recordingSettings.suppressIlluminationSurge</td>
+<td>Bool</td>
+<td>try to avoid classifying sun/clouds or light on/off as motion event</td>
+</tr>
+<tr>
+<td>recordingSettings.mode</td>
+<td>String</td>
+<td>when to record</td>
+</tr>
+<tr>
+<td>recordingSettings.geofencing</td>
+<td>String</td>
+<td>use geofencing for enabling/disabling record mode?</td>
+</tr>
+<tr>
+<td>recordingSettings.useNewMotionAlgorithm</td>
+<td>Bool</td>
+<td>use the new algorithm for motion detection</td>
+</tr>
+<tr>
+<td>recordingSettings.enablePirTimelapse</td>
+<td>Bool</td>
+<td>?</td>
+</tr>
+<tr>
+<td>recordingSchedule</td>
+<td>Dictionary?</td>
+<td>record video on schedule?</td>
+</tr>
+<tr>
+<td>motionZones</td>
+<td>Array</td>
+<td>settings related to motion detection zones</td>
+</tr>
+<tr>
+<td>motionZones[n]</td>
+<td>Dictionary</td>
+<td>motion zone configuration</td>
+</tr>
+<tr>
+<td>motionZones[n].name</td>
+<td> String</td>
+<td>name of the motion zone</td>
+</tr>
+<tr>
+<td>motionZones[n].color</td>
+<td> hex color / String</td>
+<td>color for the motion zone in zone editor</td>
+</tr>
+<tr>
+<td>motionZones[n].points</td>
+<td> Array</td>
+<td>motion zone coordinates</td>
+</tr>
+<tr>
+<td>motionZones[n].points[n]</td>
+<td> Array</td>
+<td>array of points for the motion zone</td>
+</tr>
+<tr>
+<td>motionZones[n].points[n][0]</td>
+<td> Number</td>
+<td>point x value</td>
+</tr>
+<tr>
+<td>motionZones[n].points[n][1]</td>
+<td> Number</td>
+<td>point y value</td>
+</tr>
+<tr>
+<td>motionZones[n].sensitivity</td>
+<td> Number</td>
+<td>motion sensitivity for the zone (0...100)</td>
+</tr>
+<tr>
+<td>privacyZones</td>
+<td>Array?</td>
+<td>similar to motionZones?</td>
+</tr>
+<tr>
+<td>stats</td>
+<td> Dictionary</td>
+<td>camera statistics</td>
+</tr>
+<tr>
+<td>stats.rxBytes</td>
+<td> Number</td>
+<td>network bytes received</td>
+</tr>
+<tr>
+<td>stats.txBytes</td>
+<td> Number</td>
+<td>network bytes transmitted</td>
+</tr>
+<tr>
+<td>stats.wifi</td>
+<td> Dictionary</td>
+<td>Wi-Fi connection statistics</td>
+</tr>
+<tr>
+<td>stats.wifi.channel</td>
+<td>Number?</td>
+<td>Wi-Fi channel</td>
+</tr>
+<tr>
+<td>stats.wifi.frequency</td>
+<td> Number?</td>
+<td>Wi-Fi frequency</td>
+</tr>
+<tr>
+<td>stats.wifi.linkSpeedMbps</td>
+<td> Number?</td>
+<td>network link speed in Mbps</td>
+</tr>
+<tr>
+<td>stats.wifi.signalQuality</td>
+<td> Number</td>
+<td>Wi-Fi signal quality</td>
+</tr>
+<tr>
+<td>stats.wifi.signalStrength</td>
+<td> Number</td>
+<td>Wi-Fi signal strength</td>
+</tr>
+<tr>
+<td>stats.battery</td>
+<td>Dictionary</td>
+<td>status of the camera&#39;s integrated battery</td>
+</tr>
+<tr>
+<td>stats.battery.percentage</td>
+<td> Number?</td>
+<td>battery percentage (0...100)</td>
+</tr>
+<tr>
+<td>stats.battery.isCharging</td>
+<td> Bool</td>
+<td>battery is charging</td>
+</tr>
+<tr>
+<td>stats.battery.sleepState</td>
+<td> String</td>
+<td>?</td>
+</tr>
+<tr>
+<td>stats.video</td>
+<td> Dictionary</td>
+<td>video recording statistics</td>
+</tr>
+<tr>
+<td>stats.video.recordingStart</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of begin of available normal recordings</td>
+</tr>
+<tr>
+<td>stats.video.recordingEnd</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of end of available normal recordings</td>
+</tr>
+<tr>
+<td>stats.video.recordingStartLQ</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of begin of available low-quality recordings</td>
+</tr>
+<tr>
+<td>stats.video.recordingEndLQ</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of end of available low-quality recordings</td>
+</tr>
+<tr>
+<td>stats.video.timelapseStart</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of begin of available timelapse recordings</td>
+</tr>
+<tr>
+<td>stats.video.timelapseEnd</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of end of available timelapse recordings</td>
+</tr>
+<tr>
+<td>stats.video.timelapseStartLQ</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of begin of available low-quality timelapse recordings</td>
+</tr>
+<tr>
+<td>stats.video.timelapseEndLQ</td>
+<td> unix timestamp in milliseconds / Number</td>
+<td>date/time of end of available low-quality timelapse recordings</td>
+</tr>
+<tr>
+<td>stats.wifiQuality</td>
+<td> Number</td>
+<td>alias of wifi.signalQuality?</td>
+</tr>
+<tr>
+<td>stats.wifiStrength</td>
+<td> Number</td>
+<td>alias of wifi.signalStrength?</td>
+</tr>
+<tr>
+<td>featureFlags</td>
+<td> Dictionary</td>
+<td>features supported by the camera</td>
+</tr>
+<tr>
+<td>featureFlags.canAdjustIrLedLevel</td>
+<td>Bool</td>
+<td>IR brightness adjustable?</td>
+</tr>
+<tr>
+<td>featureFlags.canMagicZoom</td>
+<td>Bool</td>
+<td>magic zoom supported</td>
+</tr>
+<tr>
+<td>featureFlags.canOpticalZoom</td>
+<td>Bool</td>
+<td>optical zoom supported</td>
+</tr>
+<tr>
+<td>featureFlags.canTouchFocus</td>
+<td>Bool</td>
+<td>touch focus supported</td>
+</tr>
+<tr>
+<td>featureFlags.hasAccelerometer</td>
+<td>Bool</td>
+<td>has accelerometer</td>
+</tr>
+<tr>
+<td>featureFlags.hasAec</td>
+<td>Bool</td>
+<td>?</td>
+</tr>
+<tr>
+<td>featureFlags.hasBattery</td>
+<td>Bool</td>
+<td>has integrated battery</td>
+</tr>
+<tr>
+<td>featureFlags.hasBluetooth</td>
+<td>Bool</td>
+<td>has bluetooth</td>
+</tr>
+<tr>
+<td>featureFlags.hasChime</td>
+<td>Bool</td>
+<td>supports chime</td>
+</tr>
+<tr>
+<td>featureFlags.hasExternalIr</td>
+<td>Bool</td>
+<td>has external IR</td>
+</tr>
+<tr>
+<td>featureFlags.hasIcrSensitivity</td>
+<td>Bool</td>
+<td>?</td>
+</tr>
+<tr>
+<td>featureFlags.hasLdc</td>
+<td>Bool</td>
+<td>supports lens distortion correction</td>
+</tr>
+<tr>
+<td>featureFlags.hasLedIr</td>
+<td>Bool</td>
+<td>has IR LEDs</td>
+</tr>
+<tr>
+<td>featureFlags.hasLedStatus</td>
+<td>Bool</td>
+<td>has status LED</td>
+</tr>
+<tr>
+<td>featureFlags.hasLineIn</td>
+<td>Bool</td>
+<td>has audio line-in</td>
+</tr>
+<tr>
+<td>featureFlags.hasMic</td>
+<td>Bool</td>
+<td>has microphone</td>
+</tr>
+<tr>
+<td>featureFlags.hasPrivacyMask</td>
+<td>Bool</td>
+<td>supports privacy mask?</td>
+</tr>
+<tr>
+<td>featureFlags.hasRtc</td>
+<td>Bool</td>
+<td>has RTC?</td>
+</tr>
+<tr>
+<td>featureFlags.hasSdCard</td>
+<td>Bool</td>
+<td>has SD card {slot?)</td>
+</tr>
+<tr>
+<td>featureFlags.hasSpeaker</td>
+<td>Bool</td>
+<td>has integrated speaker</td>
+</tr>
+<tr>
+<td>featureFlags.hasWifi</td>
+<td>Bool</td>
+<td>has Wi-Fi radio</td>
+</tr>
+<tr>
+<td>featureFlags.hasHdr</td>
+<td>Bool</td>
+<td>supports HDR</td>
+</tr>
+<tr>
+<td>featureFlags.hasAutoICROnly</td>
+<td>Bool</td>
+<td>?</td>
+</tr>
+<tr>
+<td>featureFlags.hasMotionZones</td>
+<td>Bool</td>
+<td>supports motion zones</td>
+</tr>
+<tr>
+<td>pirSettings</td>
+<td> Dictionary</td>
+<td>PIR-related settings</td>
+</tr>
+<tr>
+<td>pirSettings.pirSensitivity</td>
+<td> Number</td>
+<td>PIR sensor sensitivity (0...100?)</td>
+</tr>
+<tr>
+<td>pirSettings.pirMotionClipLength</td>
+<td> Number</td>
+<td>PIR triggered motion recording clip length in seconds</td>
+</tr>
+<tr>
+<td>pirSettings.timelapseFrameInterval</td>
+<td> Number</td>
+<td>interval between timelapse recordings?</td>
+</tr>
+<tr>
+<td>pirSettings.timelapseTransferInterval</td>
+<td> Number</td>
+<td>interval for timelapse recordings transfer?</td>
+</tr>
+<tr>
+<td>wifiConnectionState</td>
+<td> Dictionary</td>
+<td>related to wifi.*?</td>
+</tr>
+<tr>
+<td>wifiConnectionState.channel</td>
+<td>Number?</td>
+<td>alias of wifi.channel?</td>
+</tr>
+<tr>
+<td>wifiConnectionState.frequency</td>
+<td>Number?</td>
+<td>alias of wifi.frequency?</td>
+</tr>
+<tr>
+<td>wifiConnectionState.phyRate</td>
+<td>Number?</td>
+<td>alias of wifi.linkSpeedMbps?</td>
+</tr>
+<tr>
+<td>wifiConnectionState.signalQuality</td>
+<td>Number?</td>
+<td>alias of wifi.signalQuality?</td>
+</tr>
+<tr>
+<td>wifiConnectionState.signalStrength</td>
+<td>Number?</td>
+<td>alias of wifi.signalStrength?</td>
+</tr>
+<tr>
+<td>id</td>
+<td> String</td>
+<td> camera ID</td>
+</tr>
+<tr>
+<td>isConnected</td>
+<td>Bool</td>
+<td>camera is connected</td>
+</tr>
+<tr>
+<td>platform</td>
+<td> String</td>
+<td>hardware platform?</td>
+</tr>
+<tr>
+<td>hasSpeaker</td>
+<td> Bool</td>
+<td>camera has integrated speaker - alias of featureFlags.hasSpeaker?</td>
+</tr>
+<tr>
+<td>hasWifi</td>
+<td>Bool</td>
+<td> camera has wifi - alias of featureFlags.hasWifi?</td>
+</tr>
+<tr>
+<td>audioBitrate</td>
+<td> Number</td>
+<td>microphone audio bitrate?</td>
+</tr>
+<tr>
+<td>modelKey</td>
+<td> String</td>
+<td> hardware model key?</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example Response Body for <code>401 Unauthorized</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unauthorized"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AuthenticationError"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
