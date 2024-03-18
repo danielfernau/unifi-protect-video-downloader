@@ -30,7 +30,7 @@ pip = "*"
 python-dateutil = "^2.9.0"
 requests = {extras = ["security"], version = "^2.31.0"}
 click = "^8.1.7"
-types-python-dateutil = "^2.8.19"
+types-python-dateutil = "^2.9.0"
 types-requests = "^2.31.0"
 
 
