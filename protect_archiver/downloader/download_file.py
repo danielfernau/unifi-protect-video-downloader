@@ -81,7 +81,7 @@ def download_file(client: Any, query: str, filename: str) -> None:
                 try:
                     data = json.loads(response.content)
                 except Exception:
-                    data = None
+                    data = {}
 
                 error_message = data.get("error") or data or "(no information available)"
 
