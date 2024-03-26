@@ -1,10 +1,12 @@
 import logging
 import time
+from protect_archiver.errors import Errors
 
 from datetime import datetime
 from datetime import timezone
 from os import path
 from typing import Any
+import shutil
 
 from protect_archiver.dataclasses import Camera
 from protect_archiver.downloader.download_file import download_file
@@ -74,5 +76,23 @@ def download_footage(
         # build video export query
         video_export_query = f"/video/export?camera={camera.id}&start={js_timestamp_range_start}&end={js_timestamp_range_end}"
 
-        # download the file
-        download_file(client, video_export_query, filename)
+        # Check disk usage before running the download
+        if check_disk_space(download_dir, client.max_usage):
+            # download the file
+            download_file(client, video_export_query, filename)
+        else:
+            print(f"Cannot download file: disk usage exceeds {client.max_usage}% at {download_dir}.")
+            raise Errors.ProtectError(0)
+        
+
+def check_disk_space(path, max_usage_percent):
+    """
+    Check if the disk usage at the specified path is below the max_usage_percent.
+    
+    :param path: The path for which to check disk usage.
+    :param max_usage_percent: The maximum allowed disk usage percentage.
+    :return: True if the disk usage is below the threshold, False otherwise.
+    """
+    total, used, free = shutil.disk_usage(path)
+    current_usage_percent = used / total * 100
+    return current_usage_percent < max_usage_percent

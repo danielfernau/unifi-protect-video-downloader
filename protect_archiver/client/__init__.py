@@ -15,6 +15,7 @@ class ProtectClient:
         self,
         address: str = Config.ADDRESS,
         port: int = Config.PORT,
+        max_usage:int =80,
         protocol: str = Config.PROTOCOL,
         username: str = Config.USERNAME,
         password: Optional[str] = Config.PASSWORD,
@@ -34,6 +35,7 @@ class ProtectClient:
         self.protocol = protocol
         self.address = address
         self.port = port if port is not None else 7443 if not_unifi_os else 443
+        self.max_usage = max_usage
         self.not_unifi_os = not_unifi_os
         self.username = username
         self.password = password

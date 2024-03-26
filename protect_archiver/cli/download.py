@@ -22,6 +22,11 @@ from protect_archiver.utils import print_download_stats
     show_envvar=True,
 )
 @click.option(
+    "--max_usage",
+    default=80,
+    help='Percent of disk space that must remain free before downloading a file',
+)
+@click.option(
     "--port",
     default=Config.PORT,
     show_default=True,
@@ -222,6 +227,7 @@ from protect_archiver.utils import print_download_stats
 def download(
     dest: str,
     address: str,
+    max_usage:int,
     port: int,
     not_unifi_os: bool,
     username: str,
@@ -254,6 +260,7 @@ def download(
     client = ProtectClient(
         address=address,
         port=port,
+        max_usage=max_usage,
         not_unifi_os=not_unifi_os,
         username=username,
         password=password,
