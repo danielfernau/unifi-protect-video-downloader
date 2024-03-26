@@ -41,7 +41,7 @@ jobs:
         with:
           images: drozzy/protect-archiver
           tags: |
-            type=latest
+            type=ref,event=branch,pattern=main,value=latest
             type=semver,pattern={{version}}
           
       - name: Build and push
