@@ -1,4 +1,4 @@
-NAME   := unifitoolbox/protect-archiver
+NAME   := drozzy/protect-archiver
 TAG    := `git log -1 --pretty=%H`
 IMG    := ${NAME}:${TAG}
 LATEST := ${NAME}:latest

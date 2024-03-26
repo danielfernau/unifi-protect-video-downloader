@@ -39,7 +39,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: unifitoolbox/protect-archiver
+          images: drozzy/protect-archiver
           tags: |
             type=edge
             type=semver,pattern={{version}}
