@@ -9,8 +9,11 @@
       <excludeFolder url="file://$MODULE_DIR$/protect_archiver.egg-info" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (unifi-protect-video-downloader)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (unifi-protect-video-downloader)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="ef8eedc3-81ea-42e0-ac3d-80ed2e76cf39" />
   </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="pytest" />

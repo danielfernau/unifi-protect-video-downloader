@@ -42,8 +42,8 @@ def download_footage(
             time.sleep(int(client.download_wait))
 
         # start and end time of the video segment to be downloaded
-        js_timestamp_range_start = int(interval_start.timestamp()) * 1000
-        js_timestamp_range_end = int(interval_end.timestamp()) * 1000
+        js_timestamp_range_start = int(interval_start.timestamp() * 1e3)
+        js_timestamp_range_end = int(interval_end.timestamp() * 1e3)
 
         # support selection between local time zone and UTC for file names
         interval_start_tz = (

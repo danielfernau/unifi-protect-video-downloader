@@ -17,8 +17,8 @@ def download_motion_event(
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
 
     # start and end time of the video segment to be downloaded
-    js_timestamp_start = int(motion_event.start.timestamp()) * 1000
-    js_timestamp_end = int(motion_event.end.timestamp()) * 1000
+    js_timestamp_start = int(motion_event.start.timestamp() * 1e3)
+    js_timestamp_end = int(motion_event.end.timestamp() * 1e3)
 
     # support selection between local time zone and UTC for file names
     interval_start_tz = (

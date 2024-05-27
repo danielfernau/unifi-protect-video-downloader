@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="Black">
+    <option name="enabledOnReformat" value="true" />
+    <option name="pathToExecutable" value="/usr/local/py-utils/bin/black" />
+    <option name="sdkName" value="Python 3.11 (unifi-protect-video-downloader)" />
+  </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (unifi-protect-video-downloader)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (unifi-protect-video-downloader)" project-jdk-type="Python SDK" />
 </project>

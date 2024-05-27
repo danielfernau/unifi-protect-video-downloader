@@ -39,7 +39,7 @@ def download_snapshot(client: Any, start: datetime, camera: Camera) -> None:
         logging.debug(f"Argument '--touch-files' is present. Creating file at {filename}")
         open(filename, "a").close()
 
-    js_timestamp_start = int(start.timestamp()) * 1000
+    js_timestamp_start = int(start.timestamp() * 1e3)
 
     # build snapshot export API address
     snapshot_export_query = f"/cameras/{camera.id}/snapshot?ts={js_timestamp_start}"
