@@ -4,8 +4,7 @@ from typing import Optional
 
 import requests
 
-from protect_archiver.errors import Errors
-
+from protect_archiver.errors import ProtectError, DownloadFailed
 
 class UniFiOSClient:
     def __init__(
@@ -44,7 +43,7 @@ class UniFiOSClient:
                 f"Authentication failed with status code {response.status_code}! Check username and"
                 " password."
             )
-            raise Errors.ProtectError(2)
+            raise ProtectError(2)
 
         logging.debug("Successfully authenticated user using a session cookie")
 
