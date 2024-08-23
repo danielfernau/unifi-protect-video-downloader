@@ -219,6 +219,26 @@ from protect_archiver.utils import print_download_stats
     envvar="PROTECT_USE_UTC",
     show_envvar=True,
 )
+@click.option(
+    "--timelapse",
+    is_flag=True,
+    default=Config.TIMELAPSE,
+    show_default=True,
+    required=False,
+    help="Export a timelapse video. Note: must use in conjunction with FPS",
+    envvar="PROTECT_TIMELAPSE",
+    show_envvar=True,
+)
+@click.option(
+    "--fps",
+    default=Config.FPS,
+    show_default=True,
+    required=False,
+    help="Frames Per Second for the exported video (options are 4, 8, 20, or 40). Note: must be used in conjunction with TIMELAPSE option",
+    envvar="PROTECT_FPS",
+    show_envvar=True,
+)
+
 def download(
     dest: str,
     address: str,
@@ -240,6 +260,9 @@ def download(
     disable_splitting: bool,
     create_snapshot: bool,
     use_utc_filenames: bool,
+    timelapse: bool,
+    fps: str,
+
 ) -> None:
     # check the provided command line arguments
     # TODO(danielfernau): remove exit codes 1 (path invalid) and 6 (start/end/snapshot) from docs: no longer valid
@@ -266,6 +289,8 @@ def download(
         touch_files=touch_files,
         download_timeout=download_timeout,
         use_utc_filenames=use_utc_filenames,
+        timelapse=timelapse,
+        fps=fps,
     )
 
     try:
@@ -288,7 +313,7 @@ def download(
                 )
 
                 Downloader.download_footage(
-                    client, start, end, camera, disable_alignment, disable_splitting
+                    client, start, end, camera, disable_alignment, disable_splitting, timelapse, fps
                 )
         else:
             click.echo(
