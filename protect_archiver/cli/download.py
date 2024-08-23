@@ -234,7 +234,8 @@ from protect_archiver.utils import print_download_stats
     default=Config.FPS,
     show_default=True,
     required=False,
-    help="Frames Per Second for the exported video (options are 4, 8, 20, or 40). Note: must be used in conjunction with TIMELAPSE option",
+    help="Frames Per Second for the exported video (options are 4, 8, 20, or 40). " \
+         "Note: must be used in conjunction with TIMELAPSE option",
     envvar="PROTECT_FPS",
     show_envvar=True,
 )
