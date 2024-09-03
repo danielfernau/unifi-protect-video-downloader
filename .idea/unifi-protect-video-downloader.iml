@@ -15,6 +15,9 @@
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="ef8eedc3-81ea-42e0-ac3d-80ed2e76cf39" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="a01b209d-336d-4a24-9ebd-6c65e6c00c28" />
+  </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="pytest" />
   </component>
