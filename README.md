@@ -42,4 +42,11 @@ This branch (`v3`) is currently undergoing a **complete rewrite** of this tool. 
 **Thank you for your interest in this tool. I'm excited about the improvements coming, but remember, with great change comes great instability – at least for a while!**
 
 ---
+
+## :warning: Important Information
+This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti Inc.  
+It is not guaranteed that it will always run flawlessly, so use this tool at your own risk.  
+The software is provided without any warranty or liability, as stated in the [license](LICENSE).  
+
+---
 *Last Updated: 9/3/24 by Daniel Fernau*
