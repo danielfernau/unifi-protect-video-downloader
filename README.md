@@ -46,7 +46,9 @@ This branch (`v3`) is currently undergoing a **complete rewrite** of this tool. 
 ## :warning: Important Information
 This tool is neither supported nor endorsed by, and is in no way affiliated with Ubiquiti Inc.  
 It is not guaranteed that it will always run flawlessly, so use this tool at your own risk.  
-The software is provided without any warranty or liability, as stated in the [license](LICENSE).  
+The software is provided without any warranty or liability, as stated in the [license](legal/LICENSE).  
+
+Additional legal notices and similar information can be found in the `/legal` directory of this project.
 
 ---
-*Last Updated: 9/3/24 by Daniel Fernau*
+*Last Updated: 9/3/24 by @danielfernau*
