@@ -8,7 +8,8 @@ from typing import Any
 
 import requests
 
-from protect_archiver.errors import ProtectError, DownloadFailed
+from protect_archiver.errors import DownloadFailed
+from protect_archiver.errors import ProtectError
 from protect_archiver.utils import format_bytes
 from protect_archiver.utils import print_download_stats
 

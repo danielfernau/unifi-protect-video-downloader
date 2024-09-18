@@ -6,7 +6,8 @@ from protect_archiver.cli.base import cli
 from protect_archiver.client import ProtectClient
 from protect_archiver.config import Config
 from protect_archiver.downloader import Downloader
-from protect_archiver.errors import ProtectError, DownloadFailed
+from protect_archiver.errors import DownloadFailed
+from protect_archiver.errors import ProtectError
 from protect_archiver.utils import print_download_stats
 
 

@@ -4,7 +4,9 @@ from typing import Optional
 
 import requests
 
-from protect_archiver.errors import ProtectError, DownloadFailed
+from protect_archiver.errors import DownloadFailed
+from protect_archiver.errors import ProtectError
+
 
 class UniFiOSClient:
     def __init__(
