@@ -142,14 +142,14 @@ def download_file(client: Any, query: str, filename: str) -> None:
                 os.remove(filename)
             logging.exception(f"Download failed: {request_exception}")
             exit_code = 5
-        except Errors.DownloadFailed:
-            # clean up
-            if os.path.exists(filename):
-                os.remove(filename)
-            logging.exception(
-                f"Download failed with status {response.status_code} {response.reason}"
-            )
-            exit_code = 4
+        # except Errors.DownloadFailed:
+        #     # clean up
+        #     if os.path.exists(filename):
+        #         os.remove(filename)
+        #     logging.exception(
+        #         f"Download failed with status {response.status_code} {response.reason}"
+        #     )
+        #     exit_code = 4
         else:
             return
 
