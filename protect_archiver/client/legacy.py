@@ -4,7 +4,7 @@ from typing import Optional
 
 import requests
 
-from protect_archiver.errors import Errors
+from protect_archiver.errors import ProtectError
 
 
 class LegacyClient:
@@ -52,7 +52,7 @@ class LegacyClient:
                     f"with status {response.status_code} {response.reason}"
                 )
             # Downloader.print_download_stats()  # TODO
-            raise Errors.ProtectError(2)
+            raise ProtectError(2)
 
         logging.info(f"Successfully authenticated as user {self.username}")
 

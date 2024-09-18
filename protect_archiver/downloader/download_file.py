@@ -8,7 +8,8 @@ from typing import Any
 
 import requests
 
-from protect_archiver.errors import Errors
+from protect_archiver.errors import DownloadFailed
+from protect_archiver.errors import ProtectError
 from protect_archiver.utils import format_bytes
 from protect_archiver.utils import print_download_stats
 
@@ -80,10 +81,10 @@ def download_file(client: Any, query: str, filename: str) -> None:
             if response.status_code != 200:
                 try:
                     data = json.loads(response.content)
+                    error_message = data.get("error") or data or "(no information available)"
                 except Exception:
                     data = None
-
-                error_message = data.get("error") or data or "(no information available)"
+                    error_message = "(no information available)"
 
                 # TODO
                 logging.exception(
@@ -142,14 +143,14 @@ def download_file(client: Any, query: str, filename: str) -> None:
                 os.remove(filename)
             logging.exception(f"Download failed: {request_exception}")
             exit_code = 5
-        # except Errors.DownloadFailed:
-        #     # clean up
-        #     if os.path.exists(filename):
-        #         os.remove(filename)
-        #     logging.exception(
-        #         f"Download failed with status {response.status_code} {response.reason}"
-        #     )
-        #     exit_code = 4
+        except DownloadFailed:
+            # clean up
+            if os.path.exists(filename):
+                os.remove(filename)
+            logging.exception(
+                f"Download failed with status {response.status_code} {response.reason}"
+            )
+            exit_code = 4
         else:
             return
 
@@ -162,7 +163,7 @@ def download_file(client: Any, query: str, filename: str) -> None:
             " '--ignore-failed-downloads'"
         )
         print_download_stats(client)
-        raise Errors.ProtectError(exit_code)
+        raise ProtectError(exit_code)
     else:
         logging.info(
             "Argument '--ignore-failed-downloads' is present, continue downloading files..."
