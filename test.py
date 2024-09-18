@@ -1,12 +1,7 @@
-import logging
-import os
-
 from datetime import datetime
 from datetime import timedelta
-from typing import Any
 from typing import Iterable
 from typing import Tuple
-
 
 import dateutil.parser
 
@@ -80,7 +75,6 @@ def calculate_intervals(
     # if end is not on full hour, yield remaining segment
     if end_diff_to_past_full_hour.seconds != 0:
         yield start, original_end - timedelta(milliseconds=1)
-
 
 
 print(
