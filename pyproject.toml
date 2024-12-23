@@ -29,7 +29,7 @@ python = "^3.8.2"
 pip = "*"
 python-dateutil = "^2.9.0"
 requests = {extras = ["security"], version = "^2.32.3"}
-click = "^8.1.7"
+click = "^8.1.8"
 types-python-dateutil = "^2.9.0"
 types-requests = "^2.32.0"
 
