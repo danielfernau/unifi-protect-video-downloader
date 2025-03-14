@@ -30,6 +30,8 @@ class ProtectClient:
         # aka read_timeout - time to wait until a socket read response happens
         download_timeout: float = Config.DOWNLOAD_TIMEOUT,
         use_utc_filenames: bool = Config.USE_UTC_FILENAMES,
+        timelapse: bool = Config.TIMELAPSE,
+        fps: str = Config.FPS,
     ) -> None:
         self.protocol = protocol
         self.address = address
@@ -46,6 +48,8 @@ class ProtectClient:
         self.skip_existing_files = skip_existing_files
         self.touch_files = touch_files
         self.use_utc_filenames = use_utc_filenames
+        self.timelapse = timelapse
+        self.fps = fps
 
         self.destination_path = path.abspath(destination_path)
 
