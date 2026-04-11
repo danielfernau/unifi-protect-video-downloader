@@ -19,7 +19,7 @@ jobs:
       matrix:
         os: [Ubuntu]
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
-        poetry-version: ["1.7.1"]
+        poetry-version: ["2.3.3"]
         include:
           - os: Ubuntu
             image: ubuntu-latest
@@ -35,11 +35,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Run image
-        uses: abatilo/actions-poetry@v3.0.2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: Install poetry dependencies
+      - name: Install Poetry
+        run: |
+          pipx install poetry==${{ matrix.poetry-version }}
+      - name: Install Poetry Dependencies
         run: |
           poetry install
 
