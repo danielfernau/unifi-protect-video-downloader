@@ -28,7 +28,7 @@ classifiers = [
 python = "^3.10"
 pip = "*"
 python-dateutil = "^2.9.0"
-requests = {extras = ["security"], version = "^2.32.4"}
+requests = {extras = ["security"], version = "^2.33.0"}
 click = "^8.1.8"
 types-python-dateutil = "^2.9.0"
 types-requests = "^2.32.0"
