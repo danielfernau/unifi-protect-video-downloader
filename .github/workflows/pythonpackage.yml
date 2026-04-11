@@ -38,6 +38,7 @@ jobs:
       - name: Install Poetry
         run: |
           pipx install poetry==${{ matrix.poetry-version }}
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install Poetry Dependencies
         run: |
           poetry install --with dev
