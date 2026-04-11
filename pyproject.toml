@@ -34,7 +34,7 @@ types-python-dateutil = "^2.9.0"
 types-requests = "^2.32.0"
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "*"
 codecov = "*"
 flake8 = "*"

@@ -40,7 +40,7 @@ jobs:
           pipx install poetry==${{ matrix.poetry-version }}
       - name: Install Poetry Dependencies
         run: |
-          poetry install
+          poetry install --with dev
 
       - name: Code style
         run: |
