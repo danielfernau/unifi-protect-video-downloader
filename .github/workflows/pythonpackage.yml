@@ -41,7 +41,7 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install poetry dependencies
         run: |
-          poetry install
+          poetry install --with dev
 
       - name: Code style
         run: |
