@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [Ubuntu]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         poetry-version: ["1.7.1"]
         include:
           - os: Ubuntu
