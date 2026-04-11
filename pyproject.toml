@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "protect-archiver"
-version = "2.1.2"
+version = "2.3.4"
 description = "UniFi Protect Video Downloader"
 authors = ["Daniel Fernau", "David Cramer"]
 license = "MIT"
