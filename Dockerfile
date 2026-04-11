@@ -1,16 +1,16 @@
-FROM --platform=linux/amd64 python:3 AS build
+FROM --platform=$BUILDPLATFORM python:3-alpine AS build
 
 RUN mkdir /build
 WORKDIR /build
 
 COPY . /build/
 
-RUN pip install -U poetry
+RUN pip install -U poetry==2.3.3
 
 RUN poetry build -f wheel --no-ansi --no-interaction
 
 
-FROM python:3.8-slim AS base
+FROM python:3-alpine AS base
 
 RUN mkdir /install
 
