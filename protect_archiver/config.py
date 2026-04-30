@@ -25,3 +25,5 @@ class Config:
     )
     MAX_RETRIES: int = 3
     USE_UTC_FILENAMES: bool = False
+    TIMELAPSE: bool = False
+    FPS: str = None

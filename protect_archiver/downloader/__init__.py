@@ -50,8 +50,10 @@ class Downloader:
         camera: Any,
         disable_alignment: bool = Config.DISABLE_ALIGNMENT,
         disable_splitting: bool = Config.DISABLE_SPLITTING,
+        timelapse: bool = Config.TIMELAPSE,
+        fps: str = Config.FPS
     ) -> Any:
-        return download_footage(client, start, end, camera, disable_alignment, disable_splitting)
+        return download_footage(client, start, end, camera, disable_alignment, disable_splitting, timelapse, fps)
 
     @staticmethod
     def download_snapshot(client: Any, start: datetime, camera: Any) -> Any:

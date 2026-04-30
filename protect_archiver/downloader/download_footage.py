@@ -20,6 +20,8 @@ def download_footage(
     camera: Camera,
     disable_alignment: bool = False,
     disable_splitting: bool = False,
+    timelapse: bool = False,
+    fps: str = None,
 ) -> None:
     # make camera name safe for use in file name
     camera_name_fs_safe = make_camera_name_fs_safe(camera)
@@ -72,7 +74,9 @@ def download_footage(
             open(filename, "a").close()
 
         # build video export query
-        video_export_query = f"/video/export?camera={camera.id}&start={js_timestamp_range_start}&end={js_timestamp_range_end}"
+        video_export_query = f"/video/export?camera={camera.id}&start={js_timestamp_range_start}&end={js_timestamp_range_end}"    
+        if timelapse:
+            video_export_query = video_export_query + f"&type=timelapse&fps={fps}"
 
         # download the file
         download_file(client, video_export_query, filename)
