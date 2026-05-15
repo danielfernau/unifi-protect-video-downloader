@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM python:3.14-alpine AS build
+FROM --platform=$BUILDPLATFORM python:3.14.5-alpine AS build
 
 RUN mkdir /build
 WORKDIR /build
@@ -10,7 +10,7 @@ RUN python -m pip install --no-cache-dir -U poetry==2.3.3
 RUN poetry build -f wheel --no-ansi --no-interaction
 
 
-FROM python:3.14-alpine AS base
+FROM python:3.14.5-alpine AS base
 
 RUN mkdir /install
 
