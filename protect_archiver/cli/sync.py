@@ -5,6 +5,8 @@ import click
 from protect_archiver.cli.base import cli
 from protect_archiver.client import ProtectClient
 from protect_archiver.config import Config
+from protect_archiver.streams import StreamSelectionError
+from protect_archiver.streams import apply_stream_selection
 from protect_archiver.sync import ProtectSync
 from protect_archiver.utils import print_download_stats
 
@@ -76,6 +78,21 @@ from protect_archiver.utils import print_download_stats
     show_envvar=True,
 )
 @click.option(
+    "--stream",
+    "stream",
+    default=None,
+    help=(
+        "Video stream to download, for all cameras or per camera: 'low' (every camera),"
+        " '<camera id>=medium' (one camera) or 'low,<camera id>=high' (combined)."
+        " Streams are named High, Medium and Low or numbered 0, 1 and 2; run the"
+        " 'cameras' command to see each camera's streams. Defaults to the stream"
+        " Protect picks (High). If the chosen stream wasn't recorded, Protect exports"
+        " another stream instead without an error, so check the resolution of the files."
+    ),
+    envvar="PROTECT_STREAM",
+    show_envvar=True,
+)
+@click.option(
     "--ignore-failed-downloads",
     is_flag=True,
     default=False,
@@ -120,6 +137,7 @@ def sync(
     ignore_state: bool,
     ignore_failed_downloads: bool,
     cameras: str,
+    stream: str,
     use_utc_filenames: bool,
 ) -> None:
     # normalize path to destination directory and check if it exists
@@ -148,6 +166,11 @@ def sync(
     if cameras != "all":
         camera_ids = set(cameras.split(","))
         camera_list = [c for c in camera_list if c.id in camera_ids]
+
+    try:
+        apply_stream_selection(camera_list, stream)
+    except StreamSelectionError as e:
+        raise click.BadParameter(str(e), param_hint="'--stream'")
 
     process = ProtectSync(client=client, destination_path=dest, statefile=statefile)
     process.run(camera_list, ignore_state=ignore_state)

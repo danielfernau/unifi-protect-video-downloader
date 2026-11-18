@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- TBD
+- `cameras` command listing each camera's ID, recording mode and video streams (`--json` for scripts)
+- `--stream` option for `download`, `events` and `sync` to choose the High, Medium or Low stream, for all cameras or per camera
 
 ### Changed
 - TBD

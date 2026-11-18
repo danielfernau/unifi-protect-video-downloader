@@ -8,6 +8,7 @@ from typing import List
 import requests
 
 from protect_archiver.dataclasses import Camera
+from protect_archiver.dataclasses import Stream
 
 
 def get_camera_list(session: Any) -> List[Camera]:
@@ -36,7 +37,24 @@ def get_camera_list(session: Any) -> List[Camera]:
 
     camera_list = []
     for camera in cameras:
-        camera_data = Camera(id=camera["id"], name=camera["name"], recording_start=datetime.min)
+        camera_data = Camera(
+            id=camera["id"],
+            name=camera["name"],
+            recording_start=datetime.min,
+            streams=[
+                Stream(
+                    id=channel["id"],
+                    name=channel.get("name") or f"Stream {channel['id']}",
+                    enabled=channel.get("enabled", True),
+                    width=channel.get("width"),
+                    height=channel.get("height"),
+                    fps=channel.get("fps"),
+                    bitrate=channel.get("bitrate"),
+                )
+                for channel in camera.get("channels") or []
+            ],
+            recording_mode=(camera.get("recordingSettings") or {}).get("mode"),
+        )
         if camera["stats"]["video"]["recordingStart"]:
             camera_data.recording_start = datetime.utcfromtimestamp(
                 camera["stats"]["video"]["recordingStart"] / 1000

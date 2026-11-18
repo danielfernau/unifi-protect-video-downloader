@@ -8,6 +8,8 @@ from typing import Any
 
 from protect_archiver.dataclasses import Camera
 from protect_archiver.downloader.download_file import download_file
+from protect_archiver.streams import stream_filename_suffix
+from protect_archiver.streams import stream_query_param
 from protect_archiver.utils import build_download_dir
 from protect_archiver.utils import calculate_intervals
 from protect_archiver.utils import make_camera_name_fs_safe
@@ -59,7 +61,7 @@ def download_footage(
 
         # file name for download
         filename_timestamp = interval_start_tz.strftime("%Y-%m-%d - %H.%M.%S%z")
-        filename = f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}.mp4"
+        filename = f"{download_dir}/{camera_name_fs_safe} - {filename_timestamp}{stream_filename_suffix(camera)}.mp4"
 
         logging.info(
             f"Downloading video for time range {interval_start} - {interval_end} to {filename}"
@@ -72,7 +74,10 @@ def download_footage(
             open(filename, "a").close()
 
         # build video export query
-        video_export_query = f"/video/export?camera={camera.id}&start={js_timestamp_range_start}&end={js_timestamp_range_end}"
+        video_export_query = (
+            f"/video/export?camera={camera.id}&start={js_timestamp_range_start}"
+            f"&end={js_timestamp_range_end}{stream_query_param(camera)}"
+        )
 
         # download the file
         download_file(client, video_export_query, filename)
