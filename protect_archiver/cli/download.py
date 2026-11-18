@@ -7,6 +7,8 @@ from protect_archiver.client import ProtectClient
 from protect_archiver.config import Config
 from protect_archiver.downloader import Downloader
 from protect_archiver.errors import ProtectError
+from protect_archiver.streams import StreamSelectionError
+from protect_archiver.streams import apply_stream_selection
 from protect_archiver.utils import print_download_stats
 
 
@@ -74,6 +76,21 @@ from protect_archiver.utils import print_download_stats
         "Use '--cameras=all' to download footage of all available cameras."
     ),
     envvar="PROTECT_CAMERAS",
+    show_envvar=True,
+)
+@click.option(
+    "--stream",
+    "stream",
+    default=None,
+    help=(
+        "Video stream to download, for all cameras or per camera: 'low' (every camera),"
+        " '<camera id>=medium' (one camera) or 'low,<camera id>=high' (combined)."
+        " Streams are named High, Medium and Low or numbered 0, 1 and 2; run the"
+        " 'cameras' command to see each camera's streams. Defaults to the stream"
+        " Protect picks (High). If the chosen stream wasn't recorded, Protect exports"
+        " another stream instead without an error, so check the resolution of the files."
+    ),
+    envvar="PROTECT_STREAM",
     show_envvar=True,
 )
 @click.option(
@@ -228,6 +245,7 @@ def download(
     password: str,
     verify_ssl: bool,
     cameras: str,
+    stream: str,
     download_wait: int,
     download_timeout: int,
     use_subfolders: bool,
@@ -277,6 +295,11 @@ def download(
         if cameras != "all":
             camera_s = set(cameras.split(","))
             camera_list = [c for c in camera_list if c["id"] in camera_s]
+
+        try:
+            apply_stream_selection(camera_list, stream)
+        except StreamSelectionError as e:
+            raise click.BadParameter(str(e), param_hint="'--stream'")
 
         if not create_snapshot:
             for camera in camera_list:

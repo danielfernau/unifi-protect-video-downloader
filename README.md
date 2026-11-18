@@ -66,6 +66,52 @@ docker run --volume /path/on/host/machine:/downloads unifitoolbox/protect-archiv
 ```
 
 
+### Finding cameras and choosing a stream per camera
+
+Each camera records up to three video streams: High, Medium and Low. The `cameras` command lists
+every camera with its ID, recording mode and streams:
+
+```shell
+docker run -it unifitoolbox/protect-archiver cameras --address 192.168.1.1 --username [USER]
+```
+
+```
+Front door
+  ID:         6a9eef70004eed03e40003f8
+  Recording:  adaptive
+  Streams:    0  High      2688x1512   30 fps    8.0 Mbps
+              1  Medium     1280x720   30 fps    2.0 Mbps
+              2  Low         640x360   15 fps    0.3 Mbps
+```
+
+Add `--json` for output a script can read.
+
+By default, `download`, `events` and `sync` export the stream Protect picks (High). Use `--stream`
+to choose one, by name or number, for every camera or per camera (by ID or name):
+
+```shell
+# Low for every camera
+--stream low
+# Medium for one camera, the rest unchanged
+--stream "6a9eef70004eed03e40003f8=medium"
+# High for the front door, Low for every other camera
+--stream "low,Front door=high"
+```
+
+Files from a stream other than High get the stream's name in their file name, for example
+`Front door (03f8) - 2024-01-01 - 09.00.00+0100 (Low).mp4`. A camera that doesn't have the stream
+chosen for every camera keeps the default stream; a stream chosen for one camera must exist on it.
+
+A camera only has footage of a stream for the times Protect recorded that stream. In *Adaptive*
+recording mode, for example, Protect records the High stream only around motion and smart
+detections, so a High export of an hour can be much shorter than an hour.
+
+Protect doesn't always record every stream. When a stream wasn't recorded, Protect exports another
+stream instead without reporting an error, so a file marked `(Medium)` can contain Low footage.
+Check the resolution of a downloaded file if it matters. In Adaptive mode, for example, some systems
+record only High and Low, and a Medium export returns the Low footage.
+
+
 ## :thought_balloon: Questions, ideas, support and more...
 
 For everything that isn't a bug, issue or error, feel free to use the project's Discussions tab:  
